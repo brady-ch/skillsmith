@@ -1,0 +1,251 @@
+[[references]]
+file = "design-principles.md"
+
+[references.metadata.trigger]
+summary = "Use when the request needs Rust-specific framing, design scope, or decision anchors before choosing a concrete approach."
+intent_tags = ["rust", "design", "architecture", "tradeoffs"]
+when_to_use = ["Frame a Rust architecture decision.", "Choose principles before implementation details."]
+
+[references.metadata.objective]
+summary = "Provide Rust-specific design principles that justify pattern and architecture choices."
+
+[references.metadata.output]
+summary = "Return decision framing, tradeoff anchors, and a bias toward simple explicit designs."
+
+[references.metadata.navigation]
+summary = "Load this early when the problem is broad and the right pattern is still unclear."
+priority = 10
+
+[[references]]
+file = "architecture-decisions.md"
+
+[references.metadata.trigger]
+summary = "Use when designing crate boundaries, layers, module decomposition, or safe shells around unsafe cores."
+intent_tags = ["architecture", "crate", "module", "layering", "decomposition"]
+when_to_use = ["Design Rust module boundaries.", "Refactor a large state object into clearer ownership domains."]
+
+[references.metadata.objective]
+summary = "Provide architecture defaults for composition-first Rust systems and auditable unsafe boundaries."
+
+[references.metadata.output]
+summary = "Return recommended boundaries, decomposition strategy, and one architectural tradeoff."
+
+[references.metadata.navigation]
+summary = "Prefer this for system shape and boundary design before detailed pattern selection."
+priority = 15
+
+[[references]]
+file = "idiom-catalog.md"
+
+[references.metadata.trigger]
+summary = "Use when the decision is mostly about ownership flow, borrowed arguments, ergonomic signatures, or idiomatic implementation detail."
+intent_tags = ["idiom", "ownership", "borrow", "ergonomics", "api"]
+when_to_use = ["Resolve ownership friction idiomatically.", "Choose borrowed argument forms or in-place transitions."]
+
+[references.metadata.objective]
+summary = "Provide high-frequency Rust idioms that improve correctness and ergonomics without over-architecting."
+
+[references.metadata.output]
+summary = "Return concrete idioms and signature or implementation guidance."
+
+[references.metadata.navigation]
+summary = "Prefer this for language-level decisions before heavier patterns."
+priority = 20
+
+[[references]]
+file = "api-ergonomics.md"
+
+[references.metadata.trigger]
+summary = "Use when function signatures, generic APIs, or call-site flexibility are the main design concern."
+intent_tags = ["api", "signature", "ergonomics", "generic", "call-site"]
+when_to_use = ["Refine a Rust API shape.", "Decide how a function should accept data."]
+
+[references.metadata.objective]
+summary = "Provide signature and API-shape guidance that reduces friction and misuse."
+
+[references.metadata.output]
+summary = "Return recommended argument shapes, trait boundaries, and API tradeoffs."
+
+[references.metadata.navigation]
+summary = "Prefer this when the main question is how a public API should feel and behave."
+priority = 25
+
+[[references]]
+file = "common-patterns.md"
+
+[references.metadata.trigger]
+summary = "Use when the user needs quick routing to the right Rust-specific implementation pattern family before reading a deeper reference."
+intent_tags = ["rust", "routing", "selection", "overview"]
+when_to_use = ["Pick a Rust-specific pattern family quickly.", "Route a Rust design problem to the right detailed reference."]
+
+[references.metadata.objective]
+summary = "Provide fast pattern-family routing with a checklist for fit and overuse."
+
+[references.metadata.output]
+summary = "Return the best next reference and a small set of selection criteria."
+
+[references.metadata.navigation]
+summary = "Prefer this when the Rust-specific pattern category is not obvious yet."
+priority = 30
+
+[[references]]
+file = "behavioral-patterns.md"
+
+[references.metadata.trigger]
+summary = "Use when choosing Rust-specific command, strategy, visitor, newtype, RAII, or interpreter-style implementation patterns."
+intent_tags = ["rust", "raii", "newtype", "interpreter", "visitor"]
+when_to_use = ["Choose a Rust-specific pluggable behavior pattern.", "Decide whether a visitor or RAII guard fits in Rust."]
+
+[references.metadata.objective]
+summary = "Provide Rust-oriented behavioral pattern guidance with safety and ergonomics tradeoffs."
+
+[references.metadata.output]
+summary = "Return the selected behavioral pattern, rejected alternative, and risk notes."
+
+[references.metadata.navigation]
+summary = "Prefer this after routing confirms the problem is a Rust-specific behavioral or ownership-sensitive pattern decision."
+priority = 35
+
+[[references]]
+file = "creational-patterns.md"
+
+[references.metadata.trigger]
+summary = "Use when choosing Rust-specific builder-style, fold-based, or other construction strategies for complex values."
+intent_tags = ["rust", "construction", "fold", "initialization"]
+when_to_use = ["Design Rust construction APIs.", "Choose a Rust multi-step initialization pattern."]
+
+[references.metadata.objective]
+summary = "Provide construction patterns that keep initialization explicit and maintainable."
+
+[references.metadata.output]
+summary = "Return the best construction strategy and its tradeoffs."
+
+[references.metadata.navigation]
+summary = "Prefer this when the main Rust-specific design problem is how values are created and configured."
+priority = 40
+
+[[references]]
+file = "structural-patterns.md"
+
+[references.metadata.trigger]
+summary = "Use when choosing structural decomposition, crate sizing, or unsafety containment patterns."
+intent_tags = ["structural", "crate", "module", "unsafe", "composition"]
+when_to_use = ["Split a system into better modules.", "Contain unsafety in a small surface."]
+
+[references.metadata.objective]
+summary = "Provide structural patterns that improve modularity and auditability."
+
+[references.metadata.output]
+summary = "Return a decomposition or composition pattern with explicit consequences."
+
+[references.metadata.navigation]
+summary = "Prefer this when the question is about system structure, not local API shape."
+priority = 45
+
+[[references]]
+file = "boundary-safety.md"
+
+[references.metadata.trigger]
+summary = "Use when unsafe code, foreign boundaries, or invariant-sensitive wrappers are in play."
+intent_tags = ["unsafe", "boundary", "ffi", "invariants", "wrapper"]
+when_to_use = ["Design a safe wrapper around unsafe code.", "Audit unsafe boundary assumptions."]
+
+[references.metadata.objective]
+summary = "Provide boundary-safety rules for isolating unsafe behavior behind explicit invariants."
+
+[references.metadata.output]
+summary = "Return a boundary model, invariants, and mitigation for misuse."
+
+[references.metadata.navigation]
+summary = "Prefer this whenever unsafety or foreign interaction is part of the problem."
+priority = 50
+
+[[references]]
+file = "ffi-idioms.md"
+
+[references.metadata.trigger]
+summary = "Use when modeling FFI strings, error mapping, object wrappers, or consolidated foreign types."
+intent_tags = ["ffi", "cstr", "cstring", "wrapper", "error-mapping"]
+when_to_use = ["Wrap a C API safely.", "Choose idiomatic Rust string and error handling for FFI."]
+
+[references.metadata.objective]
+summary = "Provide idiomatic FFI-specific guidance for string lifetimes, wrappers, and error representation."
+
+[references.metadata.output]
+summary = "Return an FFI wrapper approach with ownership and lifetime safeguards."
+
+[references.metadata.navigation]
+summary = "Prefer this after boundary routing confirms the problem is specifically foreign-interface related."
+priority = 55
+
+[[references]]
+file = "custom-trait-bounds.md"
+
+[references.metadata.trigger]
+summary = "Use when generic bounds are too complex, repeated, or hiding the real capability an API needs."
+intent_tags = ["traits", "bounds", "generics", "readability", "api"]
+when_to_use = ["Reduce noisy where-clauses.", "Name a repeated capability with a custom trait."]
+
+[references.metadata.objective]
+summary = "Provide a pattern for replacing repeated complex bounds with meaningful custom traits."
+
+[references.metadata.output]
+summary = "Return a simplified trait-bound strategy and one guardrail against over-abstraction."
+
+[references.metadata.navigation]
+summary = "Prefer this when type-bound complexity is the main source of design friction."
+priority = 60
+
+[[references]]
+file = "anti-patterns.md"
+
+[references.metadata.trigger]
+summary = "Use when reviewing code for shortcuts that hide ownership problems, brittle lint policy, or inheritance-like tricks."
+intent_tags = ["anti-pattern", "clone", "borrow-checker", "deref", "warnings", "review"]
+when_to_use = ["Review Rust code for bad shortcuts.", "Decide what not to do before recommending a fix."]
+
+[references.metadata.objective]
+summary = "Provide explicit anti-pattern guidance so recommendations avoid common Rust-specific traps."
+
+[references.metadata.output]
+summary = "Return the likely anti-pattern, why it is harmful, and a better direction."
+
+[references.metadata.navigation]
+summary = "Prefer this when the user is debugging a questionable shortcut or asking for a critical review."
+priority = 65
+
+[[references]]
+file = "functional-techniques.md"
+
+[references.metadata.trigger]
+summary = "Use when the request is about compositional design, type-driven style, or functional patterns in Rust."
+intent_tags = ["functional", "composition", "type-driven", "optics", "paradigm"]
+when_to_use = ["Explore functional Rust techniques.", "Model APIs through composition and type classes."]
+
+[references.metadata.objective]
+summary = "Provide functional-design guidance that still respects Rust's ownership and type-system realities."
+
+[references.metadata.output]
+summary = "Return a compositional strategy with tradeoffs and applicability limits."
+
+[references.metadata.navigation]
+summary = "Prefer this when the user is explicitly asking for functional style or compositional patterns."
+priority = 70
+
+[[references]]
+file = "review-checklist.md"
+
+[references.metadata.trigger]
+summary = "Use when reviewing Rust code or validating a recommendation before handoff."
+intent_tags = ["review", "checklist", "risk", "anti-pattern", "validation"]
+when_to_use = ["Review Rust code changes.", "Validate a recommendation before finalizing it."]
+
+[references.metadata.objective]
+summary = "Provide a compact review gate for common Rust ownership, lint, and coercion mistakes."
+
+[references.metadata.output]
+summary = "Return review findings, explicit risk signals, and final validation gates."
+
+[references.metadata.navigation]
+summary = "Prefer this at the end of design or review work to catch high-cost shortcuts."
+priority = 75

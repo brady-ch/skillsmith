@@ -1,0 +1,4 @@
+version: 1
+display_name: Structural Pattern Architect
+short_description: Choose structural design patterns with clear tradeoffs.
+default_prompt: Recommend the best structural pattern for this design problem, reject one nearby alternative, and include the main risk.

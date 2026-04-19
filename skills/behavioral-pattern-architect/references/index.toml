@@ -1,0 +1,305 @@
+[[references]]
+file = "pattern-selection.md"
+
+[references.metadata.trigger]
+summary = "Use when the user needs a fast behavioral-pattern pick or needs help distinguishing nearby patterns."
+intent_tags = ["behavioral", "pattern", "selection", "routing", "comparison"]
+when_to_use = ["Choose among behavioral patterns quickly.", "Resolve confusion between similar patterns."]
+
+[references.metadata.objective]
+summary = "Route design problems to the lightest viable behavioral pattern."
+
+[references.metadata.output]
+summary = "Return the best candidate pattern, one rejected alternative, and concise selection logic."
+
+[references.metadata.navigation]
+summary = "Prefer this first when the design space is still broad."
+priority = 10
+
+[[references]]
+file = "behavioral-pattern-overview.md"
+
+[references.metadata.trigger]
+summary = "Use when the request is broadly about the behavioral pattern family, object collaboration, or choosing among behavioral change axes."
+intent_tags = ["behavioral", "collaboration", "overview", "family", "interaction"]
+when_to_use = ["Frame a behavioral design problem before picking one pattern.", "Explain when behavioral patterns fit better than creational or structural ones."]
+
+[references.metadata.objective]
+summary = "Provide family-level decision framing for behavioral patterns."
+
+[references.metadata.output]
+summary = "Return the relevant behavioral subfamily, why it fits, and the next specific pattern to inspect."
+
+[references.metadata.navigation]
+summary = "Prefer this after routing confirms the problem is behavioral but still too broad for one specific pattern."
+priority = 20
+
+[[references]]
+file = "chain-of-responsibility.md"
+
+[references.metadata.trigger]
+summary = "Use when the Chain of Responsibility pattern should forward a request through ordered handlers until one takes responsibility."
+intent_tags = ["chain-of-responsibility", "chain", "responsibility", "handler", "routing", "fallback"]
+when_to_use = ["Route a request through multiple handlers.", "Choose between handler chaining and other behavioral delegation patterns."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Chain of Responsibility."
+
+[references.metadata.output]
+summary = "Return whether Chain of Responsibility fits, its closest alternative, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when routing among multiple possible receivers is the core problem."
+priority = 30
+
+[[references]]
+file = "command.md"
+
+[references.metadata.trigger]
+summary = "Use when the Command pattern should package actions as values for queuing, logging, retry, or undo."
+intent_tags = ["command", "undo", "queue", "retry", "invoker"]
+when_to_use = ["Package work as command objects.", "Choose between command objects and simpler callbacks."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Command pattern."
+
+[references.metadata.output]
+summary = "Return whether Command fits, its nearest rejected alternative, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when packaged actions or deferred execution are the core problem."
+priority = 31
+
+[[references]]
+file = "interpreter.md"
+
+[references.metadata.trigger]
+summary = "Use when the Interpreter pattern should represent and evaluate a small grammar or domain language."
+intent_tags = ["interpreter", "grammar", "dsl", "ast", "language"]
+when_to_use = ["Model a small language as objects.", "Choose between interpreter and other rule-expression patterns."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Interpreter pattern."
+
+[references.metadata.output]
+summary = "Return whether Interpreter fits, what language scope it tolerates, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when the design problem is executing a small domain language."
+priority = 32
+
+[[references]]
+file = "iterator.md"
+
+[references.metadata.trigger]
+summary = "Use when the Iterator pattern should decouple aggregate traversal from representation."
+intent_tags = ["iterator", "traversal", "aggregate", "collection", "sequence"]
+when_to_use = ["Expose traversal without exposing container internals.", "Choose between iterator and representation-specific traversal."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Iterator pattern."
+
+[references.metadata.output]
+summary = "Return whether Iterator fits, its main benefit, and one traversal-safety mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when traversal behavior is the main behavioral concern."
+priority = 33
+
+[[references]]
+file = "mediator.md"
+
+[references.metadata.trigger]
+summary = "Use when the Mediator pattern should centralize coordination rules among interacting peers."
+intent_tags = ["mediator", "coordination", "colleague", "workflow", "dialog"]
+when_to_use = ["Centralize interaction rules among peer objects.", "Choose between mediator and observer-style collaboration."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Mediator pattern."
+
+[references.metadata.output]
+summary = "Return whether Mediator fits, the rejected nearby alternative, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when centralized coordination is the core design move."
+priority = 34
+
+[[references]]
+file = "memento.md"
+
+[references.metadata.trigger]
+summary = "Use when the Memento pattern should capture and later restore one object's state."
+intent_tags = ["memento", "undo", "snapshot", "restore", "checkpoint"]
+when_to_use = ["Save and restore one object's state.", "Choose between mementos and broader transaction mechanisms."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Memento pattern."
+
+[references.metadata.output]
+summary = "Return whether Memento fits, its scope limits, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when undo, rollback, or snapshot semantics apply to one object."
+priority = 35
+
+[[references]]
+file = "observer.md"
+
+[references.metadata.trigger]
+summary = "Use when the Observer pattern should notify many dependents directly about changes."
+intent_tags = ["observer", "notification", "subject", "subscriber", "listener"]
+when_to_use = ["Design direct in-process fan-out.", "Choose between observer and pub-sub."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Observer pattern."
+
+[references.metadata.output]
+summary = "Return whether Observer fits, how it differs from pub-sub, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when direct subject-observer relationships are the core problem."
+priority = 36
+
+[[references]]
+file = "state.md"
+
+[references.metadata.trigger]
+summary = "Use when the State pattern should model behavior changes by lifecycle phase or runtime mode."
+intent_tags = ["state", "mode", "lifecycle", "transition", "phase"]
+when_to_use = ["Replace conditional mode logic with state objects.", "Choose between state and strategy."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the State pattern."
+
+[references.metadata.output]
+summary = "Return whether State fits, the rejected alternative, and one transition-control mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when mode-driven behavior is the core problem."
+priority = 37
+
+[[references]]
+file = "strategy.md"
+
+[references.metadata.trigger]
+summary = "Use when the Strategy pattern should select interchangeable algorithms or policies at runtime."
+intent_tags = ["strategy", "policy", "algorithm", "runtime", "composition"]
+when_to_use = ["Swap algorithms without changing the client.", "Choose between strategy, state, and template method."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Strategy pattern."
+
+[references.metadata.output]
+summary = "Return whether Strategy fits, the main benefit of composition, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when runtime algorithm selection is the core problem."
+priority = 38
+
+[[references]]
+file = "template-method.md"
+
+[references.metadata.trigger]
+summary = "Use when the Template Method pattern should keep a workflow skeleton stable while steps remain overridable."
+intent_tags = ["template-method", "template", "method", "hook", "skeleton", "workflow", "inheritance"]
+when_to_use = ["Freeze algorithm order but customize steps.", "Choose between template method and strategy."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Template Method pattern."
+
+[references.metadata.output]
+summary = "Return whether Template Method fits, its inheritance cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when a workflow skeleton must remain invariant."
+priority = 39
+
+[[references]]
+file = "visitor.md"
+
+[references.metadata.trigger]
+summary = "Use when the Visitor pattern should add new operations over a stable heterogeneous object structure."
+intent_tags = ["visitor", "double-dispatch", "operation", "ast", "element"]
+when_to_use = ["Add new operations over many node types.", "Choose between visitor and direct pattern matching."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Visitor pattern."
+
+[references.metadata.output]
+summary = "Return whether Visitor fits, what it makes easier and harder, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when the structure is stable but operations change frequently."
+priority = 40
+
+[[references]]
+file = "publish-subscribe.md"
+
+[references.metadata.trigger]
+summary = "Use when the Publish-Subscribe pattern should decouple senders and receivers by topic or broker."
+intent_tags = ["publish-subscribe", "publish", "subscribe", "pubsub", "broker", "topic", "messaging"]
+when_to_use = ["Design topic-based eventing.", "Choose between observer and brokered fan-out."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Publish-Subscribe."
+
+[references.metadata.output]
+summary = "Return whether Publish-Subscribe fits, its operational cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when asynchronous or brokered many-to-many communication is the core problem."
+priority = 41
+
+[[references]]
+file = "null-object.md"
+
+[references.metadata.trigger]
+summary = "Use when the Null Object pattern should replace repeated null checks with a neutral collaborator."
+intent_tags = ["null-object", "null", "object", "default", "no-op", "neutral", "absence"]
+when_to_use = ["Replace repeated null branching with a neutral implementation.", "Choose whether absence should stay explicit."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Null Object."
+
+[references.metadata.output]
+summary = "Return whether Null Object fits, when it is too implicit, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when a default no-op implementation may simplify control flow."
+priority = 42
+
+[[references]]
+file = "specification.md"
+
+[references.metadata.trigger]
+summary = "Use when the Specification pattern should recombine and reuse business predicates explicitly."
+intent_tags = ["specification", "predicate", "rules", "boolean", "eligibility"]
+when_to_use = ["Compose domain rules with and/or/not.", "Choose between specification and simpler fixed predicates."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Specification pattern."
+
+[references.metadata.output]
+summary = "Return whether Specification fits, how to keep rules readable, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when reusable business-rule composition is the core problem."
+priority = 43
+
+[[references]]
+file = "blackboard.md"
+
+[references.metadata.trigger]
+summary = "Use when the Blackboard pattern should let specialist modules contribute partial solutions to a shared workspace."
+intent_tags = ["blackboard", "specialists", "knowledge-source", "control-shell", "workspace"]
+when_to_use = ["Coordinate specialist modules on a shared problem representation.", "Choose between blackboard and simpler orchestrated pipelines."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for the Blackboard pattern."
+
+[references.metadata.output]
+summary = "Return whether Blackboard fits, why it is heavier than a pipeline, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when the problem is ill-defined and solved opportunistically by specialists."
+priority = 44

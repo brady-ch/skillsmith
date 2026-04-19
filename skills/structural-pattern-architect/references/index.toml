@@ -1,0 +1,251 @@
+[[references]]
+file = "pattern-selection.md"
+
+[references.metadata.trigger]
+summary = "Use when the user needs a fast structural-pattern pick or needs help distinguishing nearby structural patterns."
+intent_tags = ["structural", "pattern", "selection", "comparison", "routing"]
+when_to_use = ["Choose among structural patterns quickly.", "Resolve confusion between wrappers, facades, composition, and sharing patterns."]
+
+[references.metadata.objective]
+summary = "Route structural design problems to the lightest viable pattern with explicit comparison points."
+
+[references.metadata.output]
+summary = "Return the best candidate pattern, one rejected alternative, and concise selection logic."
+
+[references.metadata.navigation]
+summary = "Prefer this first when the structural design space is still broad."
+priority = 10
+
+[[references]]
+file = "structural-pattern-overview.md"
+
+[references.metadata.trigger]
+summary = "Use when the request is broadly about structural patterns, object relationships, or choosing among structural boundary styles."
+intent_tags = ["structural", "overview", "relationships", "boundaries", "composition"]
+when_to_use = ["Frame a structural design problem before choosing one pattern.", "Explain when structural patterns fit better than behavioral or creational ones."]
+
+[references.metadata.objective]
+summary = "Provide family-level decision framing for structural patterns."
+
+[references.metadata.output]
+summary = "Return the relevant structural subfamily, why it fits, and the next specific pattern to inspect."
+
+[references.metadata.navigation]
+summary = "Prefer this when the structural problem is still too broad for one specific pattern."
+priority = 20
+
+[[references]]
+file = "adapter.md"
+
+[references.metadata.trigger]
+summary = "Use when the Adapter pattern should reuse an existing class through a different client-facing interface."
+intent_tags = ["adapter", "compatibility", "wrapper", "interface", "adaptee"]
+when_to_use = ["Adapt one interface into another expected by clients.", "Choose between adapter and facade."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Adapter."
+
+[references.metadata.output]
+summary = "Return whether Adapter fits, its nearest alternative, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when compatibility with an expected interface is the core problem."
+priority = 30
+
+[[references]]
+file = "bridge.md"
+
+[references.metadata.trigger]
+summary = "Use when the Bridge pattern should let abstraction and implementation vary independently."
+intent_tags = ["bridge", "abstraction", "implementation", "variation", "backend"]
+when_to_use = ["Design two-axis abstraction and implementation variation.", "Choose between bridge and adapter."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Bridge."
+
+[references.metadata.output]
+summary = "Return whether Bridge fits, its rejected alternative, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when two independent variation dimensions are the core problem."
+priority = 40
+
+[[references]]
+file = "decorator.md"
+
+[references.metadata.trigger]
+summary = "Use when the Decorator pattern should add behavior dynamically around one object."
+intent_tags = ["decorator", "wrapping", "behavior", "composition", "stack"]
+when_to_use = ["Add responsibilities by wrapping an object.", "Choose between decorator and proxy."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Decorator."
+
+[references.metadata.output]
+summary = "Return whether Decorator fits, its control-flow cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when runtime behavior augmentation is the core problem."
+priority = 31
+
+[[references]]
+file = "facade.md"
+
+[references.metadata.trigger]
+summary = "Use when the Facade pattern should present a simpler entry point to a complex subsystem."
+intent_tags = ["facade", "subsystem", "simplify", "entry-point", "surface"]
+when_to_use = ["Simplify subsystem usage for common workflows.", "Choose between facade and adapter."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Facade."
+
+[references.metadata.output]
+summary = "Return whether Facade fits, its simplification benefit, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when simplification of an owned subsystem is the core problem."
+priority = 32
+
+[[references]]
+file = "marker-interface.md"
+
+[references.metadata.trigger]
+summary = "Use when the Marker Interface pattern should provide type-level tagging in a constrained metadata environment."
+intent_tags = ["marker-interface", "marker", "interface", "tagging", "metadata", "empty-interface", "legacy"]
+when_to_use = ["Tag classes by type when richer metadata is unavailable.", "Decide whether a marker interface is justified."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Marker Interface."
+
+[references.metadata.output]
+summary = "Return whether Marker Interface fits, why it is limited, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when type-level tagging is the core need."
+priority = 33
+
+[[references]]
+file = "proxy.md"
+
+[references.metadata.trigger]
+summary = "Use when the Proxy pattern should mediate access to another object or resource."
+intent_tags = ["proxy", "access", "lazy", "remote", "virtual"]
+when_to_use = ["Control access, loading, or remoting behind an interface.", "Choose between proxy and decorator."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Proxy."
+
+[references.metadata.output]
+summary = "Return whether Proxy fits, its boundary cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when access mediation is the core problem."
+priority = 34
+
+[[references]]
+file = "aggregate.md"
+
+[references.metadata.trigger]
+summary = "Use when the Aggregate pattern should add explicit aggregation helpers to a part-whole structure."
+intent_tags = ["aggregate", "children", "aggregation", "collection", "part-whole"]
+when_to_use = ["Design a composite-like container with aggregation behavior.", "Choose between aggregate and composite."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Aggregate."
+
+[references.metadata.output]
+summary = "Return whether Aggregate fits, its thin-abstraction risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when aggregation operations are central to the abstraction."
+priority = 35
+
+[[references]]
+file = "composite.md"
+
+[references.metadata.trigger]
+summary = "Use when the Composite pattern should let part and whole share one recursive interface."
+intent_tags = ["composite", "tree", "recursive", "part-whole", "uniform"]
+when_to_use = ["Treat leaves and containers uniformly.", "Choose between composite and aggregate."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Composite."
+
+[references.metadata.output]
+summary = "Return whether Composite fits, its invariant risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when recursive uniformity is the core problem."
+priority = 36
+
+[[references]]
+file = "flyweight.md"
+
+[references.metadata.trigger]
+summary = "Use when the Flyweight pattern should let many similar objects share intrinsic state to reduce memory use."
+intent_tags = ["flyweight", "memory", "intrinsic", "extrinsic", "sharing"]
+when_to_use = ["Share repeated immutable state across many objects.", "Choose between flyweight and simpler direct object models."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Flyweight."
+
+[references.metadata.output]
+summary = "Return whether Flyweight fits, its sharing caveat, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when representation sharing is the core problem."
+priority = 37
+
+[[references]]
+file = "pipes-and-filters.md"
+
+[references.metadata.trigger]
+summary = "Use when the Pipes and Filters pattern should decompose processing into sequential transformation stages."
+intent_tags = ["pipes-and-filters", "pipes", "filters", "pipeline", "stages", "transform"]
+when_to_use = ["Design staged transformation pipelines.", "Choose between pipelines and wrappers."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Pipes and Filters."
+
+[references.metadata.output]
+summary = "Return whether Pipes and Filters fits, its contract cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when sequential staged processing is the core structural concern."
+priority = 38
+
+[[references]]
+file = "opaque-pointer.md"
+
+[references.metadata.trigger]
+summary = "Use when the Opaque Pointer pattern should hide implementation details behind an opaque handle or incomplete type."
+intent_tags = ["opaque-pointer", "opaque", "pointer", "representation", "abi", "handle", "private-type"]
+when_to_use = ["Hide representation details behind a private boundary.", "Choose between opaque pointers and more transparent APIs."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Opaque Pointer."
+
+[references.metadata.output]
+summary = "Return whether Opaque Pointer fits, its lifecycle cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when representation hiding or ABI stability is the core problem."
+priority = 39
+
+[[references]]
+file = "extensibility.md"
+
+[references.metadata.trigger]
+summary = "Use when the system's extension surface must be chosen deliberately."
+intent_tags = ["extensibility", "plugin", "extension", "framework", "boundary"]
+when_to_use = ["Choose an extension model for a system.", "Compare black-box, gray-box, glass-box, and white-box exposure."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Extensibility framing."
+
+[references.metadata.output]
+summary = "Return whether extensibility framing is the right level of decision, its exposure risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when the core decision is how outsiders should extend the system."
+priority = 40

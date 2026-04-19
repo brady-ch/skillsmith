@@ -1,0 +1,4 @@
+version: 1
+display_name: Repo Scout
+short_description: Fast repository assessment and implementation brief generation.
+default_prompt: Inspect this repository and produce a concise implementation brief with concrete risks and next steps.

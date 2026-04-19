@@ -1,0 +1,323 @@
+[[references]]
+file = "pattern-selection.md"
+
+[references.metadata.trigger]
+summary = "Use when the user needs a fast concurrency-pattern pick or needs help distinguishing nearby coordination patterns."
+intent_tags = ["concurrency", "pattern", "selection", "comparison", "routing"]
+when_to_use = ["Choose among concurrency patterns quickly.", "Resolve confusion between event, worker, or locking patterns."]
+
+[references.metadata.objective]
+summary = "Route concurrency problems to the lightest viable pattern with explicit comparison points."
+
+[references.metadata.output]
+summary = "Return the best candidate pattern, one rejected alternative, and concise selection logic."
+
+[references.metadata.navigation]
+summary = "Prefer this first when the concurrency design space is still broad."
+priority = 10
+
+[[references]]
+file = "concurrency-pattern-overview.md"
+
+[references.metadata.trigger]
+summary = "Use when the request is broadly about concurrency patterns, concurrent processing, or choosing among coordination styles."
+intent_tags = ["concurrency", "overview", "processing", "parallel", "coordination"]
+when_to_use = ["Frame a concurrency design problem before picking one pattern.", "Explain whether the problem is about execution flow, synchronization, or state isolation."]
+
+[references.metadata.objective]
+summary = "Provide family-level decision framing for concurrency patterns."
+
+[references.metadata.output]
+summary = "Return the relevant concurrency subfamily, why it fits, and the next specific pattern to inspect."
+
+[references.metadata.navigation]
+summary = "Prefer this when the concurrency problem is still too broad for one specific pattern."
+priority = 20
+
+[[references]]
+file = "active-object.md"
+
+[references.metadata.trigger]
+summary = "Use when the Active Object pattern should invoke one object's methods asynchronously but execute them serially on its own thread or queue."
+intent_tags = ["active-object", "active", "object", "serialized", "queue", "async", "scheduler"]
+when_to_use = ["Serialize one object's state changes through queued invocation.", "Choose between active object and thread pool."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Active Object."
+
+[references.metadata.output]
+summary = "Return whether Active Object fits, its nearest alternative, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when one object's state should be serialized behind asynchronous invocation."
+priority = 30
+
+[[references]]
+file = "reactor.md"
+
+[references.metadata.trigger]
+summary = "Use when the Reactor pattern should demultiplex readiness events and dispatch short handlers from an event loop."
+intent_tags = ["reactor", "event-loop", "readiness", "dispatch", "io"]
+when_to_use = ["Choose a readiness-based event pattern.", "Compare reactor and proactor models."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Reactor."
+
+[references.metadata.output]
+summary = "Return whether Reactor fits, how it differs from Proactor, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when readiness-driven event dispatch is the core problem."
+priority = 31
+
+[[references]]
+file = "proactor.md"
+
+[references.metadata.trigger]
+summary = "Use when the Proactor pattern should notify completion handlers after asynchronous background work finishes."
+intent_tags = ["proactor", "completion", "async-io", "callback", "completion-port"]
+when_to_use = ["Choose a completion-based async pattern.", "Compare proactor and reactor models."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Proactor."
+
+[references.metadata.output]
+summary = "Return whether Proactor fits, why it differs from Reactor, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when completion-driven asynchronous work is the core problem."
+priority = 32
+
+[[references]]
+file = "thread-pool.md"
+
+[references.metadata.trigger]
+summary = "Use when the Thread Pool pattern should run many independent tasks on a bounded worker set."
+intent_tags = ["thread-pool", "thread", "pool", "workers", "queue", "bounded", "tasks"]
+when_to_use = ["Run many short tasks with bounded parallelism.", "Choose between thread pool and active object."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Thread Pool."
+
+[references.metadata.output]
+summary = "Return whether Thread Pool fits, its saturation cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when bounded worker execution is the core problem."
+priority = 33
+
+[[references]]
+file = "scheduled-task.md"
+
+[references.metadata.trigger]
+summary = "Use when the Scheduled Task pattern should run work on a clock or interval."
+intent_tags = ["scheduled-task", "scheduled", "task", "cron", "timer", "interval", "time"]
+when_to_use = ["Schedule periodic or time-based work.", "Choose between scheduled tasks and resource schedulers."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Scheduled Task."
+
+[references.metadata.output]
+summary = "Return whether Scheduled Task fits, its overlap risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when time-based triggering is the core problem."
+priority = 34
+
+[[references]]
+file = "scheduler.md"
+
+[references.metadata.trigger]
+summary = "Use when the Scheduler pattern should choose which work gets resources next."
+intent_tags = ["scheduler", "priority", "fairness", "dispatch", "arbitration"]
+when_to_use = ["Choose an execution-order or fairness policy.", "Distinguish scheduler concerns from time-triggered tasks."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Scheduler."
+
+[references.metadata.output]
+summary = "Return whether Scheduler fits, the policy dimension that matters most, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when resource arbitration is the core problem."
+priority = 35
+
+[[references]]
+file = "balking.md"
+
+[references.metadata.trigger]
+summary = "Use when the Balking pattern should fail or return immediately if state is not ready."
+intent_tags = ["balking", "refuse", "fail-fast", "precondition", "ready"]
+when_to_use = ["Refuse invalid operations immediately.", "Choose between balking and guarded suspension."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Balking."
+
+[references.metadata.output]
+summary = "Return whether Balking fits, why it differs from waiting patterns, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when immediate refusal is the core semantic choice."
+priority = 36
+
+[[references]]
+file = "guarded-suspension.md"
+
+[references.metadata.trigger]
+summary = "Use when the Guarded Suspension pattern should wait until a predicate becomes true."
+intent_tags = ["guarded-suspension", "guarded", "suspension", "wait", "condition", "predicate", "blocking"]
+when_to_use = ["Wait under a guard condition.", "Choose between blocking and fail-fast semantics."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Guarded Suspension."
+
+[references.metadata.output]
+summary = "Return whether Guarded Suspension fits, its responsiveness cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when guarded waiting is the core problem."
+priority = 37
+
+[[references]]
+file = "barrier.md"
+
+[references.metadata.trigger]
+summary = "Use when the Barrier pattern should make all participants reach the same phase boundary before continuing."
+intent_tags = ["barrier", "phase", "checkpoint", "latch", "synchronization"]
+when_to_use = ["Synchronize phased concurrent work.", "Choose between barriers and other coordination primitives."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Barrier."
+
+[references.metadata.output]
+summary = "Return whether Barrier fits, its group-stall risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when phase alignment is the core problem."
+priority = 38
+
+[[references]]
+file = "monitor.md"
+
+[references.metadata.trigger]
+summary = "Use when the Monitor pattern should combine mutual exclusion and condition waiting for one shared object."
+intent_tags = ["monitor", "shared-object", "condition", "mutex", "guard"]
+when_to_use = ["Encapsulate synchronized shared-state access.", "Choose between monitor and lower-level locks."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Monitor."
+
+[references.metadata.output]
+summary = "Return whether Monitor fits, its contention risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when one shared object owns both state and synchronization rules."
+priority = 39
+
+[[references]]
+file = "lock.md"
+
+[references.metadata.trigger]
+summary = "Use when the Lock pattern should provide straightforward exclusive access to shared state."
+intent_tags = ["lock", "mutex", "exclusive", "critical-section", "deadlock"]
+when_to_use = ["Protect a small shared critical section.", "Choose between plain locks and more specialized primitives."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Lock."
+
+[references.metadata.output]
+summary = "Return whether Lock fits, its main downside, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when simple mutual exclusion is the core problem."
+priority = 40
+
+[[references]]
+file = "readers-writer-lock.md"
+
+[references.metadata.trigger]
+summary = "Use when the Readers-Writer Lock pattern should let many readers proceed while writers remain exclusive."
+intent_tags = ["readers-writer-lock", "readers", "writer", "lock", "rwlock", "read-heavy", "parallel-read"]
+when_to_use = ["Evaluate read-heavy shared-state coordination.", "Choose between rw-lock and plain mutex."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Readers-Writer Lock."
+
+[references.metadata.output]
+summary = "Return whether Readers-Writer Lock fits, its fairness caveat, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when read-heavy access is the core shared-state property."
+priority = 41
+
+[[references]]
+file = "semaphore.md"
+
+[references.metadata.trigger]
+summary = "Use when the Semaphore pattern should use a finite number of permits to bound concurrent access."
+intent_tags = ["semaphore", "permits", "capacity", "bounded", "resource"]
+when_to_use = ["Limit concurrent access to a scarce resource.", "Choose between semaphores and locks."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Semaphore."
+
+[references.metadata.output]
+summary = "Return whether Semaphore fits, its permit-leak risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when finite-capacity sharing is the core problem."
+priority = 42
+
+[[references]]
+file = "thread-local-storage.md"
+
+[references.metadata.trigger]
+summary = "Use when the Thread-Local Storage pattern should keep state private per thread instead of shared."
+intent_tags = ["thread-local-storage", "thread-local", "thread", "local", "storage", "tls", "per-thread", "isolation"]
+when_to_use = ["Move state from shared to thread-owned.", "Choose between thread-local storage and shared locking."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Thread-Local Storage."
+
+[references.metadata.output]
+summary = "Return whether Thread-Local Storage fits, its lifecycle caveat, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when per-thread isolation is the core move."
+priority = 43
+
+[[references]]
+file = "double-checked-locking.md"
+
+[references.metadata.trigger]
+summary = "Use when the Double-Checked Locking pattern is being considered for lazy initialization of shared state."
+intent_tags = ["double-checked-locking", "double", "checked", "locking", "lazy", "once", "initialization", "memory-model"]
+when_to_use = ["Audit double-checked locking proposals.", "Prefer safer once/lazy alternatives when possible."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Double-Checked Locking."
+
+[references.metadata.output]
+summary = "Return whether Double-Checked Locking is justified, why it is risky, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when a shared lazy-init optimization is under discussion."
+priority = 44
+
+[[references]]
+file = "join-pattern.md"
+
+[references.metadata.trigger]
+summary = "Use when the Join pattern should express coordination as atomic combinations of messages."
+intent_tags = ["join-pattern", "join", "messages", "channels", "atomic", "coordination"]
+when_to_use = ["Coordinate message combinations atomically.", "Choose between join patterns and lower-level concurrency primitives."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Join Pattern."
+
+[references.metadata.output]
+summary = "Return whether Join Pattern fits, its adoption cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when higher-level message coordination is the core problem."
+priority = 45

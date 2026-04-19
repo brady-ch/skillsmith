@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rust Systems Architecture"
+  short_description: "Rust architecture, API, and safety review guidance"
+  default_prompt: "Use $rust-patterns-architecture to evaluate this Rust system design and recommend the safest idiomatic approach."

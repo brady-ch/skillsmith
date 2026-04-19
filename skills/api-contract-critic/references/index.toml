@@ -1,0 +1,35 @@
+[[references]]
+file = "contract-review.md"
+
+[references.metadata.trigger]
+summary = "Use when auditing request and response contracts, behavior guarantees, and error models."
+intent_tags = ["api", "contract", "review", "schema"]
+when_to_use = ["Review endpoint contracts.", "Audit request and response behavior."]
+
+[references.metadata.objective]
+summary = "Identify ambiguous contracts and break-risk behavior before release."
+
+[references.metadata.output]
+summary = "Return contract issues, severity-ranked risks, and clarifications required."
+
+[references.metadata.navigation]
+summary = "Prefer this reference for broad API contract audits."
+priority = 10
+
+[[references]]
+file = "compatibility-matrix.md"
+
+[references.metadata.trigger]
+summary = "Use when deciding whether an API change is compatible, conditional, or breaking."
+intent_tags = ["compatibility", "versioning", "breaking", "release"]
+when_to_use = ["Classify contract changes.", "Assess whether a release is breaking."]
+
+[references.metadata.objective]
+summary = "Classify API changes by compatibility impact and required migration path."
+
+[references.metadata.output]
+summary = "Return compatibility verdicts, rollout guardrails, and fallback expectations."
+
+[references.metadata.navigation]
+summary = "Prefer this reference for release-readiness and compatibility decisions."
+priority = 20

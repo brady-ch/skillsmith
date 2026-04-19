@@ -1,0 +1,54 @@
+[[references]]
+file = "intake-and-challenge.md"
+
+[references.metadata.trigger]
+summary = "Use when the request needs strict questioning, scope pressure-testing, or explicit product pushback."
+intent_tags = ["product", "scope", "challenge", "requirements", "prioritization"]
+when_to_use = ["Question a weak product request.", "Pressure-test scope or logic before execution."]
+
+[references.metadata.objective]
+summary = "Force clarity on user, problem, value, scope, and success before work proceeds."
+
+[references.metadata.output]
+summary = "Return contradictions, missing decisions, and the next forcing question."
+
+[references.metadata.navigation]
+summary = "Prefer this reference for requirement review, prioritization, and pushback."
+priority = 10
+
+[[references]]
+file = "tracking-system.md"
+
+[references.metadata.trigger]
+summary = "Use when the repository needs a persistent PM checklist, execution tracker, or item folder structure."
+intent_tags = ["tracking", "checklist", "repo", "todo", "execution"]
+when_to_use = ["Create a repo tracking system.", "Repair or extend an existing task checklist."]
+
+[references.metadata.objective]
+summary = "Create and maintain a repository-native tracking system with checkboxes and per-item folders."
+
+[references.metadata.output]
+summary = "Return the tracking file updates, item status changes, and any missing execution detail."
+
+[references.metadata.navigation]
+summary = "Prefer this reference when setting up or updating `.product/tracking.md` and related structure."
+priority = 20
+
+[[references]]
+file = "item-routing.md"
+
+[references.metadata.trigger]
+summary = "Use when deciding which detail files belong under a tracked item folder."
+intent_tags = ["routing", "decision-tree", "details", "acceptance", "blockers"]
+when_to_use = ["Route item details into the correct files.", "Decide whether an item needs questions, plan, or blocker docs."]
+
+[references.metadata.objective]
+summary = "Keep per-item detail lightweight and route each kind of information into one clear file."
+
+[references.metadata.output]
+summary = "Return the chosen item files, why they are needed, and the resulting status implications."
+
+[references.metadata.navigation]
+summary = "Prefer this reference when the item-level folder already exists or is being created."
+priority = 30
+

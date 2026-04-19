@@ -1,0 +1,179 @@
+[[references]]
+file = "pattern-selection.md"
+
+[references.metadata.trigger]
+summary = "Use when the user needs a fast creational-pattern pick or needs help distinguishing nearby construction patterns."
+intent_tags = ["creational", "pattern", "selection", "construction", "comparison", "routing"]
+when_to_use = ["Choose among creational patterns quickly.", "Resolve confusion between similar creation patterns."]
+
+[references.metadata.objective]
+summary = "Route design problems to the lightest viable creational pattern."
+
+[references.metadata.output]
+summary = "Return the best candidate pattern, one rejected alternative, and concise selection logic."
+
+[references.metadata.navigation]
+summary = "Prefer this first when the construction design space is still broad."
+priority = 10
+
+[[references]]
+file = "creational-pattern-overview.md"
+
+[references.metadata.trigger]
+summary = "Use when the request is broadly about creational patterns, object creation flexibility, or choosing among construction approaches."
+intent_tags = ["creational", "construction", "overview", "creation", "family"]
+when_to_use = ["Frame a creational design problem before choosing one pattern.", "Explain when creational patterns fit better than structural or behavioral ones."]
+
+[references.metadata.objective]
+summary = "Provide family-level decision framing for creational patterns."
+
+[references.metadata.output]
+summary = "Return the relevant creational subfamily, why it fits, and the next specific pattern to inspect."
+
+[references.metadata.navigation]
+summary = "Prefer this after routing confirms the problem is creational but still too broad for one specific pattern."
+priority = 20
+
+[[references]]
+file = "abstract-factory.md"
+
+[references.metadata.trigger]
+summary = "Use when the Abstract Factory pattern should create families of related products."
+intent_tags = ["abstract-factory", "abstract", "factory", "family", "related-products", "theme"]
+when_to_use = ["Create related product families.", "Choose between abstract factory and other creational patterns."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Abstract Factory."
+
+[references.metadata.output]
+summary = "Return whether Abstract Factory fits, its rejected alternative, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when product-family consistency is the core problem."
+priority = 30
+
+[[references]]
+file = "factory-method.md"
+
+[references.metadata.trigger]
+summary = "Use when the Factory Method pattern should create products through a creator method rather than direct construction."
+intent_tags = ["factory-method", "factory", "method", "creator", "instantiate", "subclass", "product"]
+when_to_use = ["Defer product choice to creator logic.", "Choose between factory method and abstract factory."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Factory Method."
+
+[references.metadata.output]
+summary = "Return whether Factory Method fits, its nearest alternative, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when one product type varies behind a creator boundary."
+priority = 31
+
+[[references]]
+file = "builder.md"
+
+[references.metadata.trigger]
+summary = "Use when the Builder pattern should assemble a complex object step by step."
+intent_tags = ["builder", "staged", "assembly", "director", "configuration"]
+when_to_use = ["Assemble complex objects in steps.", "Choose between builder and simpler constructors."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Builder."
+
+[references.metadata.output]
+summary = "Return whether Builder fits, when it is too much ceremony, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when staged assembly or multiple representations are the core problem."
+priority = 32
+
+[[references]]
+file = "prototype.md"
+
+[references.metadata.trigger]
+summary = "Use when the Prototype pattern should create objects by cloning configured exemplars."
+intent_tags = ["prototype", "clone", "copy", "exemplar", "runtime"]
+when_to_use = ["Create objects by cloning prototypes.", "Choose between prototype and factory-based creation."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Prototype."
+
+[references.metadata.output]
+summary = "Return whether Prototype fits, its clone-semantics risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when runtime-configured exemplars are the core creation mechanism."
+priority = 33
+
+[[references]]
+file = "singleton.md"
+
+[references.metadata.trigger]
+summary = "Use when the Singleton pattern should coordinate a system-wide concern through exactly one instance."
+intent_tags = ["singleton", "global", "single-instance", "shared", "coordinator"]
+when_to_use = ["Evaluate whether one instance should exist.", "Choose between singleton and dependency injection."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Singleton."
+
+[references.metadata.output]
+summary = "Return whether Singleton fits, why it is risky, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when uniqueness itself is the core requirement."
+priority = 34
+
+[[references]]
+file = "dependency-injection.md"
+
+[references.metadata.trigger]
+summary = "Use when the Dependency Injection pattern should supply dependencies from outside the consuming class."
+intent_tags = ["dependency-injection", "dependency", "injection", "composition-root", "wiring", "service"]
+when_to_use = ["Inject collaborators instead of constructing them internally.", "Choose between dependency injection and factory-owned creation."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Dependency Injection."
+
+[references.metadata.output]
+summary = "Return whether Dependency Injection fits, its wiring cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when construction wiring and substitution are the core problem."
+priority = 35
+
+[[references]]
+file = "lazy-initialization.md"
+
+[references.metadata.trigger]
+summary = "Use when the Lazy Initialization pattern should defer creation until first use."
+intent_tags = ["lazy", "lazy-initialization", "initialization", "deferred", "first-use", "startup"]
+when_to_use = ["Delay expensive initialization.", "Choose between lazy init and eager setup."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Lazy Initialization."
+
+[references.metadata.output]
+summary = "Return whether Lazy Initialization fits, its concurrency risk, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when deferred creation is the core problem."
+priority = 36
+
+[[references]]
+file = "object-pool.md"
+
+[references.metadata.trigger]
+summary = "Use when the Object Pool pattern should reuse expensive short-lived objects or resources."
+intent_tags = ["object-pool", "object", "pool", "reuse", "resource", "expensive"]
+when_to_use = ["Reuse costly resources safely.", "Choose between pooling and simpler creation models."]
+
+[references.metadata.objective]
+summary = "Provide fit criteria and tradeoffs for Object Pool."
+
+[references.metadata.output]
+summary = "Return whether Object Pool fits, its lifecycle cost, and one mitigation."
+
+[references.metadata.navigation]
+summary = "Prefer this when reuse of expensive short-lived resources is the core problem."
+priority = 37
