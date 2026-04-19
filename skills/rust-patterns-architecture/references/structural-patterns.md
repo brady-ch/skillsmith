@@ -1,28 +1,24 @@
-# Structural Patterns
+# Structural layout in Rust (not the GoF catalog)
 
-Load when defining module, crate, type-boundary, or unsafe-containment structure.
+Load for **module/crate/borrow/unsafe containment** — not for picking Adapter vs Decorator vs Bridge (that lives in **`structural-pattern-architect`**).
 
-## Source Summary
+## Not duplicated here
 
-Structural guidance focuses on simplifying ownership reasoning and keeping safety-critical code auditable.
+- Choosing among structural *design patterns* (Adapter, Facade, Proxy, Composite, …) and confusion pairs → **`structural-pattern-architect`** (`references/pattern-selection.md` and family articles).
+- This file stays **Rust operational**: how to structure code so ownership, crates, and safety audits stay tractable.
 
-## Pattern Guide
+## Rust-specific structural moves
 
-- Struct decomposition for independent borrowing: split monolithic state so borrows track real sub-responsibilities.
-- Prefer small crates: isolate responsibilities for modularity and compile parallelism, while managing dependency risk.
-- Contain unsafety in small modules: keep audited unsafe cores behind safe shells.
-- Custom traits for complex bounds: replace noisy repeated generic bounds with expressive domain traits.
+- **Split types for borrowing**: break a large `struct` so the borrow checker can prove disjoint fields; often replaces “structural” patterns that in other languages use wider shared mutable graphs.
+- **Crate and module boundaries**: separate crates for compile parallelism and dependency isolation; keep public surfaces small and semver-stable.
+- **Unsafe containment**: one small module with `unsafe` and a **safe public API** that enforces invariants; avoid sprinkling `unsafe` across call sites.
+- **Custom traits instead of inheritance**: repeated “shapes” of bounds → named traits (`index.toml` also routes to `custom-trait-bounds.md`).
 
-## Tradeoff Notes
+## Tradeoffs
 
-- Finer decomposition can increase type count and wiring complexity.
-- Smaller crates improve modularity but can increase version-management pressure.
-- Unsafe containment improves auditability but may require adapter layers.
-- Custom bound traits improve readability but introduce new concepts for users.
+- More types/modules: clearer ownership and reviews, more wiring and API surface.
+- Thin safe shell around `unsafe`: easier audit, sometimes more adapter types at the boundary.
 
-## Selection Heuristic
+## When to escalate
 
-- Borrow checker friction from broad state -> struct decomposition.
-- Responsibility sprawl across package -> small crate/module split.
-- Repeated or risky unsafe use -> unsafe core with safe shell.
-- Repeated unreadable generic bounds -> custom domain trait.
+If the question is “which structural pattern fits this integration problem?”, use **`structural-pattern-architect`** first; return here for Rust crate/module/type decomposition and unsafe shelling.

@@ -18,6 +18,8 @@ pub struct InstallRequest {
     pub source_name: Option<String>,
     pub target_root: PathBuf,
     pub force: bool,
+    /// Symlink to the source skill directory instead of copying (local skills only).
+    pub link: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -63,8 +65,11 @@ fn install_local(
     validate_relative_path(&local.relative_path)?;
     let source = repo_root.join(&local.relative_path);
     ensure_valid_skill_directory(&source, &local.name)?;
-    let installed_path =
-        stage_and_install(&source, &request.target_root, &local.name, request.force)?;
+    let installed_path = if request.link {
+        symlink_skill_install(&source, &request.target_root, &local.name, request.force)?
+    } else {
+        stage_and_install(&source, &request.target_root, &local.name, request.force)?
+    };
     Ok(InstallOutcome {
         skill_name: local.name.clone(),
         source_kind: "local".to_string(),
@@ -77,6 +82,11 @@ fn install_remote(
     skill: &RemoteSkill,
     request: &InstallRequest,
 ) -> Result<InstallOutcome, AppError> {
+    if request.link {
+        return Err(AppError::ValidationError(
+            "--link is only supported for local catalog skills (not remote installs)".to_string(),
+        ));
+    }
     validate_relative_path(&skill.path)?;
     let scratch = TempDir::new()?;
     let clone_dir = scratch.path().join("repo");
@@ -277,6 +287,62 @@ fn stage_and_install(
     fs::rename(&staged_skill_dir, &target_dir)?;
 
     Ok(target_dir)
+}
+
+fn symlink_skill_install(
+    source_dir: &Path,
+    target_root: &Path,
+    skill_name: &str,
+    force: bool,
+) -> Result<PathBuf, AppError> {
+    fs::create_dir_all(target_root)?;
+    let target_dir = target_root.join(skill_name);
+
+    if target_dir.exists() {
+        if !force {
+            return Err(AppError::InstallConflictError(format!(
+                "target exists for {} at {}. rerun with --force",
+                skill_name,
+                target_dir.to_string_lossy()
+            )));
+        }
+        if target_dir.is_symlink() {
+            fs::remove_file(&target_dir)?;
+        } else {
+            fs::remove_dir_all(&target_dir)?;
+        }
+    }
+
+    let abs_source = fs::canonicalize(source_dir).map_err(|err| {
+        AppError::FilesystemError(format!(
+            "could not canonicalize {}: {}",
+            source_dir.to_string_lossy(),
+            err
+        ))
+    })?;
+
+    create_symlink(&abs_source, &target_dir)?;
+    Ok(target_dir)
+}
+
+fn create_symlink(source: &Path, dest: &Path) -> Result<(), AppError> {
+    #[cfg(unix)]
+    {
+        std::os::unix::fs::symlink(source, dest)?;
+        return Ok(());
+    }
+    #[cfg(windows)]
+    {
+        std::os::windows::fs::symlink_dir(source, dest)?;
+        return Ok(());
+    }
+    #[cfg(not(any(unix, windows)))]
+    {
+        let _ = (source, dest);
+        Err(AppError::FilesystemError(
+            "symlink install is not supported on this platform".to_string(),
+        ))
+    }
 }
 
 fn copy_dir_recursive(source: &Path, destination: &Path) -> Result<(), AppError> {

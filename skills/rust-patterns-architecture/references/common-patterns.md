@@ -1,27 +1,26 @@
-# Common Patterns
+# Routing: Rust skill vs sibling pattern architects
 
-Load when choosing a Rust-specific implementation pattern quickly.
+Load when you need to decide **which reference to open next** — not a second copy of pattern taxonomies.
 
-## Source Summary
+## Use sibling skills first (language-agnostic pattern choice)
 
-Rust Patterns organizes practical design work into idioms, pattern families, and anti-patterns. This file is a decision index that routes to focused references for each family.
+| Question | Skill to use first |
+|----------|-------------------|
+| Which behavioral pattern (Command, Strategy, Visitor, …)? | **`behavioral-pattern-architect`** |
+| Which creational pattern (Builder, Factory, …)? | **`creational-pattern-architect`** |
+| Which structural pattern (Adapter, Decorator, Facade, …)? | **`structural-pattern-architect`** |
+| Concurrency-oriented pattern selection | **`concurrency-pattern-architect`** |
 
-## Fast Picks
+## Then use this Rust skill for implementation
 
-- Need API flexibility with minimal ownership friction -> `idiom-catalog.md`
-- Need architecture defaults before pattern choice -> `architecture-decisions.md`
-- Need Rust-specific pluggable behavior or operation encapsulation -> `behavioral-patterns.md`
-- Need Rust-specific controlled object construction -> `creational-patterns.md`
-- Need crate/module or unsafe boundary structure -> `structural-patterns.md`
-- Need foreign boundary modeling -> `boundary-safety.md` and `ffi-idioms.md`
-- Need simpler generic bounds and reusable trait constraints -> `custom-trait-bounds.md`
-- Need functional composition and transformation ideas -> `functional-techniques.md`
-- Need to rule out bad shortcuts first -> `anti-patterns.md`
+After the pattern *family* is clear (or the task is inherently Rust-only: ownership, `unsafe`, FFI, signatures), route from this repo’s **`reference-router.md`** to:
 
-## Selection Checklist
+- Rust **encoding** of a known pattern → `behavioral-patterns.md`, `creational-patterns.md`, or structural **layout** notes in `structural-patterns.md` (Rust crate/module/borrow — not GoF selection).
+- Idioms and APIs → `idiom-catalog.md`, `api-ergonomics.md`
+- `unsafe` / FFI → `boundary-safety.md`, `ffi-idioms.md`
+- Anti-patterns and review → `anti-patterns.md`, `review-checklist.md`
 
-- Does the choice reduce ownership friction without hiding invariants?
-- Is the abstraction justified by current constraints, not speculation?
-- Is the question explicitly Rust-specific rather than a generic pattern-family choice?
-- Can one rejected alternative be named with a concrete reason?
-- Is the reasoning centered on why this pattern fits the problem?
+## Quick check
+
+- If removing “Rust” from the question still leaves a **pattern-name** or **family** choice problem → sibling architect skill first.
+- If the question is **only** meaningful in Rust (borrow checker, `Send`/`Sync`, `dyn`, modules, FFI) → stay in this skill’s references.

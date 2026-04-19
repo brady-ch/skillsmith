@@ -8,10 +8,10 @@ Read this file first. Then load only one additional reference file based on task
 - "I need system or crate architecture guidance." -> `architecture-decisions.md`
 - "I need idiomatic guidance for writing clean Rust" -> `idiom-catalog.md`
 - "How should this function or API accept data?" -> `api-ergonomics.md`
-- "I need a Rust-specific implementation pattern and the question is explicitly about Rust tradeoffs" -> `common-patterns.md`
-- "I need Rust-specific details on command/strategy/newtype/RAII/visitor" -> `behavioral-patterns.md`
-- "I need Rust-specific builder/fold construction approaches" -> `creational-patterns.md`
-- "How should modules or crates be structured?" -> `structural-patterns.md`
+- "Should I use behavioral-pattern-architect / creational / structural / concurrency skills first vs this Rust skill?" -> `common-patterns.md`
+- "I know the behavioral pattern family; how do I encode it in Rust?" -> `behavioral-patterns.md`
+- "I know the creational shape; how do I build it in Rust?" -> `creational-patterns.md`
+- "I need crate/module/borrow/unsafe shell structure — not picking Adapter vs Facade" -> `structural-patterns.md`
 - "How do I define safe boundaries around unsafe or foreign calls?" -> `boundary-safety.md`
 - "How do I handle FFI strings or FFI error mapping idiomatically?" -> `ffi-idioms.md`
 - "My generic bounds are getting unreadable." -> `custom-trait-bounds.md`
@@ -19,18 +19,11 @@ Read this file first. Then load only one additional reference file based on task
 - "I need functional style techniques in Rust" -> `functional-techniques.md`
 - "Review this Rust code for risks" -> `review-checklist.md`
 
-## Intro-Derived Routing Rule
-
-Treat requests as one of three intent classes from the source introduction:
-
-- Idioms intent -> prioritize `idiom-catalog.md`
-- Design-pattern intent -> prioritize `common-patterns.md`
-- Anti-pattern intent -> prioritize `review-checklist.md`
-
 ## Escalation Rules
 
 Load a second reference only when the first file cannot resolve the decision.
 
+- If the user still needs **which** GoF-style pattern (behavioral/creational/structural family choice), route to **`common-patterns.md`** and the appropriate sibling skill — not a second Rust-only file.
 - If selected pattern introduces ownership or safety risk, add `review-checklist.md`.
 - If architecture guidance is still too abstract, add `architecture-decisions.md`.
 - If structural or FFI design includes `unsafe`, add `boundary-safety.md`.

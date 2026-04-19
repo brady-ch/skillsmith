@@ -1,23 +1,25 @@
-# Creational Patterns
+# Creational patterns in Rust (implementation only)
 
-Load when Rust-specific construction logic is complex, staged, or context dependent.
+Load when construction API shape in Rust is the question — not when you still need **which** creational pattern (Abstract Factory vs Builder vs Prototype) at the design-pattern level.
 
-## Source Summary
+## Not duplicated here
 
-Creational patterns in Rust are primarily about making initialization explicit without exploding constructor count or weakening invariants.
+- Language-agnostic creational pattern choice, quick picks, or article-level detail → **`creational-pattern-architect`** (`references/pattern-selection.md`, `core-creational-patterns.md`, etc.).
+- This file only covers **Rust-specific** construction idioms after the family is chosen (or obvious for Rust-only APIs).
 
-## Pattern Guide
+## Rust-specific creational mechanics
 
-- Builder: staged configuration for complex Rust values with optional fields, stable defaults, and backward-compatible field evolution.
-- Fold: traverse a structure and produce a transformed structure, typically preserving functional-style immutability.
+- **Builder (typestate or not)**: staged methods returning `Self`, final `build()` / `finish()` that consumes or validates; optional use of **typestate** (phantom types) so invalid states don’t compile.
+- **Default + builder hybrid**: `Default` for “empty config” plus builder for overrides — common in ecosystem APIs.
+- **Fold / structural transforms**: `try_fold`, `fold` on iterators, or custom walk that **owns** or **rebuilds** trees — fits Rust when you want one traversal with an accumulator without OO visitor ceremonies.
+- **`try_build` / `Result` construction**: surface invariant failures at construction time instead of panicking in `new`.
 
-## Tradeoff Notes
+## Tradeoffs (Rust-specific)
 
-- Builder improves readability and API evolution but adds helper types and method surface.
-- Fold cleanly separates traversal from transformation but may incur cloning/allocation tradeoffs depending on ownership strategy.
+- Typestate builders: strongest safety, highest type noise.
+- Plain builder + runtime validation: simpler types, errors at `build()`.
+- Fold-heavy pipelines: clarity vs allocation/cloning when ownership is split awkwardly.
 
-## Selection Heuristic
+## When to escalate
 
-- Many optional inputs or evolving constructor shape -> Builder.
-- Need whole-structure transformation with reusable traversal logic -> Fold.
-- If the question is language-agnostic pattern selection first, prefer the dedicated creational skill before this Rust-specific reference.
+If the user hasn’t narrowed to Builder vs Factory vs Prototype, point them to **`creational-pattern-architect`** first, then use this reference for Rust-shaped APIs.

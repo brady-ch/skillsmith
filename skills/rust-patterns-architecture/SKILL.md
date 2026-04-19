@@ -25,7 +25,7 @@ Use when the user asks for:
 Do not use when:
 - the request is not Rust-specific
 - the user only needs generic language-agnostic architecture advice
-- the user only needs generic behavioral or creational pattern selection
+- the user only needs **which** behavioral, creational, or structural *design pattern* to pick — use **`behavioral-pattern-architect`**, **`creational-pattern-architect`**, or **`structural-pattern-architect`** (and **`concurrency-pattern-architect`** when relevant) first
 - the task is pure dependency lookup or version checking
 
 ## Reference Map
@@ -37,10 +37,10 @@ Do not use when:
 | Architecture decisions | `references/architecture-decisions.md` | Need module boundaries, crate decomposition, or layering guidance |
 | Idiom catalog | `references/idiom-catalog.md` | Need language-level ownership/API idioms |
 | API ergonomics | `references/api-ergonomics.md` | Function signatures and call-site flexibility |
-| Pattern index | `references/common-patterns.md` | Need quick routing for explicitly Rust-specific implementation patterns |
-| Behavioral patterns | `references/behavioral-patterns.md` | Need Rust-specific command, strategy, visitor, newtype, or RAII guidance |
-| Creational patterns | `references/creational-patterns.md` | Need Rust-specific builder-style or fold-based construction guidance |
-| Structural patterns | `references/structural-patterns.md` | Module/crate decomposition and type-boundary structure |
+| Sibling skills vs this skill | `references/common-patterns.md` | Route pattern-family questions to other architect skills; Rust implementation after |
+| Behavioral *in Rust* | `references/behavioral-patterns.md` | Encoding Command/Strategy/Visitor/etc. with Rust types and dispatch — not family selection |
+| Creational *in Rust* | `references/creational-patterns.md` | Builder/typestate/fold/`Result` construction — not picking Abstract Factory vs Builder |
+| Layout / crates / borrows | `references/structural-patterns.md` | Module split, unsafe shells, borrowing — not Adapter vs Decorator choice |
 | Boundary safety | `references/boundary-safety.md` | Unsafe containment and foreign boundary safety |
 | FFI idioms | `references/ffi-idioms.md` | FFI string and error handling details |
 | Trait-bound simplification | `references/custom-trait-bounds.md` | Need to reduce complex generic bounds with custom traits |
@@ -50,11 +50,12 @@ Do not use when:
 
 ## Workflow
 
-1. Classify the request as idiom, architecture, boundary safety, anti-pattern review, functional technique, or explicitly Rust-specific pattern guidance.
-2. Load `reference-router.md`, then one targeted reference.
-3. Escalate to one more reference only if the first cannot resolve the decision safely.
-4. Prefer the lightest viable approach and reject one heavier alternative explicitly.
-5. Include one concrete risk and mitigation before handoff.
+1. If the user needs **which pattern family or pattern name** (behavioral/creational/structural/concurrency), point to the matching **pattern-architect** skill in this repo; use this skill for **Rust encoding** once that’s settled (or when the problem is inherently Rust: ownership, `unsafe`, FFI, signatures).
+2. Otherwise classify as idiom, architecture, boundary safety, anti-pattern review, or functional technique.
+3. Load `reference-router.md`, then one targeted reference.
+4. Escalate to one more reference only if the first cannot resolve the decision safely.
+5. Prefer the lightest viable approach and reject one heavier alternative explicitly.
+6. Include one concrete risk and mitigation before handoff.
 
 ## Output Contract
 
@@ -70,4 +71,5 @@ This repository includes these base skills and intent:
 - `repo-scout`: repository assessment and implementation briefing
 - `api-contract-critic`: API contract review and compatibility risk analysis
 - `migration-guardian`: migration planning with rollback-first safety
-- `rust-patterns-architecture`: Rust-specific idioms, APIs, architecture, and anti-pattern review
+- `behavioral-pattern-architect`, `creational-pattern-architect`, `structural-pattern-architect`, `concurrency-pattern-architect`: language-agnostic pattern family selection
+- `rust-patterns-architecture`: Rust-specific idioms, APIs, ownership/`unsafe`/FFI, and how to encode patterns in Rust (not duplicate pattern catalogs)

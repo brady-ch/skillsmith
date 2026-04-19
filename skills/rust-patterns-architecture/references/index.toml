@@ -74,72 +74,72 @@ priority = 25
 file = "common-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when the user needs quick routing to the right Rust-specific implementation pattern family before reading a deeper reference."
-intent_tags = ["rust", "routing", "selection", "overview"]
-when_to_use = ["Pick a Rust-specific pattern family quickly.", "Route a Rust design problem to the right detailed reference."]
+summary = "Use when deciding whether to use sibling pattern-architect skills first vs this Rust-only skill, or routing to the right Rust reference after pattern choice."
+intent_tags = ["rust", "routing", "selection", "overview", "behavioral", "creational", "structural"]
+when_to_use = ["Choose between generic pattern skills and Rust implementation detail.", "Route after pattern family is known."]
 
 [references.metadata.objective]
-summary = "Provide fast pattern-family routing with a checklist for fit and overuse."
+summary = "Clarify Rust skill scope vs behavioral/creational/structural/concurrency architect skills and point to the next reference."
 
 [references.metadata.output]
-summary = "Return the best next reference and a small set of selection criteria."
+summary = "Return which skill or reference to use next and a short applicability check."
 
 [references.metadata.navigation]
-summary = "Prefer this when the Rust-specific pattern category is not obvious yet."
+summary = "Prefer when the user might need a non-Rust pattern skill before Rust-specific references."
 priority = 30
 
 [[references]]
 file = "behavioral-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when choosing Rust-specific command, strategy, visitor, newtype, RAII, or interpreter-style implementation patterns."
-intent_tags = ["rust", "raii", "newtype", "interpreter", "visitor"]
-when_to_use = ["Choose a Rust-specific pluggable behavior pattern.", "Decide whether a visitor or RAII guard fits in Rust."]
+summary = "Use when encoding a known behavioral pattern in Rust (enum vs dyn, RAII, newtype) — not for selecting Command vs Strategy vs Visitor among families."
+intent_tags = ["rust", "raii", "newtype", "interpreter", "visitor", "strategy", "command", "dyn", "trait-object"]
+when_to_use = ["Map a chosen pattern to Rust types and dispatch.", "Compare enum vs trait object for pluggable behavior."]
 
 [references.metadata.objective]
-summary = "Provide Rust-oriented behavioral pattern guidance with safety and ergonomics tradeoffs."
+summary = "Provide Rust-specific implementation mechanics and tradeoffs for behavioral ideas."
 
 [references.metadata.output]
-summary = "Return the selected behavioral pattern, rejected alternative, and risk notes."
+summary = "Return Rust encoding options, a rejected approach, and ownership/dispatch risks."
 
 [references.metadata.navigation]
-summary = "Prefer this after routing confirms the problem is a Rust-specific behavioral or ownership-sensitive pattern decision."
+summary = "Use after behavioral-pattern-architect or when the pattern family is already clear."
 priority = 35
 
 [[references]]
 file = "creational-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when choosing Rust-specific builder-style, fold-based, or other construction strategies for complex values."
-intent_tags = ["rust", "construction", "fold", "initialization"]
-when_to_use = ["Design Rust construction APIs.", "Choose a Rust multi-step initialization pattern."]
+summary = "Use when shaping Rust builders, typestate, fold/try_fold construction — not for picking creational design patterns across families."
+intent_tags = ["rust", "construction", "fold", "initialization", "builder", "typestate"]
+when_to_use = ["Design Rust build() APIs.", "Choose typestate vs runtime-validated builders."]
 
 [references.metadata.objective]
-summary = "Provide construction patterns that keep initialization explicit and maintainable."
+summary = "Provide Rust-specific construction idioms: builders, folds, explicit invariant checks."
 
 [references.metadata.output]
-summary = "Return the best construction strategy and its tradeoffs."
+summary = "Return a construction approach and Rust-specific tradeoffs."
 
 [references.metadata.navigation]
-summary = "Prefer this when the main Rust-specific design problem is how values are created and configured."
+summary = "Use after creational-pattern-architect when the creational family is already chosen or obvious."
 priority = 40
 
 [[references]]
 file = "structural-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when choosing structural decomposition, crate sizing, or unsafety containment patterns."
-intent_tags = ["structural", "crate", "module", "unsafe", "composition"]
-when_to_use = ["Split a system into better modules.", "Contain unsafety in a small surface."]
+summary = "Use when splitting Rust modules/crates for borrows, or safe shells around unsafe — not for Adapter vs Decorator vs Facade pattern selection."
+intent_tags = ["structural", "crate", "module", "unsafe", "composition", "borrow"]
+when_to_use = ["Refactor for borrow checker.", "Isolate unsafe in a small module.", "Size crates for clarity."]
 
 [references.metadata.objective]
-summary = "Provide structural patterns that improve modularity and auditability."
+summary = "Provide Rust layout and containment guidance without duplicating GoF structural catalogs."
 
 [references.metadata.output]
-summary = "Return a decomposition or composition pattern with explicit consequences."
+summary = "Return decomposition or boundary strategy with audit and semver notes."
 
 [references.metadata.navigation]
-summary = "Prefer this when the question is about system structure, not local API shape."
+summary = "Use after structural-pattern-architect for GoF choice, or when the issue is Rust structure not pattern names."
 priority = 45
 
 [[references]]

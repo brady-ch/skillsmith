@@ -1,0 +1,66 @@
+use std::path::Path;
+
+use crate::error::AppError;
+
+use super::matching::SkillMatch;
+use super::types::{CatalogCache, RecommendResponse, RecommendationEntry};
+
+pub fn recommend_for_intent(
+    cache: &mut CatalogCache,
+    repo_root: &Path,
+    intent: &str,
+    limit: usize,
+    skill_filter: Option<&str>,
+    source_filter: Option<&str>,
+) -> Result<RecommendResponse, AppError> {
+    let mut matches: Vec<_> = {
+        let catalog = cache.catalog();
+        catalog
+            .matches_for_intent(intent)
+            .into_iter()
+            .map(SkillMatch::into_parts)
+            .collect()
+    };
+
+    if let Some(name) = skill_filter {
+        matches.retain(|m| m.1 == name);
+    }
+    if let Some(src) = source_filter {
+        matches.retain(|m| match src {
+            "local" => m.0.is_none(),
+            _ => m.0.as_deref() == Some(src),
+        });
+    }
+
+    let take_n = if limit == 0 { usize::MAX } else { limit };
+    let mut recommendations = Vec::new();
+
+    for (source_name, skill_name, skill_path, metadata, score, reasons) in
+        matches.into_iter().take(take_n)
+    {
+        let index = cache.load_reference_index(repo_root, &skill_path)?;
+        let (reference, reference_reasons) = index.best_match(Some(intent)).ok_or_else(|| {
+            AppError::ValidationError(format!(
+                "no indexed references available for skill {}",
+                skill_name
+            ))
+        })?;
+        recommendations.push(RecommendationEntry {
+            skill_name,
+            source: source_name,
+            skill_path,
+            score,
+            skill_role: metadata.trigger.skill_role,
+            order_weight: metadata.trigger.order_weight,
+            reasons,
+            suggested_reference_file: reference.file,
+            reference_reasons,
+        });
+    }
+
+    Ok(RecommendResponse {
+        schema_version: 1,
+        intent: intent.to_string(),
+        recommendations,
+    })
+}

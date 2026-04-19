@@ -3,8 +3,8 @@ use std::path::Path;
 use std::process::Command;
 
 use skillsmith::catalog::{
-    Catalog, LocalSkill, ReferenceIndex, RemoteSkill, RemoteSource, ToonMetadata, ToonNavigation,
-    ToonText, ToonTrigger, explain_skill_selection,
+    Catalog, LocalSkill, ReferenceIndex, RemoteSkill, RemoteSource, SkillRole, ToonMetadata,
+    ToonNavigation, ToonText, ToonTrigger, explain_skill_selection,
 };
 use skillsmith::installer::{InstallRequest, install_skill};
 use tempfile::TempDir;
@@ -15,6 +15,8 @@ fn metadata(summary: &str, tags: &[&str]) -> ToonMetadata {
             summary: summary.to_string(),
             intent_tags: tags.iter().map(|tag| tag.to_string()).collect(),
             when_to_use: vec![summary.to_string()],
+            skill_role: SkillRole::Implementation,
+            order_weight: 0,
         },
         objective: ToonText {
             summary: format!("objective: {summary}"),
@@ -98,6 +100,7 @@ fn installs_local_skill_successfully() {
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
+        link: false,
     };
 
     let outcome = install_skill(&catalog, &req, repo.path()).expect("install local");
@@ -117,6 +120,7 @@ fn blocks_conflict_without_force() {
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
+        link: false,
     };
 
     let err = install_skill(&catalog, &req, repo.path()).expect_err("conflict expected");
@@ -136,6 +140,7 @@ fn replaces_conflict_with_force() {
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: true,
+        link: false,
     };
 
     let outcome = install_skill(&catalog, &req, repo.path()).expect("forced install");
@@ -155,6 +160,7 @@ fn fails_when_skill_md_missing() {
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
+        link: false,
     };
     let err = install_skill(&catalog, &req, repo.path()).expect_err("expected missing SKILL.md");
     assert_eq!(err.code(), "validation_error");
@@ -174,6 +180,7 @@ fn fails_when_reference_router_missing() {
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
+        link: false,
     };
     let err = install_skill(&catalog, &req, repo.path()).expect_err("expected router failure");
     assert_eq!(err.code(), "validation_error");
@@ -193,6 +200,7 @@ fn fails_when_no_additional_reference_file_exists() {
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
+        link: false,
     };
     let err = install_skill(&catalog, &req, repo.path())
         .expect_err("expected additional reference requirement failure");
@@ -213,9 +221,35 @@ fn fails_when_reference_index_missing() {
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
+        link: false,
     };
     let err = install_skill(&catalog, &req, repo.path()).expect_err("expected index failure");
     assert_eq!(err.code(), "validation_error");
+}
+
+#[cfg(unix)]
+#[test]
+fn installs_local_skill_via_symlink() {
+    let repo = TempDir::new().expect("temp repo");
+    let target = TempDir::new().expect("temp target");
+    write_skill(&repo.path().join("skills/repo-scout"), "repo-scout", "desc");
+
+    let catalog = local_catalog();
+    let req = InstallRequest {
+        skill_name: "repo-scout".to_string(),
+        source_name: None,
+        target_root: target.path().to_path_buf(),
+        force: false,
+        link: true,
+    };
+
+    let outcome = install_skill(&catalog, &req, repo.path()).expect("symlink install");
+    assert!(
+        outcome.installed_path.is_symlink(),
+        "expected symlink at {}",
+        outcome.installed_path.display()
+    );
+    assert!(outcome.installed_path.join("SKILL.md").exists());
 }
 
 #[test]
@@ -263,6 +297,7 @@ fn installs_remote_skill_from_pinned_ref() {
         source_name: Some("fixture-source".to_string()),
         target_root: target.path().to_path_buf(),
         force: false,
+        link: false,
     };
     let outcome = install_skill(&catalog, &req, remote.path()).expect("remote install");
     assert!(outcome.installed_path.join("SKILL.md").exists());

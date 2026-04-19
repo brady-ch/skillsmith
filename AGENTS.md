@@ -29,12 +29,45 @@ Each skill keeps detailed guidance in `references/*.md`. The **reference router*
 - **Registration**: add or update the skill in `catalog/catalog.toml` and ensure each reference file is listed in `references/index.toml` with correct TOON fields.
 - After changes, run `cargo run -- validate` to confirm layout and metadata.
 
+## Agent skill selection (vs. [Superpowers](https://github.com/obra/superpowers)-style runtimes)
+
+Agents should not scrape the catalog by hand. Use machine-readable output and load only the files the CLI points to.
+
+- **`recommend`** — Rank skills for a free-text task and pick a suggested reference file per skill (schema version 1 JSON). Example:
+  - `cargo run -- recommend --intent "migration rollback plan" --format json --limit 5`
+  - Optional filters: `--skill <name>`, `--source local` or `--source <remote-source-name>`.
+- **`explain`** — Still resolves one skill + reference; add `--format json` for the same structure in automation.
+- **`list`** — With `--format json`, lists locals (no `--intent`) or intent-ranked matches (`--intent`), including `score`, `skill_role`, and `order_weight`.
+
+Typical flow: run `recommend` with the user message as `--intent`, parse JSON, then read `SKILL.md` and `references/<suggested_reference_file>` under the installed skill path (see install targets below).
+
+## Skill ordering (`trigger.skill_role`, `trigger.order_weight`)
+
+In `catalog/catalog.toml`, under each skill’s `[locals.metadata.trigger]` / remote skill trigger:
+
+- **`skill_role`** — One of `process`, `meta`, `implementation` (default: `implementation`). When match **scores** tie, **process** sorts before **meta**, then **implementation** (aligned with “process before implementation” workflows).
+- **`order_weight`** — Integer; lower values sort earlier when score and role already match (default: `0`).
+
+Reference-level ordering inside a skill is unchanged: `navigation.priority` in `references/index.toml`.
+
+## Install targets, symlinks, and Codex discovery
+
+- **Default install root** — `$HOME/.codex/skills` (or `.codex/skills` if `HOME` is unset). Override with `--target` on `install` / TUI “Set install target”.
+- **Superpowers / multi-tool layouts** often symlink skills under `~/.agents/skills/<name>` while keeping a git clone elsewhere ([Superpowers Codex install](https://raw.githubusercontent.com/obra/superpowers/main/.codex/INSTALL.md)). Skillsmith can mirror that pattern with **`cargo run -- install --name <skill> --link`**: the skill directory in the **current repo** is symlinked into `--target` (local catalog skills only; not remote installs). Use **`--force`** to replace an existing target path.
+- Pick a single **`--target`** that matches how your agent discovers skills (e.g. only `~/.codex/skills` or only `~/.agents/skills`) so installed skills are visible to the runtime you use.
+
+## Validation profiles
+
+- **`cargo run -- validate`** — Default **`--profile strict`**: full skillsmith layout (reference router, `index.toml`, indexed references, Skill Inventory Note in `SKILL.md`, etc.).
+- **`cargo run -- validate --profile minimal`** — Only checks that each catalog skill path exists and contains **`SKILL.md`**. Use for mixed repos or trees shaped like external “flat” skill packs while you migrate them to the full layout.
+
 ## Build, Test, and Development Commands
 
 - `cargo run` launches the interactive terminal UI.
-- `cargo run -- list --intent migration` lists skills matching an intent.
-- `cargo run -- validate` checks local skill structure and TOON metadata.
-- `cargo run -- explain --intent "migration rollback"` shows why a skill/reference matched.
+- `cargo run -- list --intent migration` lists skills matching an intent (`--format json` for scripting).
+- `cargo run -- validate` checks local skill structure and TOON metadata (`--profile strict` or `minimal`).
+- `cargo run -- explain --intent "migration rollback"` shows why a skill/reference matched (`--format json` optional).
+- `cargo run -- recommend --intent "…"` ranks skills and suggested references for agents (`--format json` recommended).
 - `cargo test` runs unit and integration tests.
 - `cargo fmt` formats Rust source.
 

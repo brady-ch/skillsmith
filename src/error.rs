@@ -70,6 +70,12 @@ impl From<walkdir::Error> for AppError {
     }
 }
 
+impl From<serde_json::Error> for AppError {
+    fn from(value: serde_json::Error) -> Self {
+        Self::SerializationError(value.to_string())
+    }
+}
+
 pub fn fmt_path(path: &PathBuf) -> String {
     path.to_string_lossy().into_owned()
 }

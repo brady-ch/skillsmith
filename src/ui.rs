@@ -298,6 +298,7 @@ fn install_batch_local(
             source_name: None,
             target_root: install_target.to_path_buf(),
             force,
+            link: false,
         };
         let outcome = install_skill(catalog, &request, repo_root)?;
         println!(
@@ -364,6 +365,7 @@ fn install_batch_remote(
             source_name: Some(source.name.clone()),
             target_root: install_target.to_path_buf(),
             force,
+            link: false,
         };
         let outcome = install_skill(catalog, &request, repo_root)?;
         println!(

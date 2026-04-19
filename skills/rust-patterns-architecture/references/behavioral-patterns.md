@@ -1,31 +1,28 @@
-# Behavioral Patterns
+# Behavioral patterns in Rust (implementation only)
 
-Load when behavior must be swapped, deferred, interpreted, or traversed over heterogeneous data.
+Load when you already know *which* behavioral pattern fits (or after using **`behavioral-pattern-architect`**) and need **Rust-specific** ways to encode it.
 
-## Source Summary
+## Not duplicated here
 
-Behavioral patterns isolate behavior from data layout so algorithms can vary without repeatedly rewriting domain structures.
+- Choosing among Command vs Strategy vs Visitor vs Observer, confusion pairs, or family-level selection → use **`behavioral-pattern-architect`** (`references/pattern-selection.md` and related articles there).
+- This file only covers **how** those ideas show up in Rust’s type system, ownership, and dispatch model.
 
-## Pattern Guide
+## What tends to map cleanly in Rust
 
-- Command: package actions for deferred execution, ordering, rollback, and logging.
-- Interpreter: encode repetitive problem instances in a compact grammar-like representation and evaluate them consistently.
-- Newtype: create strong semantic boundaries and trait behavior without runtime overhead.
-- RAII Guards: bind acquisition/finalization to scope and use borrow checking to prevent post-finalization misuse.
-- Strategy: separate stable workflow from interchangeable policy implementations.
-- Visitor: separate traversal from per-node operations across heterogeneous structures.
+| Familiar name | Rust-leaning approaches | Watchouts |
+|---------------|-------------------------|-----------|
+| **Command** | Enum of commands with data; `Box<dyn Fn() + Send>` for erased closures; async commands as distinct types in an enum | Erasing *too* much loses type-checked exhaustiveness; prefer enums when variants are a closed set |
+| **Strategy** | Generic type parameter (zero-cost, monomorphized); `&dyn Trait` or `Box<dyn Trait>` when truly runtime-swapped; enum of strategies when variants are fixed | `dyn` adds vtable and object safety limits; generics explode compile time if overused |
+| **Newtype** | Wrapper struct around `String`, IDs, etc. with own `impl` / traits — idiomatic Rust boundary | Boilerplate `Deref`/`AsRef` — use sparingly so semantics stay clear |
+| **RAII** | `Drop`, scoped guards, `MutexGuard`-style patterns — leverage borrow checker for “use after free” prevention | `Drop` panic/ordering surprises; document ordering when multiple guards nest |
+| **Visitor** | `enum` AST + `match` (often preferred for closed hierarchies); multi-dispatch via traits + `dyn` when the graph is open | Open-ended visitor on traits can fight object safety; sometimes `enum` + one `visit` method is simpler |
+| **Interpreter** | `enum` for expressions; recursive `eval` with `match`; stack machine as `Vec` + loop for some grammars | Deep recursion vs stack; consider explicit stack for large inputs |
 
-## Tradeoff Notes
+## Tradeoffs (Rust-specific)
 
-- Strategy and command improve extensibility but add indirection and type surface.
-- Newtype increases safety and encapsulation but can add boilerplate forwarding.
-- Visitor centralizes operations but may require more scaffolding for traversal utilities.
+- **Enums vs trait objects**: enums give exhaustiveness checking and no vtable; `dyn` gives extension without recompiling the enum — pick based on open vs closed world.
+- **Generics vs `dyn`**: generics optimize better but increase compile time and binary size; `dyn` centralizes at runtime cost.
 
-## Selection Heuristic
+## When to escalate
 
-- Need undoable/deferred operations -> Command.
-- Need pluggable policy with stable pipeline -> Strategy.
-- Need stronger type semantics or restricted interface -> Newtype.
-- Need guaranteed cleanup and temporal safety -> RAII.
-- Need operations over heterogeneous tree-like data -> Visitor.
-- Need expression-like mini-language evaluation -> Interpreter.
+If the open question is still “which behavioral pattern?”, stop and route to **`behavioral-pattern-architect`**, then return here for Rust encoding.

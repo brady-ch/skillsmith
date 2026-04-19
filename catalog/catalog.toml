@@ -71,7 +71,7 @@ summary = "Provide Rust-specific idioms, architecture defaults, API guidance, an
 summary = "Return a concrete Rust recommendation with rejected alternative, tradeoffs, and one explicit risk mitigation."
 
 [locals.metadata.navigation]
-summary = "Load the Rust router first, then one targeted reference for the actual task category."
+summary = "Load the Rust router first. Defer generic pattern-family selection to behavioral/creational/structural/concurrency architect skills; use one reference here for Rust idioms, encoding, APIs, and boundaries."
 priority = 15
 
 [[locals]]
