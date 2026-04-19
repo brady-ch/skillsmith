@@ -9,6 +9,7 @@
 #   SKILLSMITH_GIT_REF   Branch or tag (default: main)
 #   SKILLSMITH_SKIP_SETUP  If set to 1, skip running `skillsmith setup` after install
 #   SKILLSMITH_ALLOW_ROOT  If set, allow running as root (discouraged)
+#   SKILLSMITH_FORCE      If set to 1, pass --force to `cargo install` (rebuild/reinstall the binary)
 
 set -euo pipefail
 
@@ -36,7 +37,12 @@ if ! command -v git >/dev/null 2>&1; then
 fi
 
 echo "skillsmith install: cargo install skillsmith --locked --git ... (this may take a few minutes)"
-cargo install skillsmith --locked --git "${SKILLSMITH_GIT_URL}" --branch "${SKILLSMITH_GIT_REF}"
+FORCE_FLAG=()
+if [ "${SKILLSMITH_FORCE:-0}" = "1" ]; then
+  FORCE_FLAG=(--force)
+  echo "skillsmith install: SKILLSMITH_FORCE=1 (reinstalling binary even if version unchanged)"
+fi
+cargo install skillsmith --locked --git "${SKILLSMITH_GIT_URL}" --branch "${SKILLSMITH_GIT_REF}" "${FORCE_FLAG[@]}"
 
 if [ "${SKILLSMITH_SKIP_SETUP:-0}" = "1" ]; then
   echo "skillsmith install: skipped setup (SKILLSMITH_SKIP_SETUP=1). Run: skillsmith setup"

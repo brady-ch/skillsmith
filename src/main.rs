@@ -10,7 +10,7 @@ use skillsmith::catalog::{
 };
 use skillsmith::error::AppError;
 use skillsmith::installer::{InstallRequest, install_skill, summarize_install, trim_to_owned};
-use skillsmith::setup::{resolve_catalog_paths, run_setup};
+use skillsmith::setup::{resolve_catalog_paths, run_setup, run_setup_update};
 use skillsmith::ui::{UiConfig, run_menu};
 
 #[derive(Debug, Clone, Copy, Default, ValueEnum)]
@@ -103,7 +103,11 @@ enum Commands {
         format: OutputFormat,
     },
     /// Interactive install: clone catalog to data dir, print SKILLSMITH_REPO_ROOT, optional Cursor hooks.
-    Setup,
+    Setup {
+        /// Refresh the data-dir catalog checkout (saved URL/ref or defaults). Non-interactive; skips hooks.
+        #[arg(long, default_value_t = false)]
+        update: bool,
+    },
 }
 
 fn main() {
@@ -118,7 +122,13 @@ fn run() -> Result<(), AppError> {
     let default_target = default_install_root();
 
     match cli.command {
-        Some(Commands::Setup) => run_setup(),
+        Some(Commands::Setup { update }) => {
+            if update {
+                run_setup_update()
+            } else {
+                run_setup()
+            }
+        }
         cmd => {
             let (repo_root, catalog_path) = resolve_catalog_paths()?;
             run_with_catalog(cmd, repo_root, catalog_path, default_target)
@@ -333,7 +343,9 @@ fn run_with_catalog(
             }
             Ok(())
         }
-        Some(Commands::Setup) => unreachable!("setup is handled before resolve_catalog_paths"),
+        Some(Commands::Setup { .. }) => {
+            unreachable!("setup is handled before resolve_catalog_paths")
+        }
     }
 }
 

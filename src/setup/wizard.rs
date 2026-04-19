@@ -12,6 +12,34 @@ use super::paths::{
 };
 use super::state::{SetupState, load_state, save_state};
 
+fn apply_catalog_checkout(
+    state_path: &Path,
+    url_trim: &str,
+    ref_trim: &str,
+) -> Result<(), AppError> {
+    let upstream = upstream_checkout_dir()
+        .ok_or_else(|| AppError::FilesystemError("could not resolve upstream path".into()))?;
+    sync_upstream(&upstream, url_trim, ref_trim)?;
+    save_state(
+        state_path,
+        &SetupState {
+            git_url: url_trim.to_string(),
+            git_ref: ref_trim.to_string(),
+        },
+    )?;
+    let env_path = skillsmith_env_snippet_path()
+        .ok_or_else(|| AppError::FilesystemError("could not resolve skillsmith.env path".into()))?;
+    let env_contents = format!(
+        "# Source or paste into your shell profile:\nexport SKILLSMITH_REPO_ROOT=\"{}\"\n",
+        upstream.display()
+    );
+    std::fs::write(&env_path, &env_contents)?;
+    println!("\nCatalog checkout: {}", upstream.display());
+    println!("{}", env_contents);
+    println!("Wrote: {}", env_path.display());
+    Ok(())
+}
+
 fn run_git(repo: &Path, args: &[&str]) -> Result<(), AppError> {
     let st = Command::new("git")
         .current_dir(repo)
@@ -69,13 +97,43 @@ fn sync_upstream(path: &Path, url: &str, git_ref: &str) -> Result<(), AppError> 
     Ok(())
 }
 
+/// Interactive wizard: clone or refresh catalog, write `skillsmith.env`, optional Cursor hooks.
 pub fn run_setup() -> Result<(), AppError> {
-    let theme = ColorfulTheme::default();
+    run_setup_inner(false)
+}
+
+/// Sync the data-dir checkout using saved `setup.toml` URL/ref (or defaults from env /
+/// `default_git_url` / `default_git_ref`), refresh `skillsmith.env`, without prompts or hooks.
+/// Use after upgrading the binary to pull the latest catalog.
+pub fn run_setup_update() -> Result<(), AppError> {
+    run_setup_inner(true)
+}
+
+fn run_setup_inner(update_catalog_only: bool) -> Result<(), AppError> {
     ensure_data_dir()?;
 
     let state_path = setup_state_path()
         .ok_or_else(|| AppError::FilesystemError("could not resolve setup state path".into()))?;
     let previous = load_state(&state_path).ok();
+
+    if update_catalog_only {
+        let url_trim = previous
+            .as_ref()
+            .map(|s| s.git_url.clone())
+            .unwrap_or_else(default_git_url);
+        let ref_trim = previous
+            .as_ref()
+            .map(|s| s.git_ref.clone())
+            .unwrap_or_else(default_git_ref);
+        let url_trim = url_trim.trim();
+        let ref_trim = ref_trim.trim();
+        println!("Updating catalog ({} @ {})...", url_trim, ref_trim);
+        apply_catalog_checkout(&state_path, url_trim, ref_trim)?;
+        println!("Catalog update complete.");
+        return Ok(());
+    }
+
+    let theme = ColorfulTheme::default();
 
     let default_url = previous
         .as_ref()
@@ -97,31 +155,9 @@ pub fn run_setup() -> Result<(), AppError> {
         .interact_text()
         .map_err(|e| AppError::InputError(e.to_string()))?;
 
-    let upstream = upstream_checkout_dir()
-        .ok_or_else(|| AppError::FilesystemError("could not resolve upstream path".into()))?;
     let url_trim = url.trim();
     let ref_trim = git_ref.trim();
-    sync_upstream(&upstream, url_trim, ref_trim)?;
-
-    save_state(
-        &state_path,
-        &SetupState {
-            git_url: url_trim.to_string(),
-            git_ref: ref_trim.to_string(),
-        },
-    )?;
-
-    let env_path = skillsmith_env_snippet_path()
-        .ok_or_else(|| AppError::FilesystemError("could not resolve skillsmith.env path".into()))?;
-    let env_contents = format!(
-        "# Source or paste into your shell profile:\nexport SKILLSMITH_REPO_ROOT=\"{}\"\n",
-        upstream.display()
-    );
-    std::fs::write(&env_path, &env_contents)?;
-
-    println!("\nCatalog checkout: {}", upstream.display());
-    println!("{}", env_contents);
-    println!("Wrote: {}", env_path.display());
+    apply_catalog_checkout(&state_path, url_trim, ref_trim)?;
 
     if !Confirm::with_theme(&theme)
         .with_prompt("Install Cursor session hook in a project?")

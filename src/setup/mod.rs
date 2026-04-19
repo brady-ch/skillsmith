@@ -4,4 +4,4 @@ mod state;
 mod wizard;
 
 pub use paths::resolve_catalog_paths;
-pub use wizard::run_setup;
+pub use wizard::{run_setup, run_setup_update};
