@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "env SKILLSMITH_HOOK_PLATFORM=codex bash \"$(git rev-parse --show-toplevel)/hooks/session-start\"",
+            "statusMessage": "Loading skillsmith session bootstrap"
+          }
+        ]
+      }
+    ]
+  }
+}

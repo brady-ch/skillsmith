@@ -1,0 +1,3 @@
+hooks/session-start text eol=lf
+.cursor/hooks/inject-skillsmith-bootstrap.sh text eol=lf
+examples/cursor-session-bootstrap/inject-skillsmith-bootstrap.sh text eol=lf

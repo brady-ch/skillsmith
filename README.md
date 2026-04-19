@@ -69,6 +69,15 @@ cargo fmt
 cargo test
 ```
 
+## Cursor agent session hook
+
+This repo includes a **project-level Cursor hook** that runs on **`sessionStart`** and injects the text of [`skills/using-skillsmith/SKILL.md`](skills/using-skillsmith/SKILL.md) into the agent as `additional_context`, so sessions start aligned with the **`recommend` / `explain` / `validate`** workflow (see [AGENTS.md](AGENTS.md)).
+
+- **Config:** [`.cursor/hooks.json`](.cursor/hooks.json)
+- **Entry script:** [`.cursor/hooks/inject-skillsmith-bootstrap.sh`](.cursor/hooks/inject-skillsmith-bootstrap.sh) (delegates to [`hooks/session-start`](hooks/session-start))
+
+Requires **bash** on your `PATH`. To copy the same setup into another tree or refresh from a template, use **[`examples/cursor-session-bootstrap/`](examples/cursor-session-bootstrap/README.md)** (includes `hooks.json` and the wrapper script plus copy instructions).
+
 ## Validation Rules
 
 Each installable skill must include:

@@ -56,6 +56,22 @@ Reference-level ordering inside a skill is unchanged: `navigation.priority` in `
 - **Superpowers / multi-tool layouts** often symlink skills under `~/.agents/skills/<name>` while keeping a git clone elsewhere ([Superpowers Codex install](https://raw.githubusercontent.com/obra/superpowers/main/.codex/INSTALL.md)). Skillsmith can mirror that pattern with **`cargo run -- install --name <skill> --link`**: the skill directory in the **current repo** is symlinked into `--target` (local catalog skills only; not remote installs). Use **`--force`** to replace an existing target path.
 - Pick a single **`--target`** that matches how your agent discovers skills (e.g. only `~/.codex/skills` or only `~/.agents/skills`) so installed skills are visible to the runtime you use.
 
+## Agent session hooks (Cursor, Codex, Claude Code)
+
+SessionStart hooks inject the full text of **`skills/using-skillsmith/SKILL.md`** at the start of an agent session (same idea as [Superpowers](https://github.com/obra/superpowers) `session-start`). That skill is **not** in `catalog/catalog.toml`; it is only for this bootstrap.
+
+| Client | Config | Notes |
+|--------|--------|--------|
+| **Cursor** | [`.cursor/hooks.json`](.cursor/hooks.json) | Runs [`.cursor/hooks/inject-skillsmith-bootstrap.sh`](.cursor/hooks/inject-skillsmith-bootstrap.sh), which delegates to `hooks/session-start` with `SKILLSMITH_HOOK_PLATFORM=cursor`. Requires **bash** on PATH; on Windows use Git Bash or WSL. Copyable template: [`examples/cursor-session-bootstrap/`](examples/cursor-session-bootstrap/README.md). Verify in Cursor’s Hooks UI / output channel. |
+| **OpenAI Codex** | [`.codex/hooks.json`](.codex/hooks.json) | Enable experimental hooks in Codex `config.toml`: `[features]` → `codex_hooks = true`. Command uses `git rev-parse --show-toplevel` so it works from subdirectories. **Hooks are currently disabled on Windows** (per OpenAI docs). |
+| **Claude Code** | [`hooks/hooks.json`](hooks/hooks.json) | Expects **`CLAUDE_PLUGIN_ROOT`** to point at this **repository root** (same layout as a Claude plugin), so the command `"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd" session-start` resolves. [`hooks/run-hook.cmd`](hooks/run-hook.cmd) is a polyglot wrapper (Windows + Unix) from the Superpowers project. |
+
+Shared implementation: **[`hooks/session-start`](hooks/session-start)** (executable) resolves the repo root, reads the bootstrap skill, and prints JSON in the shape each host expects (`additional_context` vs `hookSpecificOutput`).
+
+**Bare clone without `CLAUDE_PLUGIN_ROOT`:** set `export CLAUDE_PLUGIN_ROOT=/path/to/this/repo` before starting Claude Code, or change the SessionStart command locally to run `env SKILLSMITH_HOOK_PLATFORM=claude bash "$(git rev-parse --show-toplevel)/hooks/session-start"`.
+
+Line endings: [`.gitattributes`](.gitattributes) forces LF for `hooks/session-start` so Windows checkouts do not break the shebang.
+
 ## Validation profiles
 
 - **`cargo run -- validate`** — Default **`--profile strict`**: full skillsmith layout (reference router, `index.toml`, indexed references, Skill Inventory Note in `SKILL.md`, etc.).
