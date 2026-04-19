@@ -56,6 +56,16 @@ Reference-level ordering inside a skill is unchanged: `navigation.priority` in `
 - **Superpowers / multi-tool layouts** often symlink skills under `~/.agents/skills/<name>` while keeping a git clone elsewhere ([Superpowers Codex install](https://raw.githubusercontent.com/obra/superpowers/main/.codex/INSTALL.md)). Skillsmith can mirror that pattern with **`cargo run -- install --name <skill> --link`**: the skill directory in the **current repo** is symlinked into `--target` (local catalog skills only; not remote installs). Use **`--force`** to replace an existing target path.
 - Pick a single **`--target`** that matches how your agent discovers skills (e.g. only `~/.codex/skills` or only `~/.agents/skills`) so installed skills are visible to the runtime you use.
 
+## Catalog location (`SKILLSMITH_REPO_ROOT` and `skillsmith setup`)
+
+Commands need a checkout that contains **`catalog/catalog.toml`**. Resolution order:
+
+1. Environment **`SKILLSMITH_REPO_ROOT`**
+2. **`./catalog/catalog.toml`** relative to the current working directory (typical for contributors)
+3. The data-directory upstream path created by **`skillsmith setup`** (e.g. `~/.local/share/skillsmith/upstream` on Linux)
+
+Run **`skillsmith setup`** after a one-line install to shallow-clone the repo, print `SKILLSMITH_REPO_ROOT`, and optionally install **consumer** Cursor hooks (`.skillsmith/session-bootstrap.md` + portable scripts). Contributor hooks in this repo still use **`hooks/session-start`** and **`skills/using-skillsmith/`**; see [README.md](README.md).
+
 ## Agent session hooks (Cursor, Codex, Claude Code)
 
 SessionStart hooks inject the full text of **`skills/using-skillsmith/SKILL.md`** at the start of an agent session (same idea as [Superpowers](https://github.com/obra/superpowers) `session-start`). That skill is **not** in `catalog/catalog.toml`; it is only for this bootstrap.

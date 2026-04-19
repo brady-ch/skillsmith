@@ -39,5 +39,6 @@ You need **bash** on `PATH` (Git Bash or WSL on Windows).
 
 ## See also
 
+- **`skillsmith setup`** — installs this portable Cursor layout into any project (see [README](../../README.md) “Install without cloning”).
 - Repository [README](../../README.md) — “Cursor agent session hook”
 - [AGENTS.md](../../AGENTS.md) — full agent conventions and Codex/Claude hook notes

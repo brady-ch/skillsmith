@@ -35,9 +35,19 @@ pub fn recommend_for_intent(
     let take_n = if limit == 0 { usize::MAX } else { limit };
     let mut recommendations = Vec::new();
 
-    for (source_name, skill_name, skill_path, metadata, score, reasons) in
-        matches.into_iter().take(take_n)
-    {
+    for (source_name, skill_name, skill_path, metadata, score, reasons) in matches.into_iter() {
+        if limit != 0 && recommendations.len() >= take_n {
+            break;
+        }
+        let index_path = repo_root
+            .join(&skill_path)
+            .join("references")
+            .join("index.toml");
+        if source_name.is_some() && !index_path.is_file() {
+            // Remote catalog entries point at paths inside another repo; skip until installed
+            // or cloned alongside the catalog (see `install` / setup).
+            continue;
+        }
         let index = cache.load_reference_index(repo_root, &skill_path)?;
         let (reference, reference_reasons) = index.best_match(Some(intent)).ok_or_else(|| {
             AppError::ValidationError(format!(

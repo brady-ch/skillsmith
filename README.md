@@ -16,6 +16,31 @@ It is built around a strict skill shape:
 - Explains why a skill and reference matched a given intent
 - Filters skills by intent tags in both CLI and terminal UI
 
+## Install without cloning this repo
+
+You can install the binary from Git, run a guided wizard, and point **`SKILLSMITH_REPO_ROOT`** at a shallow checkout under your data directory (no need to keep a full clone in every project).
+
+**One-liner** (review [scripts/install.sh](scripts/install.sh) before piping to `bash`. The default clone URL is the canonical GitHub repo from [`Cargo.toml`](Cargo.toml) `[package].repository`.)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/brady-ch/skillsmith/main/scripts/install.sh | bash
+```
+
+**Environment (optional / overrides):**
+
+| Variable | Meaning |
+|----------|---------|
+| `SKILLSMITH_GIT_URL` | Git URL passed to `cargo install --git` (default: same as `Cargo.toml` `repository`, currently `https://github.com/brady-ch/skillsmith`) |
+| `SKILLSMITH_GIT_REF` | Branch or tag for install and setup (default: `main`) |
+| `SKILLSMITH_SKIP_SETUP` | If `1`, only installs the binary; run `skillsmith setup` yourself |
+| `SKILLSMITH_ALLOW_ROOT` | Set to `1` only if you intentionally run the installer as root |
+
+**After install:** the wizard (`skillsmith setup`) shallow-clones the catalog into a platform data directory (e.g. `~/.local/share/skillsmith/upstream` on Linux), writes `skillsmith.env` next to it with `export SKILLSMITH_REPO_ROOT=...`, and optionally installs **Cursor** session hooks in a project you choose (portable layout: `.cursor/` + `.skillsmith/session-bootstrap.md`).
+
+**Using the catalog from any directory:** `export SKILLSMITH_REPO_ROOT=/path/from/skillsmith.env` then run `skillsmith recommend --intent "…" --format json`, etc.
+
+Resolution order for `catalog/catalog.toml` is: **`SKILLSMITH_REPO_ROOT`**, then **`./catalog/catalog.toml`** in the current working directory, then the data-dir upstream checkout if present.
+
 ## TOON Metadata
 
 Skillsmith stores machine-readable skill and reference metadata in TOML using TOON sections:
@@ -36,6 +61,7 @@ This is used for:
 ```bash
 cargo run
 cargo run -- ui
+cargo run -- setup          # interactive: clone catalog, env snippet, optional Cursor hooks
 cargo run -- list
 cargo run -- list --intent migration
 cargo run -- sources
@@ -71,12 +97,14 @@ cargo test
 
 ## Cursor agent session hook
 
-This repo includes a **project-level Cursor hook** that runs on **`sessionStart`** and injects the text of [`skills/using-skillsmith/SKILL.md`](skills/using-skillsmith/SKILL.md) into the agent as `additional_context`, so sessions start aligned with the **`recommend` / `explain` / `validate`** workflow (see [AGENTS.md](AGENTS.md)).
+**Contributors (this repository)** use repo-root hooks that inject [`skills/using-skillsmith/SKILL.md`](skills/using-skillsmith/SKILL.md):
 
 - **Config:** [`.cursor/hooks.json`](.cursor/hooks.json)
 - **Entry script:** [`.cursor/hooks/inject-skillsmith-bootstrap.sh`](.cursor/hooks/inject-skillsmith-bootstrap.sh) (delegates to [`hooks/session-start`](hooks/session-start))
 
-Requires **bash** on your `PATH`. To copy the same setup into another tree or refresh from a template, use **[`examples/cursor-session-bootstrap/`](examples/cursor-session-bootstrap/README.md)** (includes `hooks.json` and the wrapper script plus copy instructions).
+**Consumers** (other projects) get a portable layout from **`skillsmith setup`**: `.cursor/hooks/inject-project-bootstrap.sh`, `.skillsmith/hooks/portable-session-start.sh`, and **`.skillsmith/session-bootstrap.md`** (editable). Same bash requirement.
+
+To copy the contributor-style bundle by hand, see **[`examples/cursor-session-bootstrap/`](examples/cursor-session-bootstrap/README.md)**.
 
 ## Validation Rules
 
@@ -95,4 +123,4 @@ Each installable skill must include:
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](/home/brady/workspace/skillsmith/LICENSE:1).
+This project is licensed under the MIT License. See [LICENSE](LICENSE).

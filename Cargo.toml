@@ -2,10 +2,12 @@
 name = "skillsmith"
 version = "0.1.0"
 edition = "2024"
+repository = "https://github.com/brady-ch/skillsmith"
 
 [dependencies]
 clap = { version = "4.5.39", features = ["derive"] }
 dialoguer = "0.11.0"
+dirs = "6.0.0"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.140"
 tempfile = "3.20.0"

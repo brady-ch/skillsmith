@@ -10,9 +10,8 @@ use skillsmith::catalog::{
 };
 use skillsmith::error::AppError;
 use skillsmith::installer::{InstallRequest, install_skill, summarize_install, trim_to_owned};
+use skillsmith::setup::{resolve_catalog_paths, run_setup};
 use skillsmith::ui::{UiConfig, run_menu};
-
-const CATALOG_FILE: &str = "catalog/catalog.toml";
 
 #[derive(Debug, Clone, Copy, Default, ValueEnum)]
 enum OutputFormat {
@@ -103,6 +102,8 @@ enum Commands {
         #[arg(long, value_enum, default_value_t = OutputFormat::Text)]
         format: OutputFormat,
     },
+    /// Interactive install: clone catalog to data dir, print SKILLSMITH_REPO_ROOT, optional Cursor hooks.
+    Setup,
 }
 
 fn main() {
@@ -114,12 +115,24 @@ fn main() {
 
 fn run() -> Result<(), AppError> {
     let cli = Cli::parse();
-    let repo_root =
-        std::env::current_dir().map_err(|err| AppError::FilesystemError(err.to_string()))?;
-    let catalog_path = repo_root.join(CATALOG_FILE);
     let default_target = default_install_root();
 
     match cli.command {
+        Some(Commands::Setup) => run_setup(),
+        cmd => {
+            let (repo_root, catalog_path) = resolve_catalog_paths()?;
+            run_with_catalog(cmd, repo_root, catalog_path, default_target)
+        }
+    }
+}
+
+fn run_with_catalog(
+    cmd: Option<Commands>,
+    repo_root: PathBuf,
+    catalog_path: PathBuf,
+    default_target: PathBuf,
+) -> Result<(), AppError> {
+    match cmd {
         None => run_menu(UiConfig {
             catalog_path,
             repo_root,
@@ -320,6 +333,7 @@ fn run() -> Result<(), AppError> {
             }
             Ok(())
         }
+        Some(Commands::Setup) => unreachable!("setup is handled before resolve_catalog_paths"),
     }
 }
 
