@@ -9,6 +9,7 @@ use skillsmith::catalog::{
     recommend_for_intent,
 };
 use skillsmith::error::AppError;
+use skillsmith::install_targets::{InstallInto, InstallScope, resolve_install_root};
 use skillsmith::installer::{InstallRequest, install_skill, summarize_install, trim_to_owned};
 use skillsmith::setup::{resolve_catalog_paths, run_setup, run_setup_update};
 use skillsmith::ui::{UiConfig, run_menu};
@@ -39,8 +40,14 @@ struct Cli {
 #[derive(Debug, Subcommand)]
 enum Commands {
     Ui {
+        /// Explicit directory for skill installs (overrides --into / --scope).
         #[arg(long)]
         target: Option<PathBuf>,
+        /// Codex `.codex/skills`, Claude `.claude/skills`, or `.agents/skills`.
+        #[arg(long, value_enum)]
+        into: Option<InstallInto>,
+        #[arg(long, value_enum, default_value_t = InstallScope::Global)]
+        scope: InstallScope,
     },
     List {
         #[arg(long)]
@@ -53,8 +60,15 @@ enum Commands {
         /// Skill name(s); repeat `--name` for each skill to install in one run
         #[arg(long, required = true, action = clap::ArgAction::Append)]
         name: Vec<String>,
+        /// Explicit directory for installs (overrides --into / --scope).
         #[arg(long)]
         target: Option<PathBuf>,
+        /// Codex `.codex/skills`, Claude `.claude/skills`, or `.agents/skills` (default: codex).
+        #[arg(long, value_enum)]
+        into: Option<InstallInto>,
+        /// Global (under HOME) vs project (under current directory).
+        #[arg(long, value_enum, default_value_t = InstallScope::Global)]
+        scope: InstallScope,
         #[arg(long)]
         source: Option<String>,
         #[arg(long, default_value_t = false)]
@@ -119,7 +133,7 @@ fn main() {
 
 fn run() -> Result<(), AppError> {
     let cli = Cli::parse();
-    let default_target = default_install_root();
+    let default_target = resolve_install_root(None, None, InstallScope::Global);
 
     match cli.command {
         Some(Commands::Setup { update }) => {
@@ -148,10 +162,14 @@ fn run_with_catalog(
             repo_root,
             initial_target: default_target,
         }),
-        Some(Commands::Ui { target }) => run_menu(UiConfig {
+        Some(Commands::Ui {
+            target,
+            into,
+            scope,
+        }) => run_menu(UiConfig {
             catalog_path,
             repo_root,
-            initial_target: target.unwrap_or(default_target),
+            initial_target: resolve_install_root(target, into, scope),
         }),
         Some(Commands::List { intent, format }) => {
             let catalog = Catalog::load_from_file(&catalog_path)?;
@@ -237,12 +255,14 @@ fn run_with_catalog(
         Some(Commands::Install {
             name,
             target,
+            into,
+            scope,
             source,
             force,
             link,
         }) => {
             let catalog = Catalog::load_from_file(&catalog_path)?;
-            let target_root = target.unwrap_or(default_target);
+            let target_root = resolve_install_root(target, into, scope);
             let source_name = source.map(trim_to_owned);
             for skill_name in name {
                 let request = InstallRequest {
@@ -477,9 +497,3 @@ fn validate_remote_source_health(source: &RemoteSource) -> Result<Vec<String>, A
     Ok(issues)
 }
 
-fn default_install_root() -> PathBuf {
-    match std::env::var("HOME") {
-        Ok(home) => PathBuf::from(home).join(".codex").join("skills"),
-        Err(_) => PathBuf::from(".codex/skills"),
-    }
-}

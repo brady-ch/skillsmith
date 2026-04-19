@@ -56,6 +56,48 @@ summary = "Load the router first, then one reference for phased rollout or rollb
 priority = 30
 
 [[locals]]
+name = "test-suite-design"
+relative_path = "skills/test-suite-design"
+
+[locals.metadata.trigger]
+summary = "Use when choosing unit versus integration versus end-to-end test mix, explaining the test pyramid or testing trophy, sizing tests for CI, or weighing test-driven development against test-after habits."
+intent_tags = ["testing", "pyramid", "trophy", "integration", "e2e", "tdd", "ci", "unit", "jest", "pytest"]
+when_to_use = ["Design automated test levels.", "Compare pyramid vs trophy or Google test sizes.", "Introduce TDD workflow."]
+skill_role = "process"
+order_weight = 0
+
+[locals.metadata.objective]
+summary = "Recommend test suite shape and TDD pointers with explicit tradeoffs."
+
+[locals.metadata.output]
+summary = "Return level mix, rejected alternative, and cross-links to determinism or API contract skills when relevant."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then suite levels or TDD reference."
+priority = 12
+
+[[locals]]
+name = "test-determinism"
+relative_path = "skills/test-determinism"
+
+[locals.metadata.trigger]
+summary = "Use when automated tests are flaky, order-dependent, time-dependent, or pass and fail inconsistently in CI."
+intent_tags = ["flaky", "nondeterminism", "parallel", "ci", "async", "timing", "race", "pollution"]
+when_to_use = ["Diagnose flaky tests.", "Fix intermittent CI failures.", "Debug parallel test pollution."]
+skill_role = "process"
+order_weight = 1
+
+[locals.metadata.objective]
+summary = "Diagnose nondeterminism and isolation failures using Fowler’s taxonomy."
+
+[locals.metadata.output]
+summary = "Return likely cause, fix, and when to use contract testing or quarantine."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then nondeterminism catalog or isolation reference."
+priority = 13
+
+[[locals]]
 name = "rust-patterns-architecture"
 relative_path = "skills/rust-patterns-architecture"
 

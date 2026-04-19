@@ -58,6 +58,8 @@ This repository includes these base skills and intent:
 - `repo-scout`: repository assessment and implementation briefing
 - `api-contract-critic`: API contract review and compatibility risk analysis
 - `migration-guardian`: migration planning with rollback-first safety
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
 - `rust-patterns-architecture`: Rust-specific idioms, APIs, architecture, FFI, and anti-pattern review
 - `behavioral-pattern-architect`: language-agnostic behavioral pattern selection and tradeoff guidance
 - `creational-pattern-architect`: language-agnostic creational pattern selection and tradeoff guidance

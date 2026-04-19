@@ -7,6 +7,7 @@ use crate::catalog::{
     health_check_local_skill,
 };
 use crate::error::AppError;
+use crate::install_targets::{InstallInto, InstallScope, resolve_install_root};
 use crate::installer::{InstallRequest, check_git_installed, install_skill, is_git_repo_url};
 
 pub struct UiConfig {
@@ -49,12 +50,41 @@ pub fn run_menu(config: UiConfig) -> Result<(), AppError> {
                 cache = CatalogCache::new(Catalog::load_from_file(&config.catalog_path)?);
             }
             5 => {
-                let value: String = Input::with_theme(&theme)
-                    .with_prompt("Install target directory")
-                    .with_initial_text(install_target.to_string_lossy().to_string())
-                    .interact_text()
+                let preset = Select::with_theme(&theme)
+                    .with_prompt("Install destination")
+                    .items(&[
+                        "Codex — global (~/.codex/skills)",
+                        "Codex — this project (./.codex/skills)",
+                        "Claude — global (~/.claude/skills)",
+                        "Claude — this project (./.claude/skills)",
+                        "Agents — global (~/.agents/skills)",
+                        "Agents — this project (./.agents/skills)",
+                        "Custom path…",
+                    ])
+                    .default(0)
+                    .interact()
                     .map_err(|err| AppError::InputError(err.to_string()))?;
-                install_target = PathBuf::from(value.trim());
+
+                install_target = match preset {
+                    0 => resolve_install_root(None, Some(InstallInto::Codex), InstallScope::Global),
+                    1 => resolve_install_root(None, Some(InstallInto::Codex), InstallScope::Project),
+                    2 => resolve_install_root(None, Some(InstallInto::Claude), InstallScope::Global),
+                    3 => {
+                        resolve_install_root(None, Some(InstallInto::Claude), InstallScope::Project)
+                    }
+                    4 => resolve_install_root(None, Some(InstallInto::Agents), InstallScope::Global),
+                    5 => resolve_install_root(None, Some(InstallInto::Agents), InstallScope::Project),
+                    6 => {
+                        let value: String = Input::with_theme(&theme)
+                            .with_prompt("Install target directory")
+                            .with_initial_text(install_target.to_string_lossy().to_string())
+                            .interact_text()
+                            .map_err(|err| AppError::InputError(err.to_string()))?;
+                        PathBuf::from(value.trim())
+                    }
+                    _ => unreachable!(),
+                };
+                println!("Install target: {}", install_target.display());
             }
             6 => {
                 cache = CatalogCache::new(Catalog::load_from_file(&config.catalog_path)?);

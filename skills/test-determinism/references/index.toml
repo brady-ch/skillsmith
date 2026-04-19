@@ -1,0 +1,35 @@
+[[references]]
+file = "nondeterminism-catalog.md"
+
+[references.metadata.trigger]
+summary = "Use when tests are flaky, time-dependent, async-racy, or fail only in CI."
+intent_tags = ["flaky", "nondeterminism", "async", "timing", "ci", "race"]
+when_to_use = ["Diagnose intermittent test failures.", "Map symptoms to causes.", "Fix sleep-based tests."]
+
+[references.metadata.objective]
+summary = "Classify nondeterminism using Fowler’s taxonomy and propose targeted fixes."
+
+[references.metadata.output]
+summary = "Return likely cause class, fix, and when to escalate to contract testing."
+
+[references.metadata.navigation]
+summary = "Prefer for symptom-to-cause mapping."
+priority = 10
+
+[[references]]
+file = "isolation-and-parallelism.md"
+
+[references.metadata.trigger]
+summary = "Use when order-dependent failures, shared fixtures, or parallel CI break tests."
+intent_tags = ["parallel", "isolation", "fixtures", "pollution", "quarantine"]
+when_to_use = ["Tests pass alone but fail in suite.", "Enable or debug parallel test execution."]
+
+[references.metadata.objective]
+summary = "Reduce shared state and parallel hazards without hiding failures."
+
+[references.metadata.output]
+summary = "Return isolation or parallelism changes and a conservative CI policy note."
+
+[references.metadata.navigation]
+summary = "Prefer for fixture scope and parallel runners."
+priority = 20
