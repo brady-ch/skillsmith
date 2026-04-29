@@ -5,23 +5,23 @@ description: Use when working in a skillsmith checkout or installing the project
 
 # Using Skillsmith
 
-Base router. Keep it short. Load only what you need.
+This is the base skill router. Keep this file lean and load references selectively.
 
 ## Non-Negotiable Loading Rule
 
-Read `references/reference-router.md` first. Then load only the minimum extra reference.
+Load `references/reference-router.md` first, then only the minimum additional reference needed.
 
 ## When To Use This Skill
 
 Use when the user asks for:
-- skillsmith workflow or setup guidance
+- skillsmith repo workflow or setup guidance
 - agent bootstrap or install conventions
 - catalog selection, validation, or install-flow reminders
-- terse output using `compression-skill-designer`, unless safety or clarity needs more detail
+- default response style should stay compressed using `compression-skill-designer` unless safety or clarity requires fuller wording
 
 Do not use when:
 - the task is unrelated to skillsmith or its agent workflow
-- the user asks for a different repo skill
+- the user specifically asks for a different repo skill
 
 ## Reference Map
 
@@ -29,10 +29,6 @@ Do not use when:
 | --- | --- |
 | `references/reference-router.md` | Always first |
 | `references/best-practices.md` | Need the repo workflow, setup, validation, and install rules |
-
-## Project Rule
-
-- After any repo change, rerun `skillsmith setup` so installed rules stay current.
 
 ## Skill Inventory Note
 

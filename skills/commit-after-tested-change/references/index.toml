@@ -1,0 +1,21 @@
+[[references]]
+file = "commit-cadence.md"
+
+[references.metadata.trigger]
+summary = "Use when an agent needs a commit-after-tested-change workflow."
+intent_tags = ["git", "commit", "tested", "workflow", "checkpoint", "delivery"]
+when_to_use = [
+  "Need a commit cadence for completed, tested work.",
+]
+skill_role = "process"
+order_weight = 0
+
+[references.metadata.objective]
+summary = "Provide a tested-change commit loop with clear guardrails."
+
+[references.metadata.output]
+summary = "Return a commit cadence, test gate, and commit-scope guardrails."
+
+[references.metadata.navigation]
+summary = "Load the router first, then the commit cadence reference."
+priority = 10

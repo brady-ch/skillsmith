@@ -91,22 +91,32 @@ fn local_catalog() -> Catalog {
 
 fn bootstrap_catalog() -> Catalog {
     Catalog {
-        locals: vec![LocalSkill {
-            name: "using-skillsmith".to_string(),
-            relative_path: "skills/using-skillsmith".to_string(),
-            metadata: metadata(
-                "Provide the default workflow and install rules for agents working in skillsmith.",
-                &[
-                    "setup",
-                    "bootstrap",
-                    "install",
-                    "workflow",
-                    "agent",
-                    "rules",
-                    "validate",
-                ],
-            ),
-        }],
+        locals: vec![
+            LocalSkill {
+                name: "using-skillsmith".to_string(),
+                relative_path: "skills/using-skillsmith".to_string(),
+                metadata: metadata(
+                    "Provide the default workflow and install rules for agents working in skillsmith.",
+                    &[
+                        "setup",
+                        "bootstrap",
+                        "install",
+                        "workflow",
+                        "agent",
+                        "rules",
+                        "validate",
+                    ],
+                ),
+            },
+            LocalSkill {
+                name: "compression-skill-designer".to_string(),
+                relative_path: "skills/compression-skill-designer".to_string(),
+                metadata: metadata(
+                    "Design terse communication skills with activation and safety rules.",
+                    &["skill", "compression", "terse", "mode"],
+                ),
+            },
+        ],
         sources: Vec::new(),
     }
 }
@@ -239,21 +249,30 @@ fn installs_default_agent_rules_into_all_project_runtimes() {
         "using-skillsmith",
         "default workflow and install rules",
     );
+    write_skill(
+        &repo.path().join("skills/compression-skill-designer"),
+        "compression-skill-designer",
+        "default compression rules",
+    );
 
     let catalog = bootstrap_catalog();
     install_project_agent_rules(project.path(), &catalog, repo.path())
         .expect("install default agent rules");
 
     for root in [".codex/skills", ".claude/skills", ".agents/skills"] {
-        assert!(
-            project
-                .path()
-                .join(root)
-                .join("using-skillsmith/SKILL.md")
-                .exists(),
-            "expected default agent rules at {}",
-            root
-        );
+        for skill in ["using-skillsmith", "compression-skill-designer"] {
+            assert!(
+                project
+                    .path()
+                    .join(root)
+                    .join(skill)
+                    .join("SKILL.md")
+                    .exists(),
+                "expected default agent rules for {} at {}",
+                skill,
+                root
+            );
+        }
     }
 }
 

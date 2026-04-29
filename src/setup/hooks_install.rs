@@ -12,6 +12,7 @@ const PORTABLE_SESSION: &str = include_str!("templates/portable-session-start.sh
 const INJECT_PROJECT: &str = include_str!("templates/inject-project-bootstrap.sh");
 const CURSOR_HOOKS_JSON: &str = include_str!("templates/cursor-hooks.json");
 const SESSION_BOOTSTRAP: &str = include_str!("templates/session-bootstrap.md");
+const DEFAULT_AGENT_SKILLS: &[&str] = &["using-skillsmith", "compression-skill-designer"];
 
 fn set_executable(path: &Path) -> Result<(), AppError> {
     #[cfg(unix)]
@@ -27,7 +28,7 @@ fn set_executable(path: &Path) -> Result<(), AppError> {
     Ok(())
 }
 
-/// Installs the default `using-skillsmith` skill into the project-local runtime directories.
+/// Installs the default agent skills into the project-local runtime directories.
 pub fn install_project_agent_rules(
     project_root: &Path,
     catalog: &Catalog,
@@ -40,15 +41,17 @@ pub fn install_project_agent_rules(
     ];
 
     for target_root in roots {
-        let request = InstallRequest {
-            skill_name: "using-skillsmith".to_string(),
-            source_name: None,
-            target_root,
-            force: true,
-            link: false,
-        };
-        let outcome = install_skill(catalog, &request, repo_root)?;
-        println!("{}", summarize_install(&outcome));
+        for skill_name in DEFAULT_AGENT_SKILLS {
+            let request = InstallRequest {
+                skill_name: (*skill_name).to_string(),
+                source_name: None,
+                target_root: target_root.clone(),
+                force: true,
+                link: false,
+            };
+            let outcome = install_skill(catalog, &request, repo_root)?;
+            println!("{}", summarize_install(&outcome));
+        }
     }
 
     Ok(())
@@ -106,6 +109,12 @@ mod tests {
                 .path()
                 .join(".skillsmith/session-bootstrap.md")
                 .is_file()
+        );
+        let bootstrap = fs::read_to_string(project.path().join(".skillsmith/session-bootstrap.md"))
+            .expect("read session bootstrap");
+        assert!(
+            bootstrap.contains("compression-skill-designer"),
+            "expected bootstrap to mention compression skill"
         );
     }
 }

@@ -1,15 +1,16 @@
-# Skillsmith (session bootstrap)
+# Skillsmith session bootstrap
 
-This file is injected at **Cursor Agent session start** when you install project hooks via `skillsmith setup`.
+Injected at Cursor Agent session start by `skillsmith setup`.
 
-## Use the catalog
+## Rules
 
-1. Point **`SKILLSMITH_REPO_ROOT`** at a checkout of the skillsmith repository that contains `catalog/catalog.toml`.
-2. Use `skillsmith recommend --intent "<your task>" --format json` before picking a skill by hand.
-3. Use `skillsmith explain --intent "..." --format json` when you need routing reasons.
-4. Use `skillsmith validate` after changing skill layout, catalog metadata, or install behavior.
-5. Work from the repository root, inspect current files before editing, and preserve unrelated user changes.
+1. Set `SKILLSMITH_REPO_ROOT` to this repo checkout with `catalog/catalog.toml`.
+2. Run `skillsmith recommend --intent "<task>" --format json` before hand-picking a skill.
+3. Run `skillsmith explain --intent "..." --format json` for routing reasons.
+4. Run `skillsmith validate` after skill layout, catalog metadata, or install changes.
+5. Work from the repo root, inspect current files first, and keep unrelated user changes intact.
+6. After any repo change, rerun `skillsmith setup`.
 
-## This project
+## Style
 
-The reusable default workflow lives in the `using-skillsmith` skill. Keep this file short and project-specific.
+Default to `compression-skill-designer`: terse, exact on technical terms, and fuller only when the action is unsafe, irreversible, or unclear.

@@ -12,7 +12,9 @@ use crate::installer::{
     InstallRequest, check_git_installed, clone_remote_source, install_remote_from_checkout,
     install_skill, is_git_repo_url,
 };
-use crate::setup::{install_cursor_hooks, install_project_agent_rules};
+use crate::setup::{
+    confirm_replace_hooks, install_cursor_hooks, install_project_agent_rules, prompt_project_root,
+};
 
 pub struct UiConfig {
     pub catalog_path: PathBuf,
@@ -145,26 +147,8 @@ fn install_hooks_interactive(
     catalog: &Catalog,
     repo_root: &Path,
 ) -> Result<(), AppError> {
-    let default_proj = std::env::current_dir()
-        .map_err(|e| AppError::FilesystemError(e.to_string()))?
-        .to_string_lossy()
-        .to_string();
-    let proj: String = Input::with_theme(theme)
-        .with_prompt("Project root directory")
-        .default(default_proj)
-        .interact_text()
-        .map_err(|e| AppError::InputError(e.to_string()))?;
-    let proj_root = PathBuf::from(proj.trim());
-
-    let hooks_json = proj_root.join(".cursor/hooks.json");
-    let replace = !hooks_json.is_file()
-        || Confirm::with_theme(theme)
-            .with_prompt(
-                "Replace existing .cursor/hooks.json? (No still writes hook scripts and bootstrap)",
-            )
-            .default(false)
-            .interact()
-            .map_err(|e| AppError::InputError(e.to_string()))?;
+    let proj_root = prompt_project_root(theme)?;
+    let replace = confirm_replace_hooks(theme, &proj_root)?;
 
     install_project_agent_rules(&proj_root, catalog, repo_root)?;
     install_cursor_hooks(&proj_root, replace)?;

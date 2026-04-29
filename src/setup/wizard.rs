@@ -1,7 +1,7 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use dialoguer::{Confirm, Input, theme::ColorfulTheme};
+use dialoguer::theme::ColorfulTheme;
 
 use crate::catalog::Catalog;
 use crate::error::AppError;
@@ -11,6 +11,7 @@ use super::paths::{
     CATALOG_REL, default_git_ref, default_git_url, ensure_data_dir, setup_state_path,
     skillsmith_env_snippet_path, upstream_checkout_dir,
 };
+use super::prompts::{confirm_replace_hooks, prompt_project_root};
 use super::state::{SetupState, load_state, save_state};
 
 fn apply_catalog_checkout(
@@ -155,7 +156,7 @@ fn run_setup_inner(update_catalog_only: bool) -> Result<(), AppError> {
     let project_root = prompt_project_root(&theme)?;
     install_project_agent_rules(&project_root, &catalog, &repo_root)?;
 
-    if !Confirm::with_theme(&theme)
+    if !dialoguer::Confirm::with_theme(&theme)
         .with_prompt("Install Cursor session hooks in a project?")
         .default(false)
         .interact()
@@ -172,30 +173,4 @@ fn run_setup_inner(update_catalog_only: bool) -> Result<(), AppError> {
     );
 
     Ok(())
-}
-
-fn prompt_project_root(theme: &ColorfulTheme) -> Result<PathBuf, AppError> {
-    let default_proj = std::env::current_dir()
-        .map_err(|e| AppError::FilesystemError(e.to_string()))?
-        .to_string_lossy()
-        .to_string();
-    let proj: String = Input::with_theme(theme)
-        .with_prompt("Project root directory")
-        .default(default_proj)
-        .interact_text()
-        .map_err(|e| AppError::InputError(e.to_string()))?;
-    Ok(PathBuf::from(proj.trim()))
-}
-
-fn confirm_replace_hooks(theme: &ColorfulTheme, project_root: &Path) -> Result<bool, AppError> {
-    let hooks_json = project_root.join(".cursor/hooks.json");
-    let replace = !hooks_json.is_file()
-        || Confirm::with_theme(theme)
-            .with_prompt(
-                "Replace existing .cursor/hooks.json? (No still writes hook scripts and bootstrap)",
-            )
-            .default(false)
-            .interact()
-            .map_err(|e| AppError::InputError(e.to_string()))?;
-    Ok(replace)
 }

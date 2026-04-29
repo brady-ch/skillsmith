@@ -1,0 +1,24 @@
+[[references]]
+file = "best-practices.md"
+
+[references.metadata.trigger]
+summary = "Use when an agent needs skillsmith workflow, setup, validation, or install rules."
+intent_tags = ["setup", "workflow", "install", "bootstrap", "agent", "rules", "validate"]
+when_to_use = [
+  "Set up a skillsmith checkout.",
+  "Install the default agent rules into a project.",
+  "Need the repo workflow for skillsmith work.",
+]
+skill_role = "process"
+order_weight = 0
+
+[references.metadata.objective]
+summary = "Provide the default workflow and install rules for agents working in skillsmith."
+
+[references.metadata.output]
+summary = "Return the repo-root workflow, install guidance, and validation steps."
+
+[references.metadata.navigation]
+summary = "Load the router first, then this checklist."
+priority = 10
+

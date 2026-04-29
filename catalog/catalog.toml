@@ -24,6 +24,30 @@ summary = "Load the router first, then this checklist."
 priority = 5
 
 [[locals]]
+name = "commit-after-tested-change"
+relative_path = "skills/commit-after-tested-change"
+
+[locals.metadata.trigger]
+summary = "Use when you want a commit cadence that records each completed, tested change before moving on."
+intent_tags = ["git", "commit", "tested", "workflow", "checkpoint", "delivery"]
+when_to_use = [
+  "Need a process for committing only after tests pass.",
+  "Want incremental commits for completed work slices.",
+]
+skill_role = "process"
+order_weight = -4
+
+[locals.metadata.objective]
+summary = "Guide incremental commits that only happen after a slice is complete and tested."
+
+[locals.metadata.output]
+summary = "Return a tested-change commit loop, a test gate, and commit-scope guardrails."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then the commit cadence reference."
+priority = 6
+
+[[locals]]
 name = "repo-scout"
 relative_path = "skills/repo-scout"
 
