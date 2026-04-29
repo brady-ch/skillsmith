@@ -1,0 +1,53 @@
+[[references]]
+file = "architecture-decision-framing.md"
+
+[references.metadata.trigger]
+summary = "Use when the request is about architecture decisions, quality attributes, or tradeoff framing."
+intent_tags = ["architecture", "system", "design", "tradeoffs", "quality-attributes", "decision"]
+when_to_use = ["Frame architecture options against constraints and quality attributes.", "Choose a direction and explain why."]
+
+[references.metadata.objective]
+summary = "Provide decision framing for architecture choices."
+
+[references.metadata.output]
+summary = "Return a recommendation, the rejected alternative, and the decision tradeoffs."
+
+[references.metadata.navigation]
+summary = "Prefer this reference when the user needs architecture decision framing."
+priority = 10
+
+[[references]]
+file = "decomposition-and-boundaries.md"
+
+[references.metadata.trigger]
+summary = "Use when the request is about module, package, or service decomposition and dependency direction."
+intent_tags = ["decomposition", "boundaries", "module", "service", "dependency", "layering"]
+when_to_use = ["Split a system into modules or services.", "Choose boundary placement and dependency direction."]
+
+[references.metadata.objective]
+summary = "Provide boundary and decomposition guidance."
+
+[references.metadata.output]
+summary = "Return recommended boundaries, rejected alternatives, and coupling tradeoffs."
+
+[references.metadata.navigation]
+summary = "Prefer this reference when the user needs a boundary or decomposition decision."
+priority = 20
+
+[[references]]
+file = "architecture-review-and-risks.md"
+
+[references.metadata.trigger]
+summary = "Use when the request is about architecture review, risk analysis, or failure modes."
+intent_tags = ["review", "risk", "failure-modes", "coupling", "operability", "resilience"]
+when_to_use = ["Review an architecture for risks and weak points.", "Call out likely failure modes and mitigations."]
+
+[references.metadata.objective]
+summary = "Provide review guidance for architecture risks and failure modes."
+
+[references.metadata.output]
+summary = "Return risks, why they matter, and mitigations."
+
+[references.metadata.navigation]
+summary = "Prefer this reference when the user needs an architecture review."
+priority = 30

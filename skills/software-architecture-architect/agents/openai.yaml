@@ -1,0 +1,4 @@
+version: 1
+display_name: Software Architecture Architect
+short_description: Language-agnostic system architecture and tradeoff guidance.
+default_prompt: Use $software-architecture-architect to evaluate the system architecture question, choose the lightest viable decomposition, and call out risks, alternatives, and quality attributes.

@@ -24,3 +24,27 @@ fn recommend_skips_remote_skills_without_local_reference_index() {
         "expected local skills to fill recommendations after skipping remote"
     );
 }
+
+#[test]
+fn recommend_prefers_umbrella_architecture_skill_for_broad_query() {
+    let repo_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let catalog_path = repo_root.join("catalog/catalog.toml");
+    let catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
+    let mut cache = CatalogCache::new(catalog);
+    let intent = "system architecture tradeoffs and module boundaries";
+    let res = recommend_for_intent(&mut cache, &repo_root, intent, 5, None, None)
+        .expect("recommend should succeed for architecture query");
+
+    assert_eq!(
+        res.recommendations
+            .first()
+            .map(|entry| entry.skill_name.as_str()),
+        Some("software-architecture-architect")
+    );
+    assert_eq!(
+        res.recommendations
+            .first()
+            .map(|entry| entry.suggested_reference_file.as_str()),
+        Some("architecture-decision-framing.md")
+    );
+}

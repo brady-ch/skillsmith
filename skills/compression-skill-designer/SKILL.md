@@ -1,9 +1,9 @@
 ---
-name: using-skillsmith
-description: Use when working in a skillsmith checkout or installing the project's default agent rules.
+name: compression-skill-designer
+description: Use when designing or reviewing terse, token-efficient communication skills, caveman-like response modes, or persona skills that compress output while preserving technical accuracy.
 ---
 
-# Using Skillsmith
+# Compression Skill Designer
 
 This is the base skill router. Keep this file lean and load references selectively.
 
@@ -14,20 +14,22 @@ Load `references/reference-router.md` first, then only the minimum additional re
 ## When To Use This Skill
 
 Use when the user asks for:
-- skillsmith repo workflow or setup guidance
-- agent bootstrap or install conventions
-- catalog selection, validation, or install-flow reminders
+- a skill similar in spirit to caveman-style output compression
+- token-efficient communication mode design
+- terse persona rules that preserve technical accuracy
+- activation, deactivation, and safety fallback rules for compressed responses
 
 Do not use when:
-- the task is unrelated to skillsmith or its agent workflow
-- the user specifically asks for a different repo skill
+- the user wants normal concise writing rather than a reusable skill
+- the user asks to copy another skill verbatim
+- the main task is installing or validating skillsmith itself - use **`using-skillsmith`**
 
 ## Reference Map
 
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/best-practices.md` | Need the repo workflow, setup, validation, and install rules |
+| `references/compression-mode-design.md` | Need to design or review a token-compressed communication skill |
 
 ## Skill Inventory Note
 
@@ -39,4 +41,5 @@ This repository includes these base skills and intent:
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
 - `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
 - `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
+- `compression-skill-designer`: terse, token-efficient communication skill design
 - `product-manager-challenger`: strict product questioning, scope pushback, and repo-native task tracking

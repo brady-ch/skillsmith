@@ -43,6 +43,27 @@ summary = "Load the reference router first, then exactly one reference based on 
 priority = 10
 
 [[locals]]
+name = "software-architecture-architect"
+relative_path = "skills/software-architecture-architect"
+
+[locals.metadata.trigger]
+summary = "Use when the request is about language-agnostic system architecture, module or service decomposition, boundary design, dependency direction, quality attributes, or architecture tradeoffs."
+intent_tags = ["architecture", "system", "design", "decomposition", "boundaries", "tradeoffs", "quality-attributes", "review", "risk"]
+when_to_use = ["Design or review a system architecture.", "Compare module or service boundaries and architecture tradeoffs."]
+skill_role = "process"
+order_weight = -5
+
+[locals.metadata.objective]
+summary = "Provide language-agnostic system architecture framing, decomposition guidance, and tradeoff analysis."
+
+[locals.metadata.output]
+summary = "Return a concrete architecture recommendation with a rejected alternative, tradeoffs, and one risk mitigation."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then one reference for decision framing, decomposition, or architecture review."
+priority = 14
+
+[[locals]]
 name = "api-contract-critic"
 relative_path = "skills/api-contract-critic"
 
@@ -121,6 +142,27 @@ summary = "Return likely cause, fix, and when to use contract testing or quarant
 [locals.metadata.navigation]
 summary = "Load the router first, then nondeterminism catalog or isolation reference."
 priority = 13
+
+[[locals]]
+name = "compression-skill-designer"
+relative_path = "skills/compression-skill-designer"
+
+[locals.metadata.trigger]
+summary = "Use when designing or reviewing terse, token-efficient communication skills, caveman-like response modes, or compressed persona rules."
+intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "caveman", "mode"]
+when_to_use = ["Design a caveman-like communication skill.", "Create rules for token-efficient agent responses.", "Review a compressed persona skill for accuracy and safety."]
+skill_role = "meta"
+order_weight = 0
+
+[locals.metadata.objective]
+summary = "Create concise communication skills with activation rules, exact-preservation safeguards, and safety fallbacks."
+
+[locals.metadata.output]
+summary = "Return trigger rules, compression levels, exact-preservation rules, safety fallbacks, and examples."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then the compression mode design reference."
+priority = 14
 
 [[locals]]
 name = "rust-patterns-architecture"

@@ -39,4 +39,5 @@ This repository includes these base skills and intent:
 - `migration-guardian`: migration planning with rollback-first safety
 - `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
+- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
 - `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review

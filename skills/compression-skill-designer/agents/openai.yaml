@@ -1,0 +1,5 @@
+version: 1
+display_name: Compression Skill Designer
+short_description: Design terse, token-efficient communication skills that preserve technical accuracy.
+default_prompt: Design a terse communication skill with clear activation rules, compression levels, technical-accuracy safeguards, and safety fallbacks.
+

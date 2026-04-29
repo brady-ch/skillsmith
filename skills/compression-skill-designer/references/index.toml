@@ -1,0 +1,24 @@
+[[references]]
+file = "compression-mode-design.md"
+
+[references.metadata.trigger]
+summary = "Use when designing or reviewing terse, token-efficient communication skills, caveman-like response modes, or compressed persona rules."
+intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "caveman", "mode"]
+when_to_use = [
+  "Design a caveman-like communication skill.",
+  "Create rules for token-efficient agent responses.",
+  "Review a compressed persona skill for accuracy and safety.",
+]
+skill_role = "meta"
+order_weight = 0
+
+[references.metadata.objective]
+summary = "Create a concise communication skill with activation rules, exact-preservation safeguards, and safety fallbacks."
+
+[references.metadata.output]
+summary = "Return trigger rules, compression levels, exact-preservation rules, safety fallbacks, and examples."
+
+[references.metadata.navigation]
+summary = "Prefer this reference for terse communication mode design."
+priority = 10
+

@@ -85,6 +85,44 @@ fn intent_matching_prefers_rust_skill_for_rust_specific_query() {
 }
 
 #[test]
+fn intent_matching_prefers_umbrella_architecture_skill_for_broad_query() {
+    let mut umbrella_meta = test_metadata(
+        "Language-agnostic system architecture framing and decomposition",
+        &[
+            "architecture",
+            "system",
+            "design",
+            "decomposition",
+            "boundaries",
+        ],
+    );
+    umbrella_meta.trigger.skill_role = SkillRole::Process;
+    umbrella_meta.trigger.order_weight = -5;
+
+    let catalog = Catalog {
+        locals: vec![
+            LocalSkill {
+                name: "repo-scout".to_string(),
+                relative_path: "skills/repo-scout".to_string(),
+                metadata: test_metadata(
+                    "Inspect repositories and architecture gaps",
+                    &["repo", "analysis", "brief", "architecture"],
+                ),
+            },
+            LocalSkill {
+                name: "software-architecture-architect".to_string(),
+                relative_path: "skills/software-architecture-architect".to_string(),
+                metadata: umbrella_meta,
+            },
+        ],
+        sources: Vec::new(),
+    };
+
+    let matches = catalog.matches_for_intent("architecture");
+    assert_eq!(matches[0].skill_name, "software-architecture-architect");
+}
+
+#[test]
 fn intent_matching_orders_process_before_implementation_on_score_tie() {
     let mut process_meta = test_metadata("Process guidance", &["api"]);
     process_meta.trigger.skill_role = SkillRole::Process;
