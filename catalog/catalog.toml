@@ -48,6 +48,30 @@ summary = "Load the router first, then the commit cadence reference."
 priority = 6
 
 [[locals]]
+name = "wenyan-engineering-principles"
+relative_path = "skills/wenyan-engineering-principles"
+
+[locals.metadata.trigger]
+summary = "Use when rewriting engineering principles in Wenyan-caveman style."
+intent_tags = ["wenyan", "engineering-principles", "translation", "bilingual", "reference", "skill"]
+when_to_use = [
+  "Need Wenyan rewrites of engineering principles.",
+  "Need to keep Wenyan and English principle references aligned.",
+]
+skill_role = "meta"
+order_weight = 2
+
+[locals.metadata.objective]
+summary = "Provide Wenyan-first principle references with a separate English companion."
+
+[locals.metadata.output]
+summary = "Return the Wenyan slice and the English companion only when asked."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then exactly one Wenyan slice."
+priority = 7
+
+[[locals]]
 name = "repo-scout"
 relative_path = "skills/repo-scout"
 
