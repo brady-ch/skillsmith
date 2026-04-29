@@ -6,6 +6,12 @@ use crate::error::AppError;
 use super::types::ToonMetadata;
 
 pub fn validate_relative_path(path: &str) -> Result<(), AppError> {
+    if path.trim().is_empty() {
+        return Err(AppError::ValidationError(
+            "path must not be empty".to_string(),
+        ));
+    }
+
     let pb = PathBuf::from(path);
     if pb.is_absolute() {
         return Err(AppError::ValidationError(format!(
@@ -13,13 +19,28 @@ pub fn validate_relative_path(path: &str) -> Result<(), AppError> {
             path
         )));
     }
+
+    let mut has_normal_component = false;
     for component in pb.components() {
-        if matches!(component, std::path::Component::ParentDir) {
+        if matches!(
+            component,
+            std::path::Component::ParentDir | std::path::Component::CurDir
+        ) {
             return Err(AppError::ValidationError(format!(
-                "path must not contain parent traversal: {}",
+                "path must not contain dot or parent traversal: {}",
                 path
             )));
         }
+        if matches!(component, std::path::Component::Normal(_)) {
+            has_normal_component = true;
+        }
+    }
+
+    if !has_normal_component {
+        return Err(AppError::ValidationError(format!(
+            "path must contain at least one path segment: {}",
+            path
+        )));
     }
     Ok(())
 }

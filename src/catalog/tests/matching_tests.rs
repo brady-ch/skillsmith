@@ -9,6 +9,26 @@ fn intent_matching_prefers_tags() {
 }
 
 #[test]
+fn intent_matching_does_not_use_substring_false_positives() {
+    let mut metadata = test_metadata("Capabilities and workflows", &["platform"]);
+    metadata.trigger.summary = "Capabilities and workflows".to_string();
+    metadata.objective.summary = "Capabilities and workflows".to_string();
+    metadata.output.summary = "Capabilities and workflows".to_string();
+    metadata.navigation.summary = "Capabilities and workflows".to_string();
+
+    let catalog = Catalog {
+        locals: vec![LocalSkill {
+            name: "capability-skill".to_string(),
+            relative_path: "skills/capability".to_string(),
+            metadata,
+        }],
+        sources: Vec::new(),
+    };
+
+    assert!(catalog.matches_for_intent("api").is_empty());
+}
+
+#[test]
 fn intent_matching_prefers_creational_skill_for_generic_builder_query() {
     let catalog = Catalog {
         locals: vec![

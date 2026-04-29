@@ -1,30 +1,41 @@
 ---
 name: using-skillsmith
-description: Session bootstrap for agents working in the skillsmith repository—use CLI recommend/explain/validate instead of hand-scraping the catalog.
+description: Use when working in a skillsmith checkout or installing the project's default agent rules.
 ---
 
-# Using skillsmith (injected at session start)
+# Using Skillsmith
 
-This file is **not** listed in `catalog/catalog.toml`. It exists so SessionStart hooks can inject the same bootstrap text into Cursor, Codex, and Claude Code. Full repository conventions live in **`AGENTS.md`**.
+This is the base skill router. Keep this file lean and load references selectively.
 
-## Non-negotiable workflow
+## Non-Negotiable Loading Rule
 
-Work from the **repository root** unless a task says otherwise.
+Load `references/reference-router.md` first, then only the minimum additional reference needed.
 
-1. **Pick skills via the CLI** — Do not enumerate `skills/` by hand to decide what to load.
-   - `cargo run -- recommend --intent "<paraphrase of the user task>" --format json --limit 10`
-   - Optionally narrow: `--skill <name>`, `--source local` or `--source <remote-source-name>`.
-2. **Explain a match** when you need why a skill or reference ranked as it did:
-   - `cargo run -- explain --intent "…"` (add `--format json` for tooling).
-3. **Validate** after changing skill layout or catalog metadata:
-   - `cargo run -- validate` (default `--profile strict`; use `--profile minimal` only for mixed/external trees).
+## When To Use This Skill
 
-Then open the **`SKILL.md`** and **`references/<file>`** paths the JSON points to (under the skill directory or install target), following each skill’s reference-router rules.
+Use when the user asks for:
+- skillsmith repo workflow or setup guidance
+- agent bootstrap or install conventions
+- catalog selection, validation, or install-flow reminders
 
-## Install targets
+Do not use when:
+- the task is unrelated to skillsmith or its agent workflow
+- the user specifically asks for a different repo skill
 
-Default install root is **`~/.codex/skills`**. Use `cargo run -- install --name <skill> [--link] [--target <path>]` so the agent runtime you use can see installed skills. See **`AGENTS.md`** for symlink patterns and validation profiles.
+## Reference Map
 
-## Priority
+| Reference | Load When |
+| --- | --- |
+| `references/reference-router.md` | Always first |
+| `references/best-practices.md` | Need the repo workflow, setup, validation, and install rules |
 
-If anything here conflicts with **explicit user instructions**, follow the user. Otherwise treat this bootstrap as mandatory for skillsmith repo work.
+## Skill Inventory Note
+
+This repository includes these base skills and intent:
+- `repo-scout`: repository assessment and implementation briefing
+- `api-contract-critic`: API contract review and compatibility risk analysis
+- `migration-guardian`: migration planning with rollback-first safety
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
+- `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
+- `product-manager-challenger`: strict product questioning, scope pushback, and repo-native task tracking

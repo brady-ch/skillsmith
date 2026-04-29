@@ -3,11 +3,12 @@ use std::process::Command;
 
 use dialoguer::{Confirm, Input, theme::ColorfulTheme};
 
+use crate::catalog::Catalog;
 use crate::error::AppError;
 
-use super::hooks_install::install_cursor_hooks;
+use super::hooks_install::{install_cursor_hooks, install_project_agent_rules};
 use super::paths::{
-    default_git_ref, default_git_url, ensure_data_dir, setup_state_path,
+    CATALOG_REL, default_git_ref, default_git_url, ensure_data_dir, setup_state_path,
     skillsmith_env_snippet_path, upstream_checkout_dir,
 };
 use super::state::{SetupState, load_state, save_state};
@@ -16,7 +17,7 @@ fn apply_catalog_checkout(
     state_path: &Path,
     url_trim: &str,
     ref_trim: &str,
-) -> Result<(), AppError> {
+) -> Result<PathBuf, AppError> {
     let upstream = upstream_checkout_dir()
         .ok_or_else(|| AppError::FilesystemError("could not resolve upstream path".into()))?;
     sync_upstream(&upstream, url_trim, ref_trim)?;
@@ -37,7 +38,7 @@ fn apply_catalog_checkout(
     println!("\nCatalog checkout: {}", upstream.display());
     println!("{}", env_contents);
     println!("Wrote: {}", env_path.display());
-    Ok(())
+    Ok(upstream)
 }
 
 fn run_git(repo: &Path, args: &[&str]) -> Result<(), AppError> {
@@ -135,32 +136,27 @@ fn run_setup_inner(update_catalog_only: bool) -> Result<(), AppError> {
 
     let theme = ColorfulTheme::default();
 
-    let default_url = previous
+    let url_trim = previous
         .as_ref()
         .map(|s| s.git_url.clone())
         .unwrap_or_else(default_git_url);
-    let url: String = Input::with_theme(&theme)
-        .with_prompt("Skillsmith git URL")
-        .default(default_url)
-        .interact_text()
-        .map_err(|e| AppError::InputError(e.to_string()))?;
-
-    let default_ref = previous
+    let ref_trim = previous
         .as_ref()
         .map(|s| s.git_ref.clone())
         .unwrap_or_else(default_git_ref);
-    let git_ref: String = Input::with_theme(&theme)
-        .with_prompt("Git branch or tag")
-        .default(default_ref)
-        .interact_text()
-        .map_err(|e| AppError::InputError(e.to_string()))?;
-
-    let url_trim = url.trim();
-    let ref_trim = git_ref.trim();
-    apply_catalog_checkout(&state_path, url_trim, ref_trim)?;
+    let url_trim = url_trim.trim();
+    let ref_trim = ref_trim.trim();
+    println!(
+        "Using catalog {} @ {} (override with SKILLSMITH_GIT_URL / SKILLSMITH_GIT_REF or edit setup.toml).",
+        url_trim, ref_trim
+    );
+    let repo_root = apply_catalog_checkout(&state_path, url_trim, ref_trim)?;
+    let catalog = Catalog::load_from_file(&repo_root.join(CATALOG_REL))?;
+    let project_root = prompt_project_root(&theme)?;
+    install_project_agent_rules(&project_root, &catalog, &repo_root)?;
 
     if !Confirm::with_theme(&theme)
-        .with_prompt("Install Cursor session hook in a project?")
+        .with_prompt("Install Cursor session hooks in a project?")
         .default(false)
         .interact()
         .map_err(|e| AppError::InputError(e.to_string()))?
@@ -168,35 +164,38 @@ fn run_setup_inner(update_catalog_only: bool) -> Result<(), AppError> {
         return Ok(());
     }
 
+    let replace = confirm_replace_hooks(&theme, &project_root)?;
+    install_cursor_hooks(&project_root, replace)?;
+    println!(
+        "Cursor hooks installed under {} (.cursor/ and .skillsmith/)",
+        project_root.display()
+    );
+
+    Ok(())
+}
+
+fn prompt_project_root(theme: &ColorfulTheme) -> Result<PathBuf, AppError> {
     let default_proj = std::env::current_dir()
         .map_err(|e| AppError::FilesystemError(e.to_string()))?
         .to_string_lossy()
         .to_string();
-    let proj: String = Input::with_theme(&theme)
+    let proj: String = Input::with_theme(theme)
         .with_prompt("Project root directory")
         .default(default_proj)
         .interact_text()
         .map_err(|e| AppError::InputError(e.to_string()))?;
-    let proj_root = PathBuf::from(proj.trim());
+    Ok(PathBuf::from(proj.trim()))
+}
 
-    let hooks_json = proj_root.join(".cursor/hooks.json");
-    let replace = if hooks_json.is_file() {
-        Confirm::with_theme(&theme)
+fn confirm_replace_hooks(theme: &ColorfulTheme, project_root: &Path) -> Result<bool, AppError> {
+    let hooks_json = project_root.join(".cursor/hooks.json");
+    let replace = !hooks_json.is_file()
+        || Confirm::with_theme(theme)
             .with_prompt(
-                ".cursor/hooks.json already exists. Replace the entire file? (No still writes scripts and bootstrap if missing)",
+                "Replace existing .cursor/hooks.json? (No still writes hook scripts and bootstrap)",
             )
             .default(false)
             .interact()
-            .map_err(|e| AppError::InputError(e.to_string()))?
-    } else {
-        true
-    };
-
-    install_cursor_hooks(&proj_root, replace)?;
-    println!(
-        "Cursor hooks installed under {} (.cursor/ and .skillsmith/)",
-        proj_root.display()
-    );
-
-    Ok(())
+            .map_err(|e| AppError::InputError(e.to_string()))?;
+    Ok(replace)
 }

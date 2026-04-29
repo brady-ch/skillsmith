@@ -7,6 +7,7 @@ use skillsmith::catalog::{
     ToonNavigation, ToonText, ToonTrigger, explain_skill_selection,
 };
 use skillsmith::installer::{InstallRequest, install_skill};
+use skillsmith::setup::install_project_agent_rules;
 use tempfile::TempDir;
 
 fn metadata(summary: &str, tags: &[&str]) -> ToonMetadata {
@@ -83,6 +84,28 @@ fn local_catalog() -> Catalog {
             name: "repo-scout".to_string(),
             relative_path: "skills/repo-scout".to_string(),
             metadata: metadata("Inspect repositories", &["repo", "analysis"]),
+        }],
+        sources: Vec::new(),
+    }
+}
+
+fn bootstrap_catalog() -> Catalog {
+    Catalog {
+        locals: vec![LocalSkill {
+            name: "using-skillsmith".to_string(),
+            relative_path: "skills/using-skillsmith".to_string(),
+            metadata: metadata(
+                "Provide the default workflow and install rules for agents working in skillsmith.",
+                &[
+                    "setup",
+                    "bootstrap",
+                    "install",
+                    "workflow",
+                    "agent",
+                    "rules",
+                    "validate",
+                ],
+            ),
         }],
         sources: Vec::new(),
     }
@@ -205,6 +228,33 @@ fn fails_when_no_additional_reference_file_exists() {
     let err = install_skill(&catalog, &req, repo.path())
         .expect_err("expected additional reference requirement failure");
     assert_eq!(err.code(), "validation_error");
+}
+
+#[test]
+fn installs_default_agent_rules_into_all_project_runtimes() {
+    let repo = TempDir::new().expect("temp repo");
+    let project = TempDir::new().expect("temp project");
+    write_skill(
+        &repo.path().join("skills/using-skillsmith"),
+        "using-skillsmith",
+        "default workflow and install rules",
+    );
+
+    let catalog = bootstrap_catalog();
+    install_project_agent_rules(project.path(), &catalog, repo.path())
+        .expect("install default agent rules");
+
+    for root in [".codex/skills", ".claude/skills", ".agents/skills"] {
+        assert!(
+            project
+                .path()
+                .join(root)
+                .join("using-skillsmith/SKILL.md")
+                .exists(),
+            "expected default agent rules at {}",
+            root
+        );
+    }
 }
 
 #[test]

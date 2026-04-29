@@ -459,13 +459,19 @@ fn validate_skill_inventory_note(
     let mut issues = Vec::new();
     let skill_md_path = repo_root.join(&skill.relative_path).join("SKILL.md");
     let content = fs::read_to_string(&skill_md_path)?;
-    if !content.contains("## Skill Inventory Note") {
+    if !markdown_has_heading(&content, "## Skill Inventory Note") {
         issues.push(format!(
             "missing '## Skill Inventory Note' in {}",
             skill_md_path.to_string_lossy()
         ));
     }
     Ok(issues)
+}
+
+fn markdown_has_heading(content: &str, heading: &str) -> bool {
+    content
+        .lines()
+        .any(|line| line.trim_end_matches('\r').trim() == heading)
 }
 
 fn validate_remote_source_health(source: &RemoteSource) -> Result<Vec<String>, AppError> {
@@ -497,3 +503,19 @@ fn validate_remote_source_health(source: &RemoteSource) -> Result<Vec<String>, A
     Ok(issues)
 }
 
+#[cfg(test)]
+mod tests {
+    use super::markdown_has_heading;
+
+    #[test]
+    fn markdown_heading_matches_exact_heading_line() {
+        let content = "# Title\n\n## Skill Inventory Note\n\nBody text.";
+        assert!(markdown_has_heading(content, "## Skill Inventory Note"));
+    }
+
+    #[test]
+    fn markdown_heading_does_not_match_body_text() {
+        let content = "# Title\n\nBody text mentions Skill Inventory Note here.";
+        assert!(!markdown_has_heading(content, "## Skill Inventory Note"));
+    }
+}

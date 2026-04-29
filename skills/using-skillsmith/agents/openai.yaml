@@ -1,0 +1,5 @@
+version: 1
+display_name: Using Skillsmith
+short_description: Default workflow and install guidance for agents working in skillsmith.
+default_prompt: Work from the repo root, use recommend/explain/validate instead of hand-scraping, preserve unrelated user changes, and keep edits minimal and verified.
+

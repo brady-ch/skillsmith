@@ -87,12 +87,24 @@ fn install_remote(
             "--link is only supported for local catalog skills (not remote installs)".to_string(),
         ));
     }
-    validate_relative_path(&skill.path)?;
-    let scratch = TempDir::new()?;
-    let clone_dir = scratch.path().join("repo");
-    clone_repo(source, &clone_dir)?;
+    let scratch = clone_remote_source(source)?;
+    install_remote_from_checkout(source, skill, request, scratch.path())
+}
 
-    let source_dir = clone_dir.join(&skill.path);
+pub(crate) fn clone_remote_source(source: &RemoteSource) -> Result<TempDir, AppError> {
+    let scratch = TempDir::new()?;
+    clone_repo(source, scratch.path())?;
+    Ok(scratch)
+}
+
+pub(crate) fn install_remote_from_checkout(
+    source: &RemoteSource,
+    skill: &RemoteSkill,
+    request: &InstallRequest,
+    checkout_root: &Path,
+) -> Result<InstallOutcome, AppError> {
+    validate_relative_path(&skill.path)?;
+    let source_dir = checkout_root.join(&skill.path);
     ensure_valid_skill_directory(&source_dir, &skill.name)?;
     let installed_path = stage_and_install(
         &source_dir,
@@ -397,9 +409,189 @@ pub fn check_git_installed() -> Result<(), AppError> {
 }
 
 pub fn is_git_repo_url(url: &str) -> bool {
-    url.starts_with("https://github.com/") || url.ends_with(".git") || !url.contains(' ')
+    let trimmed = url.trim();
+    if trimmed.is_empty() || trimmed.contains(char::is_whitespace) {
+        return false;
+    }
+
+    trimmed.starts_with("https://github.com/")
+        || trimmed.starts_with("https://www.github.com/")
+        || trimmed.starts_with("git@github.com:")
+        || trimmed.starts_with("ssh://git@github.com/")
+        || trimmed.starts_with("git://github.com/")
 }
 
 pub fn trim_to_owned<T: AsRef<OsStr>>(input: T) -> String {
     input.as_ref().to_string_lossy().trim().to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::catalog::{
+        RemoteSkill, RemoteSource, ToonMetadata, ToonNavigation, ToonText, ToonTrigger,
+    };
+    use tempfile::TempDir;
+
+    fn metadata(summary: &str, tags: &[&str]) -> ToonMetadata {
+        ToonMetadata {
+            trigger: ToonTrigger {
+                summary: summary.to_string(),
+                intent_tags: tags.iter().map(|tag| tag.to_string()).collect(),
+                when_to_use: vec![summary.to_string()],
+                skill_role: Default::default(),
+                order_weight: 0,
+            },
+            objective: ToonText {
+                summary: summary.to_string(),
+            },
+            output: ToonText {
+                summary: summary.to_string(),
+            },
+            navigation: ToonNavigation {
+                summary: summary.to_string(),
+                priority: 10,
+            },
+        }
+    }
+
+    fn write_skill(dir: &Path, name: &str, description: &str) {
+        fs::create_dir_all(dir.join("agents")).expect("create agents dir");
+        fs::create_dir_all(dir.join("references")).expect("create references dir");
+        fs::write(
+            dir.join("SKILL.md"),
+            format!(
+                "---\nname: {name}\ndescription: {description}\n---\n\n# {name}\n\n## Skill Inventory Note\n\n- example\n"
+            ),
+        )
+        .expect("write skill");
+        fs::write(
+            dir.join("references/reference-router.md"),
+            "# Reference Router\n",
+        )
+        .expect("write router");
+        fs::write(dir.join("references/guide.md"), "# Guide\n").expect("write guide");
+        fs::write(
+            dir.join("references/index.toml"),
+            r#"[[references]]
+file = "guide.md"
+
+[references.metadata.trigger]
+summary = "Use the guide."
+intent_tags = ["guide"]
+when_to_use = ["Use the guide."]
+
+[references.metadata.objective]
+summary = "Guide objective."
+
+[references.metadata.output]
+summary = "Guide output."
+
+[references.metadata.navigation]
+summary = "Guide navigation."
+priority = 10
+"#,
+        )
+        .expect("write index");
+        fs::write(
+            dir.join("agents/openai.yaml"),
+            "version: 1\ndisplay_name: Test\nshort_description: Test\ndefault_prompt: Test\n",
+        )
+        .expect("write agent");
+    }
+
+    fn init_git_repo(root: &Path) {
+        let status = Command::new("git")
+            .current_dir(root)
+            .args(["init", "-b", "main", "."])
+            .status()
+            .expect("git init");
+        assert!(status.success());
+    }
+
+    fn git_add_commit(root: &Path, message: &str) {
+        for args in [vec!["add", "."], vec!["commit", "-m", message]] {
+            let status = Command::new("git")
+                .current_dir(root)
+                .args(args)
+                .env("GIT_AUTHOR_NAME", "Test")
+                .env("GIT_AUTHOR_EMAIL", "test@example.com")
+                .env("GIT_COMMITTER_NAME", "Test")
+                .env("GIT_COMMITTER_EMAIL", "test@example.com")
+                .status()
+                .expect("git command");
+            assert!(status.success());
+        }
+    }
+
+    #[test]
+    fn git_url_helper_accepts_common_github_forms() {
+        assert!(is_git_repo_url("https://github.com/org/repo"));
+        assert!(is_git_repo_url("git@github.com:org/repo.git"));
+        assert!(is_git_repo_url("ssh://git@github.com/org/repo.git"));
+    }
+
+    #[test]
+    fn git_url_helper_rejects_non_repo_strings() {
+        assert!(!is_git_repo_url(""));
+        assert!(!is_git_repo_url("not a url"));
+        assert!(!is_git_repo_url("https://example.com/repo.git"));
+        assert!(!is_git_repo_url("https://github.com/org/repo with spaces"));
+    }
+
+    #[test]
+    fn installs_multiple_remote_skills_from_one_shared_checkout() {
+        let remote = TempDir::new().expect("temp remote");
+        let target = TempDir::new().expect("temp target");
+        fs::create_dir_all(remote.path().join("skills/remote-a")).expect("create remote-a");
+        fs::create_dir_all(remote.path().join("skills/remote-b")).expect("create remote-b");
+        write_skill(&remote.path().join("skills/remote-a"), "remote-a", "desc a");
+        write_skill(&remote.path().join("skills/remote-b"), "remote-b", "desc b");
+        init_git_repo(remote.path());
+        git_add_commit(remote.path(), "init");
+
+        let source = RemoteSource {
+            name: "remote".to_string(),
+            repo_url: remote.path().to_string_lossy().to_string(),
+            git_ref: "main".to_string(),
+            skills: vec![
+                RemoteSkill {
+                    name: "remote-a".to_string(),
+                    path: "skills/remote-a".to_string(),
+                    metadata: metadata("A", &["a"]),
+                },
+                RemoteSkill {
+                    name: "remote-b".to_string(),
+                    path: "skills/remote-b".to_string(),
+                    metadata: metadata("B", &["b"]),
+                },
+            ],
+        };
+        let checkout = clone_remote_source(&source).expect("clone once");
+
+        let request_a = InstallRequest {
+            skill_name: "remote-a".to_string(),
+            source_name: Some(source.name.clone()),
+            target_root: target.path().to_path_buf(),
+            force: false,
+            link: false,
+        };
+        let request_b = InstallRequest {
+            skill_name: "remote-b".to_string(),
+            source_name: Some(source.name.clone()),
+            target_root: target.path().to_path_buf(),
+            force: false,
+            link: false,
+        };
+
+        let outcome_a =
+            install_remote_from_checkout(&source, &source.skills[0], &request_a, checkout.path())
+                .expect("install first skill");
+        let outcome_b =
+            install_remote_from_checkout(&source, &source.skills[1], &request_b, checkout.path())
+                .expect("install second skill");
+
+        assert!(outcome_a.installed_path.join("SKILL.md").exists());
+        assert!(outcome_b.installed_path.join("SKILL.md").exists());
+    }
 }

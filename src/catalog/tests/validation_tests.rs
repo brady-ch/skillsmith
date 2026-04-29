@@ -26,6 +26,17 @@ fn rejects_parent_traversal() {
 }
 
 #[test]
+fn rejects_empty_and_current_dir_paths() {
+    let mut catalog = valid_catalog();
+    catalog.locals[0].relative_path = "".to_string();
+    assert!(catalog.validate().is_err());
+
+    let mut catalog = valid_catalog();
+    catalog.locals[0].relative_path = ".".to_string();
+    assert!(catalog.validate().is_err());
+}
+
+#[test]
 fn rejects_duplicate_remote_name_in_source() {
     let mut catalog = valid_catalog();
     catalog.sources[0].skills.push(RemoteSkill {

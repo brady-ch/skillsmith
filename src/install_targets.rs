@@ -42,12 +42,7 @@ pub fn resolve_install_root(
     preset_root(into, scope, home.as_deref(), &cwd)
 }
 
-fn preset_root(
-    into: InstallInto,
-    scope: InstallScope,
-    home: Option<&Path>,
-    cwd: &Path,
-) -> PathBuf {
+fn preset_root(into: InstallInto, scope: InstallScope, home: Option<&Path>, cwd: &Path) -> PathBuf {
     let (a, b) = match into {
         InstallInto::Codex => (".codex", "skills"),
         InstallInto::Claude => (".claude", "skills"),

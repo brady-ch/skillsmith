@@ -8,7 +8,11 @@ use crate::catalog::{
 };
 use crate::error::AppError;
 use crate::install_targets::{InstallInto, InstallScope, resolve_install_root};
-use crate::installer::{InstallRequest, check_git_installed, install_skill, is_git_repo_url};
+use crate::installer::{
+    InstallRequest, check_git_installed, clone_remote_source, install_remote_from_checkout,
+    install_skill, is_git_repo_url,
+};
+use crate::setup::{install_cursor_hooks, install_project_agent_rules};
 
 pub struct UiConfig {
     pub catalog_path: PathBuf,
@@ -18,7 +22,7 @@ pub struct UiConfig {
 
 pub fn run_menu(config: UiConfig) -> Result<(), AppError> {
     let theme = ColorfulTheme::default();
-    let mut install_target = config.initial_target.clone();
+    let mut install_targets = vec![config.initial_target.clone()];
     let mut cache = CatalogCache::new(Catalog::load_from_file(&config.catalog_path)?);
 
     loop {
@@ -27,13 +31,9 @@ pub fn run_menu(config: UiConfig) -> Result<(), AppError> {
         let action = Select::with_theme(&theme)
             .with_prompt(prompt)
             .items(&[
-                "Browse local skills",
-                "Browse linked GitHub repos",
-                "Explain routing",
-                "Validate local skills",
-                "Add GitHub repo reference",
-                "Set install target",
-                "Reload catalog",
+                "Install skills from this package",
+                "Install Cursor session hooks and agent rules",
+                "Advanced…",
                 "Exit",
             ])
             .default(0)
@@ -41,95 +41,192 @@ pub fn run_menu(config: UiConfig) -> Result<(), AppError> {
             .map_err(|err| AppError::InputError(err.to_string()))?;
 
         match action {
-            0 => browse_local(&theme, &mut cache, &config.repo_root, &install_target)?,
-            1 => browse_remote(&theme, &mut cache, &config.repo_root, &install_target)?,
-            2 => explain_routing(&theme, &mut cache, &config.repo_root)?,
-            3 => print_validation(&cache, &config.repo_root)?,
-            4 => {
-                add_source_prompt(&theme, &config.catalog_path)?;
-                cache = CatalogCache::new(Catalog::load_from_file(&config.catalog_path)?);
+            0 => {
+                install_targets = pick_install_destinations(&theme, &install_targets)?;
+                browse_install_local(&theme, &mut cache, &config.repo_root, &install_targets)?;
             }
-            5 => {
-                let preset = Select::with_theme(&theme)
-                    .with_prompt("Install destination")
-                    .items(&[
-                        "Codex — global (~/.codex/skills)",
-                        "Codex — this project (./.codex/skills)",
-                        "Claude — global (~/.claude/skills)",
-                        "Claude — this project (./.claude/skills)",
-                        "Agents — global (~/.agents/skills)",
-                        "Agents — this project (./.agents/skills)",
-                        "Custom path…",
-                    ])
-                    .default(0)
-                    .interact()
-                    .map_err(|err| AppError::InputError(err.to_string()))?;
-
-                install_target = match preset {
-                    0 => resolve_install_root(None, Some(InstallInto::Codex), InstallScope::Global),
-                    1 => resolve_install_root(None, Some(InstallInto::Codex), InstallScope::Project),
-                    2 => resolve_install_root(None, Some(InstallInto::Claude), InstallScope::Global),
-                    3 => {
-                        resolve_install_root(None, Some(InstallInto::Claude), InstallScope::Project)
-                    }
-                    4 => resolve_install_root(None, Some(InstallInto::Agents), InstallScope::Global),
-                    5 => resolve_install_root(None, Some(InstallInto::Agents), InstallScope::Project),
-                    6 => {
-                        let value: String = Input::with_theme(&theme)
-                            .with_prompt("Install target directory")
-                            .with_initial_text(install_target.to_string_lossy().to_string())
-                            .interact_text()
-                            .map_err(|err| AppError::InputError(err.to_string()))?;
-                        PathBuf::from(value.trim())
-                    }
-                    _ => unreachable!(),
-                };
-                println!("Install target: {}", install_target.display());
-            }
-            6 => {
-                cache = CatalogCache::new(Catalog::load_from_file(&config.catalog_path)?);
-            }
+            1 => install_hooks_interactive(&theme, cache.catalog(), &config.repo_root)?,
+            2 => advanced_menu(
+                &theme,
+                &mut cache,
+                &config.catalog_path,
+                &config.repo_root,
+                &mut install_targets,
+            )?,
             _ => return Ok(()),
         }
     }
 }
 
-fn browse_local(
+/// Returns one or two roots (global + project) depending on user choice.
+fn pick_install_destinations(
+    theme: &ColorfulTheme,
+    previous: &[PathBuf],
+) -> Result<Vec<PathBuf>, AppError> {
+    let preset = Select::with_theme(theme)
+        .with_prompt("Where to install skills")
+        .items(&[
+            "Global — Codex (~/.codex/skills)",
+            "Global — Claude (~/.claude/skills)",
+            "Global — Agents (~/.agents/skills)",
+            "This project — Codex (./.codex/skills)",
+            "This project — Claude (./.claude/skills)",
+            "This project — Agents (./.agents/skills)",
+            "Global + this project — Codex (both)",
+            "Global + this project — Claude (both)",
+            "Global + this project — Agents (both)",
+            "Custom directory…",
+        ])
+        .default(0)
+        .interact()
+        .map_err(|err| AppError::InputError(err.to_string()))?;
+
+    Ok(match preset {
+        0 => vec![resolve_install_root(
+            None,
+            Some(InstallInto::Codex),
+            InstallScope::Global,
+        )],
+        1 => vec![resolve_install_root(
+            None,
+            Some(InstallInto::Claude),
+            InstallScope::Global,
+        )],
+        2 => vec![resolve_install_root(
+            None,
+            Some(InstallInto::Agents),
+            InstallScope::Global,
+        )],
+        3 => vec![resolve_install_root(
+            None,
+            Some(InstallInto::Codex),
+            InstallScope::Project,
+        )],
+        4 => vec![resolve_install_root(
+            None,
+            Some(InstallInto::Claude),
+            InstallScope::Project,
+        )],
+        5 => vec![resolve_install_root(
+            None,
+            Some(InstallInto::Agents),
+            InstallScope::Project,
+        )],
+        6 => vec![
+            resolve_install_root(None, Some(InstallInto::Codex), InstallScope::Global),
+            resolve_install_root(None, Some(InstallInto::Codex), InstallScope::Project),
+        ],
+        7 => vec![
+            resolve_install_root(None, Some(InstallInto::Claude), InstallScope::Global),
+            resolve_install_root(None, Some(InstallInto::Claude), InstallScope::Project),
+        ],
+        8 => vec![
+            resolve_install_root(None, Some(InstallInto::Agents), InstallScope::Global),
+            resolve_install_root(None, Some(InstallInto::Agents), InstallScope::Project),
+        ],
+        9 => {
+            let initial = previous
+                .first()
+                .map(|p| p.to_string_lossy().to_string())
+                .unwrap_or_default();
+            let value: String = Input::with_theme(theme)
+                .with_prompt("Install target directory")
+                .with_initial_text(initial)
+                .interact_text()
+                .map_err(|err| AppError::InputError(err.to_string()))?;
+            vec![PathBuf::from(value.trim())]
+        }
+        _ => unreachable!(),
+    })
+}
+
+fn install_hooks_interactive(
+    theme: &ColorfulTheme,
+    catalog: &Catalog,
+    repo_root: &Path,
+) -> Result<(), AppError> {
+    let default_proj = std::env::current_dir()
+        .map_err(|e| AppError::FilesystemError(e.to_string()))?
+        .to_string_lossy()
+        .to_string();
+    let proj: String = Input::with_theme(theme)
+        .with_prompt("Project root directory")
+        .default(default_proj)
+        .interact_text()
+        .map_err(|e| AppError::InputError(e.to_string()))?;
+    let proj_root = PathBuf::from(proj.trim());
+
+    let hooks_json = proj_root.join(".cursor/hooks.json");
+    let replace = !hooks_json.is_file()
+        || Confirm::with_theme(theme)
+            .with_prompt(
+                "Replace existing .cursor/hooks.json? (No still writes hook scripts and bootstrap)",
+            )
+            .default(false)
+            .interact()
+            .map_err(|e| AppError::InputError(e.to_string()))?;
+
+    install_project_agent_rules(&proj_root, catalog, repo_root)?;
+    install_cursor_hooks(&proj_root, replace)?;
+    println!(
+        "Cursor hooks installed under {} (.cursor/ and .skillsmith/)",
+        proj_root.display()
+    );
+    Ok(())
+}
+
+fn advanced_menu(
+    theme: &ColorfulTheme,
+    cache: &mut CatalogCache,
+    catalog_path: &Path,
+    repo_root: &Path,
+    install_targets: &mut Vec<PathBuf>,
+) -> Result<(), AppError> {
+    let action = Select::with_theme(theme)
+        .with_prompt("Advanced")
+        .items(&[
+            "Browse linked GitHub repos (remote skills)",
+            "Explain routing",
+            "Validate local skills",
+            "Add GitHub repo reference",
+            "Reload catalog",
+            "Back",
+        ])
+        .default(0)
+        .interact()
+        .map_err(|err| AppError::InputError(err.to_string()))?;
+
+    match action {
+        0 => {
+            *install_targets = pick_install_destinations(theme, install_targets)?;
+            browse_remote(theme, cache, install_targets)?;
+        }
+        1 => explain_routing(theme, cache, repo_root)?,
+        2 => print_validation(cache, repo_root)?,
+        3 => {
+            add_source_prompt(theme, catalog_path)?;
+            *cache = CatalogCache::new(Catalog::load_from_file(catalog_path)?);
+        }
+        4 => {
+            *cache = CatalogCache::new(Catalog::load_from_file(catalog_path)?);
+        }
+        _ => {}
+    }
+    Ok(())
+}
+
+fn browse_install_local(
     theme: &ColorfulTheme,
     cache: &mut CatalogCache,
     repo_root: &Path,
-    install_target: &Path,
+    install_targets: &[PathBuf],
 ) -> Result<(), AppError> {
     if cache.catalog().locals.is_empty() {
         println!("No local skills in catalog.");
         return Ok(());
     }
 
-    let intent = prompt_intent(theme)?;
-    let matches = if let Some(intent) = &intent {
-        cache
-            .catalog()
-            .matches_for_intent(intent)
-            .into_iter()
-            .filter(|entry| entry.source_name.is_none())
-            .collect::<Vec<_>>()
-    } else {
-        Vec::new()
-    };
-
-    let locals: Vec<&LocalSkill> = if intent.is_some() {
-        matches
-            .iter()
-            .filter_map(|matched| cache.catalog().find_local_skill(&matched.skill_name))
-            .collect()
-    } else {
-        cache.catalog().locals.iter().collect()
-    };
-
-    if locals.is_empty() {
-        println!("No local skills matched that intent.");
-        return Ok(());
-    }
+    let locals: Vec<&LocalSkill> = cache.catalog().locals.iter().collect();
 
     let items: Vec<String> = locals
         .iter()
@@ -143,7 +240,7 @@ fn browse_local(
         })
         .collect();
     let selection = MultiSelect::with_theme(theme)
-        .with_prompt("Local skills (Space: toggle, Enter: confirm, Esc: cancel)")
+        .with_prompt("Skills to install (Space: toggle, Enter: confirm, Esc: cancel)")
         .items(&items)
         .interact_opt()
         .map_err(|err| AppError::InputError(err.to_string()))?;
@@ -156,14 +253,41 @@ fn browse_local(
     }
 
     let selected: Vec<&LocalSkill> = indices.iter().map(|&i| locals[i]).collect();
-    install_batch_local(theme, cache.catalog(), repo_root, install_target, &selected)
+
+    let dest_list = install_targets
+        .iter()
+        .map(|p| p.to_string_lossy().to_string())
+        .collect::<Vec<_>>()
+        .join(", ");
+    let names = selected
+        .iter()
+        .map(|s| s.name.as_str())
+        .collect::<Vec<_>>()
+        .join(", ");
+    let confirm = Confirm::with_theme(theme)
+        .with_prompt(format!(
+            "Install {} skill(s) ({}) into [{}] ?",
+            selected.len(),
+            names,
+            dest_list
+        ))
+        .default(true)
+        .interact()
+        .map_err(|err| AppError::InputError(err.to_string()))?;
+    if !confirm {
+        return Ok(());
+    }
+
+    for target in install_targets {
+        install_batch_local_no_prompts(cache.catalog(), repo_root, target, &selected)?;
+    }
+    Ok(())
 }
 
 fn browse_remote(
     theme: &ColorfulTheme,
     cache: &mut CatalogCache,
-    repo_root: &Path,
-    install_target: &Path,
+    install_targets: &[PathBuf],
 ) -> Result<(), AppError> {
     if cache.catalog().sources.is_empty() {
         println!("No linked sources in catalog.");
@@ -266,18 +390,39 @@ fn browse_remote(
     }
 
     let selected: Vec<&RemoteSkill> = indices.iter().map(|&i| skills[i]).collect();
-    install_batch_remote(
-        theme,
-        cache.catalog(),
-        repo_root,
-        install_target,
-        source,
-        &selected,
-    )
+
+    let dest_list = install_targets
+        .iter()
+        .map(|p| p.to_string_lossy().to_string())
+        .collect::<Vec<_>>()
+        .join(", ");
+    let names = selected
+        .iter()
+        .map(|s| s.name.as_str())
+        .collect::<Vec<_>>()
+        .join(", ");
+    let confirm = Confirm::with_theme(theme)
+        .with_prompt(format!(
+            "Install {} skill(s) from '{}' ({}) into [{}] ?",
+            selected.len(),
+            source.name,
+            names,
+            dest_list
+        ))
+        .default(true)
+        .interact()
+        .map_err(|err| AppError::InputError(err.to_string()))?;
+    if !confirm {
+        return Ok(());
+    }
+
+    for target in install_targets {
+        install_batch_remote_no_prompts(target, source, &selected)?;
+    }
+    Ok(())
 }
 
-fn install_batch_local(
-    theme: &ColorfulTheme,
+fn install_batch_local_no_prompts(
     catalog: &Catalog,
     repo_root: &Path,
     install_target: &Path,
@@ -287,41 +432,7 @@ fn install_batch_local(
         return Ok(());
     }
 
-    let confirm_prompt = if skills.len() == 1 {
-        format!(
-            "Install '{}' into {} ?",
-            skills[0].name,
-            install_target.to_string_lossy()
-        )
-    } else {
-        let names = skills
-            .iter()
-            .map(|s| s.name.as_str())
-            .collect::<Vec<_>>()
-            .join(", ");
-        format!(
-            "Install {} skills ({}) into {} ?",
-            skills.len(),
-            names,
-            install_target.to_string_lossy()
-        )
-    };
-
-    let confirm = Confirm::with_theme(theme)
-        .with_prompt(confirm_prompt)
-        .default(false)
-        .interact()
-        .map_err(|err| AppError::InputError(err.to_string()))?;
-    if !confirm {
-        return Ok(());
-    }
-
-    let force = Confirm::with_theme(theme)
-        .with_prompt("Allow overwrite with --force if target exists?")
-        .default(false)
-        .interact()
-        .map_err(|err| AppError::InputError(err.to_string()))?;
-
+    let force = false;
     for skill in skills {
         let request = InstallRequest {
             skill_name: skill.name.clone(),
@@ -341,10 +452,7 @@ fn install_batch_local(
     Ok(())
 }
 
-fn install_batch_remote(
-    theme: &ColorfulTheme,
-    catalog: &Catalog,
-    repo_root: &Path,
+fn install_batch_remote_no_prompts(
     install_target: &Path,
     source: &RemoteSource,
     skills: &[&RemoteSkill],
@@ -353,42 +461,8 @@ fn install_batch_remote(
         return Ok(());
     }
 
-    let confirm_prompt = if skills.len() == 1 {
-        format!(
-            "Install '{}' from '{}' into {} ?",
-            skills[0].name,
-            source.name,
-            install_target.to_string_lossy()
-        )
-    } else {
-        let names = skills
-            .iter()
-            .map(|s| s.name.as_str())
-            .collect::<Vec<_>>()
-            .join(", ");
-        format!(
-            "Install {} skills from '{}' ({}) into {} ?",
-            skills.len(),
-            source.name,
-            names,
-            install_target.to_string_lossy()
-        )
-    };
-
-    let confirm = Confirm::with_theme(theme)
-        .with_prompt(confirm_prompt)
-        .default(false)
-        .interact()
-        .map_err(|err| AppError::InputError(err.to_string()))?;
-    if !confirm {
-        return Ok(());
-    }
-    let force = Confirm::with_theme(theme)
-        .with_prompt("Allow overwrite with --force if target exists?")
-        .default(false)
-        .interact()
-        .map_err(|err| AppError::InputError(err.to_string()))?;
-
+    let force = false;
+    let checkout = clone_remote_source(source)?;
     for skill in skills {
         let request = InstallRequest {
             skill_name: skill.name.clone(),
@@ -397,7 +471,7 @@ fn install_batch_remote(
             force,
             link: false,
         };
-        let outcome = install_skill(catalog, &request, repo_root)?;
+        let outcome = install_remote_from_checkout(source, skill, &request, checkout.path())?;
         println!(
             "Installed '{}' from {} into {}",
             outcome.skill_name,

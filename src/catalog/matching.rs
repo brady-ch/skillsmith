@@ -86,7 +86,7 @@ pub(crate) fn metadata_match_score(
             .trigger
             .intent_tags
             .iter()
-            .any(|tag| tag.eq_ignore_ascii_case(token))
+            .any(|tag| tag_matches_token(tag, token))
         {
             score += 3;
             reasons.push(format!("matched intent tag '{}'", token));
@@ -115,7 +115,29 @@ pub(crate) fn metadata_match_score(
 }
 
 fn contains_token(haystack: &str, token: &str) -> bool {
-    haystack.to_lowercase().contains(&token.to_lowercase())
+    tokenize(haystack)
+        .iter()
+        .any(|segment| token_matches(segment, token))
+}
+
+fn tag_matches_token(tag: &str, token: &str) -> bool {
+    tokenize(tag)
+        .iter()
+        .any(|segment| token_matches(segment, token))
+}
+
+fn token_matches(left: &str, right: &str) -> bool {
+    normalize_token(left) == normalize_token(right)
+}
+
+fn normalize_token(token: &str) -> std::borrow::Cow<'_, str> {
+    if let Some(base) = token.strip_suffix("ies") {
+        return std::borrow::Cow::Owned(format!("{base}y"));
+    }
+    if token.len() > 3 && token.ends_with('s') {
+        return std::borrow::Cow::Owned(token[..token.len() - 1].to_string());
+    }
+    std::borrow::Cow::Borrowed(token)
 }
 
 pub(crate) fn tokenize(input: &str) -> Vec<String> {
