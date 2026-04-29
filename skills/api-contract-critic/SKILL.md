@@ -5,23 +5,23 @@ description: Use for API contract ambiguity, break risk, compatibility gaps.
 
 # API Contract Critic
 
-Base router. Keep lean. Load only needed references.
+Contract teeth. Few files. Break risk first.
 
 ## Non-Negotiable Loading Rule
 
 Do not load all `references/`.
-Load `reference-router.md` first, then only the minimum additional file needed.
+Load router first, then minimum file.
 
 ## When To Use This Skill
 
 Use for:
-- API interface review before release
-- backward compatibility and versioning checks
-- error contract and schema clarity review
+- pre-release API review
+- compatibility/version checks
+- error/schema clarity
 
 Do not use for:
-- the request is purely backend implementation with no contract evaluation
-- the request does not involve public interfaces
+- backend-only implementation
+- no public/interface contract
 
 ## Reference Map
 
@@ -33,7 +33,7 @@ Do not use for:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation briefing
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

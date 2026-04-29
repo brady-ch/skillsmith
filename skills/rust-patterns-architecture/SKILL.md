@@ -6,27 +6,26 @@ license: MIT
 
 # Rust Systems Architecture
 
-Base router. Keep lean. Load only needed references.
+Rust 構形。ownership 守安。載入務少。
 
 ## Non-Negotiable Loading Rule
 
-Do not load all `references/`.
-Load `references/reference-router.md` first, then load only the minimum additional references needed to answer the request.
+勿盡載 `references/`。先載 router，後載最少參考。
 
 ## When To Use This Skill
 
 Use for:
-- Rust architecture or module/crate design
-- ownership or API-shape decisions
-- idiomatic Rust implementation guidance or anti-pattern review
-- unsafe boundary, FFI, or wrapper design
-- Rust code review with maintainability and correctness tradeoffs
+- Rust module/crate architecture
+- ownership/API shape
+- idiom or anti-pattern review
+- unsafe/FFI/wrapper boundary
+- Rust review: correctness and maintainability
 
 Do not use for:
-- the request is not Rust-specific
-- the user only needs generic language-agnostic architecture advice - use `software-architecture-architect`
-- the user only needs **which** behavioral, creational, or structural *design pattern* to pick — use **`behavioral-pattern-architect`**, **`creational-pattern-architect`**, or **`structural-pattern-architect`** (and **`concurrency-pattern-architect`** when relevant) first
-- the task is pure dependency lookup or version checking
+- not Rust-specific
+- generic architecture only - use `software-architecture-architect`
+- pattern-family choice only - use pattern architect siblings first
+- dependency/version lookup only
 
 ## Reference Map
 
@@ -50,13 +49,13 @@ Do not use for:
 
 ## Workflow
 
-1. If the user needs **which pattern family or pattern name** (behavioral/creational/structural/concurrency), point to the matching **pattern-architect** skill in this repo; use this skill for **Rust encoding** once that’s settled (or when the problem is inherently Rust: ownership, `unsafe`, FFI, signatures).
-2. If the user needs generic language-agnostic system architecture, point to **`software-architecture-architect`** first; use this skill for Rust-specific implementation once that’s settled.
-3. Otherwise classify as idiom, architecture, boundary safety, anti-pattern review, or functional technique.
-3. Load `reference-router.md`, then one targeted reference.
-4. Escalate to one more reference only if the first cannot resolve the decision safely.
-5. Prefer the lightest viable approach and reject one heavier alternative explicitly.
-6. Include one concrete risk and mitigation before handoff.
+1. 求 pattern family/name？轉 sibling pattern-architect；Rust encoding 復歸此技。
+2. 求 generic architecture？先轉 **`software-architecture-architect`**。
+3. 否則分：idiom、architecture、boundary safety、anti-pattern、functional technique。
+4. 載 `reference-router.md`，後載一 targeted reference。
+5. safety/decision 未決，乃加一參考。
+6. 取最輕可行 Rust shape；明拒一重法。
+7. 必列一 risk 與 mitigation。
 
 ## Output Contract
 
@@ -68,7 +67,7 @@ When answering:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

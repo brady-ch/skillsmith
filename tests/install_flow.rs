@@ -89,34 +89,37 @@ fn local_catalog() -> Catalog {
     }
 }
 
+const DEFAULT_AGENT_SKILL_PACK: &[&str] = &[
+    "using-skillsmith",
+    "compression-skill-designer",
+    "repo-scout",
+    "product-manager-challenger",
+    "software-architecture-architect",
+    "api-contract-critic",
+    "migration-guardian",
+    "test-suite-design",
+    "test-determinism",
+    "rust-patterns-architecture",
+    "creational-pattern-architect",
+    "behavioral-pattern-architect",
+    "structural-pattern-architect",
+    "concurrency-pattern-architect",
+    "commit-after-tested-change",
+];
+
 fn bootstrap_catalog() -> Catalog {
     Catalog {
-        locals: vec![
-            LocalSkill {
-                name: "using-skillsmith".to_string(),
-                relative_path: "skills/using-skillsmith".to_string(),
+        locals: DEFAULT_AGENT_SKILL_PACK
+            .iter()
+            .map(|skill| LocalSkill {
+                name: (*skill).to_string(),
+                relative_path: format!("skills/{skill}"),
                 metadata: metadata(
-                    "Provide the default workflow and install rules for agents working in skillsmith.",
-                    &[
-                        "setup",
-                        "bootstrap",
-                        "install",
-                        "workflow",
-                        "agent",
-                        "rules",
-                        "validate",
-                    ],
+                    "Provide default Core SE Pack guidance for project-local agent runtimes.",
+                    &["setup", "bootstrap", "install", "agent", "rules"],
                 ),
-            },
-            LocalSkill {
-                name: "compression-skill-designer".to_string(),
-                relative_path: "skills/compression-skill-designer".to_string(),
-                metadata: metadata(
-                    "Design terse communication skills with activation and safety rules.",
-                    &["skill", "compression", "terse", "mode"],
-                ),
-            },
-        ],
+            })
+            .collect(),
         sources: Vec::new(),
     }
 }
@@ -244,23 +247,20 @@ fn fails_when_no_additional_reference_file_exists() {
 fn installs_default_agent_rules_into_all_project_runtimes() {
     let repo = TempDir::new().expect("temp repo");
     let project = TempDir::new().expect("temp project");
-    write_skill(
-        &repo.path().join("skills/using-skillsmith"),
-        "using-skillsmith",
-        "default workflow and install rules",
-    );
-    write_skill(
-        &repo.path().join("skills/compression-skill-designer"),
-        "compression-skill-designer",
-        "default compression rules",
-    );
+    for skill in DEFAULT_AGENT_SKILL_PACK {
+        write_skill(
+            &repo.path().join(format!("skills/{skill}")),
+            skill,
+            "default Core SE Pack skill",
+        );
+    }
 
     let catalog = bootstrap_catalog();
     install_project_agent_rules(project.path(), &catalog, repo.path())
         .expect("install default agent rules");
 
     for root in [".codex/skills", ".claude/skills", ".agents/skills"] {
-        for skill in ["using-skillsmith", "compression-skill-designer"] {
+        for skill in DEFAULT_AGENT_SKILL_PACK {
             assert!(
                 project
                     .path()

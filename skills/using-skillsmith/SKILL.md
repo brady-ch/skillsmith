@@ -5,23 +5,23 @@ description: Use when in skillsmith checkout or installing default agent rules.
 
 # Using Skillsmith
 
-Base router. Keep short. Load minimum.
+本技為根路由。文務短。載入務少。
 
 ## Non-Negotiable Loading Rule
 
-Read `references/reference-router.md` first. Then load only one extra reference.
+先讀 `references/reference-router.md`。後只載一參考。
 
 ## When To Use This Skill
 
 Use for:
-- skillsmith workflow or setup guidance
-- agent bootstrap or install conventions
-- catalog selection, validation, or install-flow reminders
-- terse output using `compression-skill-designer`, unless safety or clarity needs more detail
+- skillsmith 流程、setup 之導
+- agent bootstrap、install 之法
+- catalog 選技、validate、install-flow 提醒
+- 以 `compression-skill-designer` 為省言，除非安全或清晰需詳
 
 Do not use for:
-- task not about skillsmith or its agent workflow
-- user want different repo skill
+- 非 skillsmith 或 agent workflow
+- user 指他 repo skill
 
 ## Reference Map
 
@@ -32,11 +32,11 @@ Do not use for:
 
 ## Project Rule
 
-- After repo change, rerun `skillsmith setup`. Keep rules fresh.
+- repo 變，復行 `skillsmith setup`。令規則常新。
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+本 repo 諸 base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

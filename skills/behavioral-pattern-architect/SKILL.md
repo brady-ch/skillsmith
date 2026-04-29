@@ -6,27 +6,26 @@ license: CC-BY-SA-4.0
 
 # Behavioral Pattern Architect
 
-Base router. Keep lean. Load only needed references.
+行為擇型。取輕 pattern。載入務少。
 
 ## Non-Negotiable Loading Rule
 
-Do not load all `references/`.
-Load `references/reference-router.md` first, then load only the minimum additional references needed to answer the request.
+勿盡載 `references/`。先載 router，後載最少參考。
 
 ## When To Use This Skill
 
 Use for:
-- behavioral design pattern selection
-- eventing, observer, or pub-sub tradeoffs
-- undo, rollback, or deferred action modeling
-- state-driven object behavior
-- workflow customization via hooks or policies
-- business-rule composition or specialist collaboration patterns
+- behavioral pattern selection
+- event/observer/pub-sub tradeoff
+- undo/rollback/deferred action model
+- state-driven behavior
+- hook/policy workflow variation
+- rule composition/specialist collaboration
 
 Do not use for:
-- the problem is mainly about object creation or dependency wiring
-- the problem is structural decomposition rather than behavior orchestration
-- the request is framework-specific API lookup instead of design guidance
+- object creation/dependency wiring
+- structural decomposition
+- framework API lookup
 
 ## Reference Map
 
@@ -39,11 +38,11 @@ Do not use for:
 
 ## Workflow
 
-1. Classify the problem as routing, commanding, notification, state change, algorithm swapping, traversal, interpretation, or rule composition.
-2. Load `reference-router.md`, then one targeted reference.
-3. Prefer the lightest pattern that solves the change axis cleanly.
-4. Reject one nearby alternative explicitly.
-5. Include one concrete failure mode and mitigation.
+1. 分：routing、command、notification、state、algorithm swap、traversal、interpretation、rule composition。
+2. 載 `reference-router.md`，後載一 targeted reference。
+3. 取最輕 pattern，以淨解 change axis。
+4. 明拒一近旁 alternative。
+5. 必列一 failure mode 與 mitigation。
 
 ## Output Contract
 
@@ -56,7 +55,7 @@ When answering:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

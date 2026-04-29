@@ -12,7 +12,23 @@ const PORTABLE_SESSION: &str = include_str!("templates/portable-session-start.sh
 const INJECT_PROJECT: &str = include_str!("templates/inject-project-bootstrap.sh");
 const CURSOR_HOOKS_JSON: &str = include_str!("templates/cursor-hooks.json");
 const SESSION_BOOTSTRAP: &str = include_str!("templates/session-bootstrap.md");
-const DEFAULT_AGENT_SKILLS: &[&str] = &["using-skillsmith", "compression-skill-designer"];
+const DEFAULT_AGENT_SKILL_PACK: &[&str] = &[
+    "using-skillsmith",
+    "compression-skill-designer",
+    "repo-scout",
+    "product-manager-challenger",
+    "software-architecture-architect",
+    "api-contract-critic",
+    "migration-guardian",
+    "test-suite-design",
+    "test-determinism",
+    "rust-patterns-architecture",
+    "creational-pattern-architect",
+    "behavioral-pattern-architect",
+    "structural-pattern-architect",
+    "concurrency-pattern-architect",
+    "commit-after-tested-change",
+];
 
 fn set_executable(path: &Path) -> Result<(), AppError> {
     #[cfg(unix)]
@@ -28,7 +44,7 @@ fn set_executable(path: &Path) -> Result<(), AppError> {
     Ok(())
 }
 
-/// Installs the default agent skills into the project-local runtime directories.
+/// Installs the default expert engineering skill pack into project-local runtime directories.
 pub fn install_project_agent_rules(
     project_root: &Path,
     catalog: &Catalog,
@@ -41,7 +57,7 @@ pub fn install_project_agent_rules(
     ];
 
     for target_root in roots {
-        for skill_name in DEFAULT_AGENT_SKILLS {
+        for skill_name in DEFAULT_AGENT_SKILL_PACK {
             let request = InstallRequest {
                 skill_name: (*skill_name).to_string(),
                 source_name: None,
@@ -113,8 +129,12 @@ mod tests {
         let bootstrap = fs::read_to_string(project.path().join(".skillsmith/session-bootstrap.md"))
             .expect("read session bootstrap");
         assert!(
-            bootstrap.contains("compression-skill-designer"),
-            "expected bootstrap to mention compression skill"
+            bootstrap.contains("recommend --intent \"<task>\" --format json --limit 5"),
+            "expected bootstrap to mention multi-skill recommendations"
+        );
+        assert!(
+            bootstrap.contains("Load every clearly relevant returned skill"),
+            "expected bootstrap to mention multi-skill loading"
         );
     }
 }

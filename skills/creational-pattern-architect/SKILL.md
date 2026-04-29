@@ -6,25 +6,24 @@ license: CC-BY-SA-4.0
 
 # Creational Pattern Architect
 
-Base router. Keep lean. Load only needed references.
+創建擇型。maker 與 caller 解耦。載入務少。
 
 ## Non-Negotiable Loading Rule
 
-Do not load all `references/`.
-Load `references/reference-router.md` first, then load only the minimum additional references needed to answer the request.
+勿盡載 `references/`。先載 router，後載最少參考。
 
 ## When To Use This Skill
 
 Use for:
-- object construction or initialization pattern selection
-- builder, factory method, abstract factory, prototype, or singleton tradeoffs
-- dependency injection, lazy initialization, or object pool decisions
-- separation of creation logic from callers or product consumers
+- construction/init pattern choice
+- builder/factory/prototype/singleton tradeoff
+- DI/lazy init/object pool decision
+- separate creation from callers
 
 Do not use for:
-- the problem is mainly about runtime behavior orchestration
-- the request is specifically about Rust-only ownership, API, or FFI design
-- the task is structural decomposition rather than object creation
+- runtime behavior orchestration
+- Rust-only ownership/API/FFI
+- structural decomposition
 
 ## Reference Map
 
@@ -37,11 +36,11 @@ Do not use for:
 
 ## Workflow
 
-1. Classify the problem as factory selection, staged construction, runtime cloning, singleton coordination, dependency supply, deferred initialization, or resource reuse.
-2. Load `reference-router.md`, then one targeted reference.
-3. Prefer the lightest construction mechanism that keeps callers decoupled from concrete creation details.
-4. Reject one nearby alternative explicitly.
-5. Include one concrete failure mode and mitigation.
+1. 分：factory、staged construction、clone、singleton、dependency supply、lazy init、pool。
+2. 載 `reference-router.md`，後載一 targeted reference。
+3. 取最輕 construction mechanism，使 caller 不繫 concrete creation。
+4. 明拒一近旁 alternative。
+5. 必列一 failure mode 與 mitigation。
 
 ## Output Contract
 
@@ -54,7 +53,7 @@ When answering:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

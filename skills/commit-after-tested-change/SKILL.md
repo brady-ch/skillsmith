@@ -5,22 +5,22 @@ description: Use for commit after each tested slice.
 
 # Commit After Tested Change
 
-This is the base skill router. Keep it lean and load references selectively.
+此為 base router。文瘦。按需載參考。
 
 ## Non-Negotiable Loading Rule
 
-Read `references/reference-router.md` first. Then load only the minimum additional reference needed.
+先讀 `references/reference-router.md`。後只載最少所需參考。
 
 ## When To Use This Skill
 
 Use for:
-- a commit cadence tied to passing tests
-- incremental delivery with one commit per completed slice
-- checkpoint commits after validated work
+- 測試過乃 commit
+- 每完一片，交付一 commit
+- 驗證後置 checkpoint
 
 Do not use for:
-- the user wants one final commit only
-- the work is exploratory and intentionally uncommitted
+- user 只求末尾一 commit
+- work 尚探索，故意不 commit
 
 ## Reference Map
 
@@ -31,4 +31,4 @@ Do not use for:
 
 ## Skill Inventory Note
 
-- Enforce a tested-change commit loop.
+- 守 tested-change commit loop。

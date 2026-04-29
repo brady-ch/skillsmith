@@ -1,17 +1,16 @@
 # Reference Router
 
-Read this file first. Then load one additional reference only.
+Read first. Load one more only.
 
 ## Route
 
-- Need stage-by-stage migration design: load `phased-plan.md`
-- Need rollback triggers and operations detail: load `rollback-operations.md`
+- Need staged migration: load `phased-plan.md`
+- Need rollback triggers/runbook: load `rollback-operations.md`
 
 ## Stop Condition
 
-Stop loading references once you can define:
+Stop when answer can define:
 1. forward migration path
 2. rollback path
 3. checkpoints and ownership
 4. one risk and mitigation
-

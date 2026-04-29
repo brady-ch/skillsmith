@@ -5,23 +5,23 @@ description: Use for fast repo assessment and implementation brief.
 
 # Repo Scout
 
-Base router. Keep lean. Load only needed references.
+Scout first. Few files. Facts over flourish.
 
 ## Non-Negotiable Loading Rule
 
 Do not load all `references/`.
-Load exactly one reference first, then load a second only if required by the user request.
+Load router, then one file. Second only if request demands.
 
 ## When To Use This Skill
 
 Use for:
-- a fast repo assessment
-- an implementation brief before coding
-- a gap analysis of architecture, tooling, or test coverage
+- fast repo read
+- implementation brief before code
+- architecture/tooling/test gap scan
 
 Do not use for:
-- the request is purely code execution with no discovery step
-- the request is non-technical writing
+- pure code execution, no discovery
+- non-technical writing
 
 ## Reference Map
 
@@ -33,7 +33,7 @@ Do not use for:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation briefing
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

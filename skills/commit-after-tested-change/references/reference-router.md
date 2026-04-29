@@ -1,11 +1,11 @@
 # Reference Router
 
-Read this file first. Then load only minimum additional reference needed.
+先讀此檔。後只載最少所需參考。
 
 ## Route
 
-- Load `commit-cadence.md` for the commit-after-tested-change workflow, tested-change gates, and commit guardrails.
+- commit-after-tested-change workflow、test gate、commit guardrails：載 `commit-cadence.md`
 
 ## Stop Condition
 
-Stop after `commit-cadence.md` unless user asks for a different git workflow detail.
+載 `commit-cadence.md` 後即止。除非 user 求他 git workflow detail。

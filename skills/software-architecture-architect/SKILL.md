@@ -6,25 +6,25 @@ license: MIT
 
 # Software Architecture Architect
 
-Base router. Keep lean. Load only needed references.
+Shape system. Draw boundary. Load little.
 
 ## Non-Negotiable Loading Rule
 
 Do not load all `references/`.
-Load `references/reference-router.md` first, then only the minimum additional reference needed to answer the request.
+Load router first, then minimum reference.
 
 ## When To Use This Skill
 
 Use for:
-- system architecture or design direction
-- module, package, or service decomposition
-- boundary placement, dependency direction, or ownership splits
-- architecture decision framing, quality attributes, or tradeoff analysis
-- architecture review, risk review, or failure-mode analysis
+- system design direction
+- module/package/service split
+- boundary, dependency, ownership line
+- quality attributes and tradeoffs
+- architecture risk/failure review
 
 Do not use for:
-- the main question is which GoF pattern family or pattern name to choose - use `behavioral-pattern-architect`, `creational-pattern-architect`, `structural-pattern-architect`, or `concurrency-pattern-architect`
-- the question is Rust-specific implementation detail, ownership flow, unsafe boundaries, or FFI - use `rust-patterns-architecture`
+- GoF pattern choice - use pattern architect siblings
+- Rust ownership/unsafe/FFI detail - use `rust-patterns-architecture`
 
 ## Reference Map
 
@@ -37,8 +37,8 @@ Do not use for:
 
 ## Workflow
 
-1. Load `references/reference-router.md` first.
-2. Load exactly one targeted reference next.
+1. Load `references/reference-router.md`.
+2. Load one targeted reference.
 3. If the request narrows into pattern-family selection, hand off to the relevant sibling pattern skill.
 4. If the request narrows into Rust implementation or safety, hand off to `rust-patterns-architecture`.
 5. Include one rejected alternative, one main tradeoff, and one concrete risk mitigation.
@@ -52,7 +52,7 @@ Do not use for:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

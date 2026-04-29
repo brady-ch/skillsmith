@@ -1,11 +1,11 @@
 # Reference Router
 
-Read first. Then load one extra reference only.
+先讀。後只載一參考。
 
 ## Route
 
-- Load `best-practices.md` for repo workflow, setup, validation, install, or agent bootstrap rules.
+- repo workflow、setup、validation、install、agent bootstrap 規則：載 `best-practices.md`
 
 ## Stop Condition
 
-Stop after `best-practices.md` unless user want different skillsmith skill or deeper repo check.
+載 `best-practices.md` 後即止。除非 user 求他 skillsmith skill 或更深 repo 查驗。

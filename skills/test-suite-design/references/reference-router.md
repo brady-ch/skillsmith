@@ -1,16 +1,16 @@
 # Reference Router
 
-Read this file first. Load one additional reference unless unresolved.
+Read first. Load one more unless blocked.
 
 ## Route
 
-- Need pyramid, trophy, Google test sizes, or integration-vs-E2E balance: load `suite-levels-and-shape.md`
-- Need TDD loop, canon TDD, or test-first vs test-after: load `tdd-canon-and-loop.md`
+- Need pyramid/trophy/sizes/layer balance: load `suite-levels-and-shape.md`
+- Need TDD loop/test-first: load `tdd-canon-and-loop.md`
 
 ## Stop Condition
 
-Stop loading references when you can provide:
-1. A concrete recommendation for test levels or workflow
-2. One rejected alternative
-3. One tradeoff the team accepts
-4. Where contract-heavy boundaries need `api-contract-critic` instead
+Stop when answer can provide:
+1. concrete test-level/workflow recommendation
+2. one rejected alternative
+3. accepted tradeoff
+4. where contract-heavy boundary needs `api-contract-critic`

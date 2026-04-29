@@ -5,24 +5,24 @@ description: Use when choosing unit versus integration versus end-to-end test mi
 
 # Test suite design
 
-Base router. Keep lean. Load only needed references.
+Test shape. CI budget. Load little.
 
 ## Non-Negotiable Loading Rule
 
 Do not load all `references/`.
-Load `references/reference-router.md` first, then only the minimum additional file needed.
+Load router first, then minimum file.
 
 ## When To Use This Skill
 
 Use for:
-- how many unit vs integration vs E2E tests
-- test pyramid, testing trophy, or Google-style test sizes
-- CI time vs coverage tradeoffs
-- TDD / test-first workflow in principle (detail in `tdd-canon-and-loop.md`)
+- unit/integration/E2E mix
+- pyramid, trophy, Google sizes
+- CI time vs coverage
+- TDD/test-first principles
 
 Do not use for:
-- tests are flaky or nondeterministic — use **`test-determinism`**
-- the problem is API contract review — use **`api-contract-critic`**
+- flaky/nondeterministic tests - use **`test-determinism`**
+- API contract review - use **`api-contract-critic`**
 
 ## Reference Map
 
@@ -34,7 +34,7 @@ Do not use for:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

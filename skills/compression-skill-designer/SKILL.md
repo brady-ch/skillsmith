@@ -5,24 +5,24 @@ description: Use when designing or reviewing terse, token-efficient communicatio
 
 # Compression Skill Designer
 
-Base router. Keep lean. Load only needed references.
+Router only. Sparse words. Load little.
 
 ## Non-Negotiable Loading Rule
 
-Load `references/reference-router.md` first. Then load one extra reference only.
+Load `references/reference-router.md` first. Then one reference. No sweep.
 
 ## When To Use This Skill
 
 Use for:
-- a skill similar in spirit to highly compressed output
-- token-efficient communication mode design
-- terse persona rules that preserve technical accuracy
-- activation, deactivation, and safety fallback rules for compressed responses
+- compressed-output skill design
+- token thrift without meaning loss
+- terse persona rules
+- activation, exit, safety fallback
 
 Do not use for:
-- the user wants normal concise writing rather than a reusable skill
-- the user asks to copy another skill verbatim
-- the main task is installing or validating skillsmith itself - use **`using-skillsmith`**
+- plain concise writing, not reusable skill
+- verbatim clone request
+- skillsmith install/validate work - use **`using-skillsmith`**
 
 ## Reference Map
 
@@ -33,7 +33,7 @@ Do not use for:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

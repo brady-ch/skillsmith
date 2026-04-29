@@ -5,24 +5,24 @@ description: Use for flaky, order-dependent, time-dependent, or inconsistent CI 
 
 # Test determinism
 
-Base router. Keep lean. Load only needed references.
+Flake hunt. Isolate cause. Load little.
 
 ## Non-Negotiable Loading Rule
 
 Do not load all `references/`.
-Load `references/reference-router.md` first, then only the minimum additional file needed.
+Load router first, then minimum file.
 
 ## When To Use This Skill
 
 Use for:
-- intermittent or flaky tests
-- failures only under parallel runs or full suite
-- time, async, locale, or environment sensitivity
-- high-level CI quarantine vs fix tradeoffs
+- intermittent/flaky tests
+- parallel/full-suite-only failures
+- time/async/locale/env sensitivity
+- quarantine vs fix tradeoff
 
 Do not use for:
-- choosing how many unit vs integration tests — use **`test-suite-design`**
-- reviewing HTTP/API contracts — use **`api-contract-critic`**
+- choosing test mix - use **`test-suite-design`**
+- HTTP/API contract review - use **`api-contract-critic`**
 
 ## Reference Map
 
@@ -34,7 +34,7 @@ Do not use for:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety

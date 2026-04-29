@@ -6,27 +6,26 @@ license: CC-BY-SA-4.0
 
 # Concurrency Pattern Architect
 
-Base router. Keep lean. Load only needed references.
+並行擇型。correctness 為先。載入務少。
 
 ## Non-Negotiable Loading Rule
 
-Do not load all `references/`.
-Load `references/reference-router.md` first, then load only the minimum additional references needed to answer the request.
+勿盡載 `references/`。先載 router，後載最少參考。
 
 ## When To Use This Skill
 
 Use for:
 - concurrency pattern selection
-- event-loop, reactor, or async completion design
-- worker pools, active objects, or task scheduling
-- locks, semaphores, barriers, or monitor-style coordination
-- guarded waiting, refuse-vs-block behavior, or backpressure decisions
-- thread-local state, lazy initialization, or shared-state isolation
+- event-loop/reactor/async completion
+- worker pool/active object/scheduling
+- lock/semaphore/barrier/monitor coordination
+- guarded wait/refuse-vs-block/backpressure
+- thread-local/lazy/shared-state isolation
 
 Do not use for:
-- the problem is mainly about distributed system messaging rather than local concurrency control
-- the user only needs language-specific API syntax
-- the question is about data-model design with little concurrency behavior involved
+- distributed messaging, not local concurrency
+- language API syntax only
+- data-model design with little concurrency behavior
 
 ## Reference Map
 
@@ -39,11 +38,11 @@ Do not use for:
 
 ## Workflow
 
-1. Classify the problem as serialized execution, event demultiplexing, bounded worker execution, waiting semantics, lock granularity, or per-thread isolation.
-2. Load `reference-router.md`, then one targeted reference.
-3. Prefer the smallest concurrency mechanism that preserves correctness and observability.
-4. Reject one nearby but riskier alternative explicitly.
-5. Include one concrete failure mode and mitigation.
+1. 分：serial execution、demux、bounded workers、wait semantics、lock granularity、thread isolation。
+2. 載 `reference-router.md`，後載一 targeted reference。
+3. 取最小 concurrency mechanism，保 correctness 與 observability。
+4. 明拒一近旁而更險 alternative。
+5. 必列一 failure mode 與 mitigation。
 
 ## Output Contract
 
@@ -56,7 +55,7 @@ When answering:
 
 ## Skill Inventory Note
 
-This repo has these base skills:
+Base skills:
 - `repo-scout`: repo assessment and implementation brief
 - `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety
