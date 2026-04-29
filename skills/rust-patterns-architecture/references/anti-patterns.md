@@ -1,6 +1,6 @@
 # Anti-Patterns
 
-Load when the user is reviewing Rust code, trying to silence confusing compiler friction, or proposing inheritance-like shortcuts.
+Load when user is reviewing Rust code, trying to silence confusing compiler friction, or proposing inheritance-like shortcuts.
 
 ## Source Summary
 

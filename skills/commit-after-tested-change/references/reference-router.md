@@ -1,6 +1,6 @@
 # Reference Router
 
-Read this file first. Then load only the minimum additional reference needed.
+Read this file first. Then load only minimum additional reference needed.
 
 ## Route
 
@@ -8,4 +8,4 @@ Read this file first. Then load only the minimum additional reference needed.
 
 ## Stop Condition
 
-Stop after `commit-cadence.md` unless the user asks for a different git workflow detail.
+Stop after `commit-cadence.md` unless user asks for a different git workflow detail.

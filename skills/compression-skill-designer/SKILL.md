@@ -1,6 +1,6 @@
 ---
 name: compression-skill-designer
-description: Use when designing or reviewing terse, token-efficient communication skills, caveman-like response modes, or persona skills that compress output while preserving technical accuracy.
+description: Use when designing or reviewing terse, token-efficient communication skills, compressed response modes, or persona skills that compress output while preserving technical accuracy.
 ---
 
 # Compression Skill Designer
@@ -14,7 +14,7 @@ Load `references/reference-router.md` first. Then load one extra reference only.
 ## When To Use This Skill
 
 Use for:
-- a skill similar in spirit to caveman-style output compression
+- a skill similar in spirit to highly compressed output
 - token-efficient communication mode design
 - terse persona rules that preserve technical accuracy
 - activation, deactivation, and safety fallback rules for compressed responses

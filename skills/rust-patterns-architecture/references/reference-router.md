@@ -33,4 +33,4 @@ Load a second reference only when the first file cannot resolve the decision.
 
 ## Stop Condition
 
-When a concrete recommendation can be stated with tradeoffs and one risk mitigation, stop loading more files.
+When concrete recommendation can be stated with tradeoffs and one risk mitigation, stop loading more files.

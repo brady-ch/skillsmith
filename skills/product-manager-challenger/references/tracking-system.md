@@ -1,6 +1,6 @@
 # Tracking System
 
-Use this reference when the repo needs a durable execution tracker.
+Use when the repo needs a durable execution tracker.
 
 ## Default Repo Structure
 

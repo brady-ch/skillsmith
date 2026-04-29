@@ -2,7 +2,7 @@
 file = "commit-cadence.md"
 
 [references.metadata.trigger]
-summary = "Use when an agent needs a commit-after-tested-change workflow."
+summary = "Use for an agent needs a commit-after-tested-change workflow."
 intent_tags = ["git", "commit", "tested", "workflow", "checkpoint", "delivery"]
 when_to_use = [
   "Need a commit cadence for completed, tested work.",

@@ -16,7 +16,7 @@ Load when a complex subsystem should expose a simpler entry point for common tas
 
 ## Nearby Alternatives
 
-- Reject when the problem is compatibility with an expected external interface; use `Adapter`.
+- Reject when problem is compatibility with an expected external interface; use `Adapter`.
 
 ## Main Tradeoff
 

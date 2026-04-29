@@ -2,11 +2,11 @@
 
 ## T - Trigger
 
-Use when the user wants a concise repository understanding before implementation.
+Use when user wants concise repo understanding before implementation.
 
 ## O - Objective
 
-Produce a concrete brief with current architecture facts, likely change points, and blockers.
+Produce concrete brief with current architecture facts, likely change points, blockers.
 
 ## O - Output
 
@@ -23,5 +23,4 @@ Inspect in this order:
 2. runtime/service boundaries
 3. tests and quality checks
 
-If uncertain, mark assumptions explicitly and do not invent repository facts.
-
+If unsure, mark assumptions. Do not invent repo facts.

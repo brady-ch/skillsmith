@@ -4,7 +4,7 @@ Load when tasks involve module boundaries, crate decomposition, layering, or sys
 
 ## Source Summary
 
-This reference consolidates architecture defaults for Rust codebases: composition-first design, focused modules, constrained unsafety, and decomposition techniques that reduce borrow pressure.
+This ref covers Rust codebase architecture: composition-first design, focused modules, constrained unsafety, decomposition techniques that reduce borrow pressure.
 
 ## Architecture Defaults
 

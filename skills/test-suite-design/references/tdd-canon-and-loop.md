@@ -14,7 +14,7 @@ TDD is a **development workflow**: drive design and correctness through a tight 
 
 ## Canon loop (paraphrase)
 
-Work from a list of behaviors; turn **one** into a concrete failing test; make it pass with minimal change; refactor; repeat. The goal is **safety to change** and **clear progress**, not ceremony.
+Work from a list of behaviors; turn **one** into concrete failing test; make it pass with minimal change; refactor; repeat. The goal is **safety to change** and **clear progress**, not ceremony.
 
 ## When not to over-index on TDD alone
 

@@ -2,7 +2,7 @@
 file = "intake-and-challenge.md"
 
 [references.metadata.trigger]
-summary = "Use when the request needs strict questioning, scope pressure-testing, or explicit product pushback."
+summary = "Use for the request needs strict questioning, scope pressure-testing, or explicit product pushback."
 intent_tags = ["product", "scope", "challenge", "requirements", "prioritization"]
 when_to_use = ["Question a weak product request.", "Pressure-test scope or logic before execution."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "tracking-system.md"
 
 [references.metadata.trigger]
-summary = "Use when the repository needs a persistent PM checklist, execution tracker, or item folder structure."
+summary = "Use for the repository needs a persistent PM checklist, execution tracker, or item folder structure."
 intent_tags = ["tracking", "checklist", "repo", "todo", "execution"]
 when_to_use = ["Create a repo tracking system.", "Repair or extend an existing task checklist."]
 
@@ -38,7 +38,7 @@ priority = 20
 file = "item-routing.md"
 
 [references.metadata.trigger]
-summary = "Use when deciding which detail files belong under a tracked item folder."
+summary = "Use for deciding which detail files belong under a tracked item folder."
 intent_tags = ["routing", "decision-tree", "details", "acceptance", "blockers"]
 when_to_use = ["Route item details into the correct files.", "Decide whether an item needs questions, plan, or blocker docs."]
 

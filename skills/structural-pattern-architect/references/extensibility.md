@@ -1,6 +1,6 @@
 # Extensibility
 
-Load when the real question is what kind of extension surface a system should expose.
+Load when real question is what kind of extension surface system should expose.
 
 ## Intent
 
@@ -16,7 +16,7 @@ Load when the real question is what kind of extension surface a system should ex
 
 ## Nearby Alternatives
 
-- Reject when the problem is one concrete wrapper or adaptation choice; use `Adapter`, `Facade`, `Proxy`, or `Bridge`.
+- Reject when problem is one concrete wrapper or adaptation choice; use `Adapter`, `Facade`, `Proxy`, or `Bridge`.
 
 ## Main Tradeoff
 

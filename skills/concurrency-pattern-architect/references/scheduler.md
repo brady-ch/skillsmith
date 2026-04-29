@@ -1,6 +1,6 @@
 # Scheduler
 
-Load when the system must choose which work gets execution resources next.
+Load when system must choose which work gets execution resources next.
 
 ## Intent
 

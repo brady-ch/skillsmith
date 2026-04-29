@@ -1,6 +1,6 @@
 # Item Routing
 
-Use this reference to decide which detail files matter for a given tracked item.
+Use to decide which detail files matter for a given tracked item.
 
 ## Minimum Files
 
@@ -27,5 +27,5 @@ Add other files only when the item needs them.
 
 ## Writing Rule
 
-Do not spread the same information across multiple files. Put each detail in the one file that best matches its purpose and update `tracking.md` if the item's state changes.
+Do not spread same info across files. Put each detail in best file. Update `tracking.md` when state change.
 

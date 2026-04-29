@@ -2,10 +2,10 @@
 file = "compression-mode-design.md"
 
 [references.metadata.trigger]
-summary = "Use for terse communication, caveman mode, compressed persona rules."
-intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "caveman", "mode"]
+summary = "Use for terse communication, compressed persona rules."
+intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "mode"]
 when_to_use = [
-  "Design a caveman-like communication skill.",
+  "Design a compressed communication skill.",
   "Create rules for token-efficient agent responses.",
   "Review a compressed persona skill for accuracy and safety.",
 ]
@@ -21,4 +21,3 @@ summary = "Return trigger rules, compression levels, exact-preservation rules, s
 [references.metadata.navigation]
 summary = "Prefer this reference for terse communication mode design."
 priority = 10
-

@@ -1,6 +1,6 @@
 # Architecture Review and Risks
 
-Load when the user needs a critique of an architecture, a risk review, or common failure modes.
+Load when user needs a critique of an architecture, a risk review, or common failure modes.
 
 ## Review Focus
 

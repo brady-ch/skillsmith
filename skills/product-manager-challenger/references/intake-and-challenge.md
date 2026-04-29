@@ -1,12 +1,12 @@
 # Intake And Challenge
 
-Use this reference when the user wants a strong product-management pass on a request.
+Use when user wants strong product-management pass on request.
 
 ## Operating Stance
 
-- Assume the first version of the request is incomplete.
+- Assume first version of request is incomplete.
 - Separate problem, user, value, scope, and solution. Do not let them blur together.
-- If the user jumps to implementation before the problem is clear, redirect to the underlying outcome.
+- If user jumps to implementation before problem is clear, redirect to underlying outcome.
 
 ## Challenge Sequence
 
@@ -25,12 +25,11 @@ Push back immediately when:
 - the requested feature is larger than the stated urgency justifies
 - the solution conflicts with stated constraints
 - success is defined with output volume instead of user or business impact
-- the user asks for certainty where the inputs are still speculative
+- user asks for certainty where the inputs are still speculative
 
 ## Required Response Shape
 
 Return:
 - the shortest possible statement of what is unclear or inconsistent
-- the exact question or challenge that must be resolved next
-- a proposed task split if the request should be decomposed
-
+- Exact question or challenge next.
+- Proposed task split if request needs split.

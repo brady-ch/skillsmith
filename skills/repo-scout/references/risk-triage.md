@@ -2,7 +2,7 @@
 
 ## T - Trigger
 
-Use when the user asks for strict prioritization of technical risks.
+Use when user asks for strict prioritization of technical risks.
 
 ## O - Objective
 
@@ -23,4 +23,3 @@ Prioritize:
 2. behavioral regressions
 3. missing test coverage on changed paths
 4. maintainability debt that blocks iteration
-

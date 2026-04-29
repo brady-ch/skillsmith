@@ -2,7 +2,7 @@
 file = "pattern-selection.md"
 
 [references.metadata.trigger]
-summary = "Use when the user needs a fast behavioral-pattern pick or needs help distinguishing nearby patterns."
+summary = "Use for the user needs a fast behavioral-pattern pick or needs help distinguishing nearby patterns."
 intent_tags = ["behavioral", "pattern", "selection", "routing", "comparison"]
 when_to_use = ["Choose among behavioral patterns quickly.", "Resolve confusion between similar patterns."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "behavioral-pattern-overview.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is broadly about the behavioral pattern family, object collaboration, or choosing among behavioral change axes."
+summary = "Use for the request is broadly about the behavioral pattern family, object collaboration, or choosing among behavioral change axes."
 intent_tags = ["behavioral", "collaboration", "overview", "family", "interaction"]
 when_to_use = ["Frame a behavioral design problem before picking one pattern.", "Explain when behavioral patterns fit better than creational or structural ones."]
 
@@ -38,7 +38,7 @@ priority = 20
 file = "chain-of-responsibility.md"
 
 [references.metadata.trigger]
-summary = "Use when the Chain of Responsibility pattern should forward a request through ordered handlers until one takes responsibility."
+summary = "Use for the Chain of Responsibility pattern should forward a request through ordered handlers until one takes responsibility."
 intent_tags = ["chain-of-responsibility", "chain", "responsibility", "handler", "routing", "fallback"]
 when_to_use = ["Route a request through multiple handlers.", "Choose between handler chaining and other behavioral delegation patterns."]
 
@@ -56,7 +56,7 @@ priority = 30
 file = "command.md"
 
 [references.metadata.trigger]
-summary = "Use when the Command pattern should package actions as values for queuing, logging, retry, or undo."
+summary = "Use for the Command pattern should package actions as values for queuing, logging, retry, or undo."
 intent_tags = ["command", "undo", "queue", "retry", "invoker"]
 when_to_use = ["Package work as command objects.", "Choose between command objects and simpler callbacks."]
 
@@ -74,7 +74,7 @@ priority = 31
 file = "interpreter.md"
 
 [references.metadata.trigger]
-summary = "Use when the Interpreter pattern should represent and evaluate a small grammar or domain language."
+summary = "Use for the Interpreter pattern should represent and evaluate a small grammar or domain language."
 intent_tags = ["interpreter", "grammar", "dsl", "ast", "language"]
 when_to_use = ["Model a small language as objects.", "Choose between interpreter and other rule-expression patterns."]
 
@@ -92,7 +92,7 @@ priority = 32
 file = "iterator.md"
 
 [references.metadata.trigger]
-summary = "Use when the Iterator pattern should decouple aggregate traversal from representation."
+summary = "Use for the Iterator pattern should decouple aggregate traversal from representation."
 intent_tags = ["iterator", "traversal", "aggregate", "collection", "sequence"]
 when_to_use = ["Expose traversal without exposing container internals.", "Choose between iterator and representation-specific traversal."]
 
@@ -110,7 +110,7 @@ priority = 33
 file = "mediator.md"
 
 [references.metadata.trigger]
-summary = "Use when the Mediator pattern should centralize coordination rules among interacting peers."
+summary = "Use for the Mediator pattern should centralize coordination rules among interacting peers."
 intent_tags = ["mediator", "coordination", "colleague", "workflow", "dialog"]
 when_to_use = ["Centralize interaction rules among peer objects.", "Choose between mediator and observer-style collaboration."]
 
@@ -128,7 +128,7 @@ priority = 34
 file = "memento.md"
 
 [references.metadata.trigger]
-summary = "Use when the Memento pattern should capture and later restore one object's state."
+summary = "Use for the Memento pattern should capture and later restore one object's state."
 intent_tags = ["memento", "undo", "snapshot", "restore", "checkpoint"]
 when_to_use = ["Save and restore one object's state.", "Choose between mementos and broader transaction mechanisms."]
 
@@ -146,7 +146,7 @@ priority = 35
 file = "observer.md"
 
 [references.metadata.trigger]
-summary = "Use when the Observer pattern should notify many dependents directly about changes."
+summary = "Use for the Observer pattern should notify many dependents directly about changes."
 intent_tags = ["observer", "notification", "subject", "subscriber", "listener"]
 when_to_use = ["Design direct in-process fan-out.", "Choose between observer and pub-sub."]
 
@@ -164,7 +164,7 @@ priority = 36
 file = "state.md"
 
 [references.metadata.trigger]
-summary = "Use when the State pattern should model behavior changes by lifecycle phase or runtime mode."
+summary = "Use for the State pattern should model behavior changes by lifecycle phase or runtime mode."
 intent_tags = ["state", "mode", "lifecycle", "transition", "phase"]
 when_to_use = ["Replace conditional mode logic with state objects.", "Choose between state and strategy."]
 
@@ -182,7 +182,7 @@ priority = 37
 file = "strategy.md"
 
 [references.metadata.trigger]
-summary = "Use when the Strategy pattern should select interchangeable algorithms or policies at runtime."
+summary = "Use for the Strategy pattern should select interchangeable algorithms or policies at runtime."
 intent_tags = ["strategy", "policy", "algorithm", "runtime", "composition"]
 when_to_use = ["Swap algorithms without changing the client.", "Choose between strategy, state, and template method."]
 
@@ -200,7 +200,7 @@ priority = 38
 file = "template-method.md"
 
 [references.metadata.trigger]
-summary = "Use when the Template Method pattern should keep a workflow skeleton stable while steps remain overridable."
+summary = "Use for the Template Method pattern should keep a workflow skeleton stable while steps remain overridable."
 intent_tags = ["template-method", "template", "method", "hook", "skeleton", "workflow", "inheritance"]
 when_to_use = ["Freeze algorithm order but customize steps.", "Choose between template method and strategy."]
 
@@ -218,7 +218,7 @@ priority = 39
 file = "visitor.md"
 
 [references.metadata.trigger]
-summary = "Use when the Visitor pattern should add new operations over a stable heterogeneous object structure."
+summary = "Use for the Visitor pattern should add new operations over a stable heterogeneous object structure."
 intent_tags = ["visitor", "double-dispatch", "operation", "ast", "element"]
 when_to_use = ["Add new operations over many node types.", "Choose between visitor and direct pattern matching."]
 
@@ -236,7 +236,7 @@ priority = 40
 file = "publish-subscribe.md"
 
 [references.metadata.trigger]
-summary = "Use when the Publish-Subscribe pattern should decouple senders and receivers by topic or broker."
+summary = "Use for the Publish-Subscribe pattern should decouple senders and receivers by topic or broker."
 intent_tags = ["publish-subscribe", "publish", "subscribe", "pubsub", "broker", "topic", "messaging"]
 when_to_use = ["Design topic-based eventing.", "Choose between observer and brokered fan-out."]
 
@@ -254,7 +254,7 @@ priority = 41
 file = "null-object.md"
 
 [references.metadata.trigger]
-summary = "Use when the Null Object pattern should replace repeated null checks with a neutral collaborator."
+summary = "Use for the Null Object pattern should replace repeated null checks with a neutral collaborator."
 intent_tags = ["null-object", "null", "object", "default", "no-op", "neutral", "absence"]
 when_to_use = ["Replace repeated null branching with a neutral implementation.", "Choose whether absence should stay explicit."]
 
@@ -272,7 +272,7 @@ priority = 42
 file = "specification.md"
 
 [references.metadata.trigger]
-summary = "Use when the Specification pattern should recombine and reuse business predicates explicitly."
+summary = "Use for the Specification pattern should recombine and reuse business predicates explicitly."
 intent_tags = ["specification", "predicate", "rules", "boolean", "eligibility"]
 when_to_use = ["Compose domain rules with and/or/not.", "Choose between specification and simpler fixed predicates."]
 
@@ -290,7 +290,7 @@ priority = 43
 file = "blackboard.md"
 
 [references.metadata.trigger]
-summary = "Use when the Blackboard pattern should let specialist modules contribute partial solutions to a shared workspace."
+summary = "Use for the Blackboard pattern should let specialist modules contribute partial solutions to a shared workspace."
 intent_tags = ["blackboard", "specialists", "knowledge-source", "control-shell", "workspace"]
 when_to_use = ["Coordinate specialist modules on a shared problem representation.", "Choose between blackboard and simpler orchestrated pipelines."]
 

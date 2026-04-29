@@ -1,6 +1,6 @@
 # Structural layout in Rust (not the GoF catalog)
 
-Load for **module/crate/borrow/unsafe containment** — not for picking Adapter vs Decorator vs Bridge (that lives in **`structural-pattern-architect`**).
+Load when **module/crate/borrow/unsafe containment** — not for picking Adapter vs Decorator vs Bridge (that lives in **`structural-pattern-architect`**).
 
 ## Not duplicated here
 

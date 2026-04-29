@@ -1,6 +1,6 @@
 # Decomposition and Boundaries
 
-Load when the user needs to split a system into modules, services, or subsystems and decide where dependencies should point.
+Load when user needs to split a system into modules, services, or subsystems and decide where dependencies should point.
 
 ## Use For
 

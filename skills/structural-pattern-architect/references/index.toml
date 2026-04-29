@@ -2,7 +2,7 @@
 file = "pattern-selection.md"
 
 [references.metadata.trigger]
-summary = "Use when the user needs a fast structural-pattern pick or needs help distinguishing nearby structural patterns."
+summary = "Use for the user needs a fast structural-pattern pick or needs help distinguishing nearby structural patterns."
 intent_tags = ["structural", "pattern", "selection", "comparison", "routing"]
 when_to_use = ["Choose among structural patterns quickly.", "Resolve confusion between wrappers, facades, composition, and sharing patterns."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "structural-pattern-overview.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is broadly about structural patterns, object relationships, or choosing among structural boundary styles."
+summary = "Use for the request is broadly about structural patterns, object relationships, or choosing among structural boundary styles."
 intent_tags = ["structural", "overview", "relationships", "boundaries", "composition"]
 when_to_use = ["Frame a structural design problem before choosing one pattern.", "Explain when structural patterns fit better than behavioral or creational ones."]
 
@@ -38,7 +38,7 @@ priority = 20
 file = "adapter.md"
 
 [references.metadata.trigger]
-summary = "Use when the Adapter pattern should reuse an existing class through a different client-facing interface."
+summary = "Use for the Adapter pattern should reuse an existing class through a different client-facing interface."
 intent_tags = ["adapter", "compatibility", "wrapper", "interface", "adaptee"]
 when_to_use = ["Adapt one interface into another expected by clients.", "Choose between adapter and facade."]
 
@@ -56,7 +56,7 @@ priority = 30
 file = "bridge.md"
 
 [references.metadata.trigger]
-summary = "Use when the Bridge pattern should let abstraction and implementation vary independently."
+summary = "Use for the Bridge pattern should let abstraction and implementation vary independently."
 intent_tags = ["bridge", "abstraction", "implementation", "variation", "backend"]
 when_to_use = ["Design two-axis abstraction and implementation variation.", "Choose between bridge and adapter."]
 
@@ -74,7 +74,7 @@ priority = 40
 file = "decorator.md"
 
 [references.metadata.trigger]
-summary = "Use when the Decorator pattern should add behavior dynamically around one object."
+summary = "Use for the Decorator pattern should add behavior dynamically around one object."
 intent_tags = ["decorator", "wrapping", "behavior", "composition", "stack"]
 when_to_use = ["Add responsibilities by wrapping an object.", "Choose between decorator and proxy."]
 
@@ -92,7 +92,7 @@ priority = 31
 file = "facade.md"
 
 [references.metadata.trigger]
-summary = "Use when the Facade pattern should present a simpler entry point to a complex subsystem."
+summary = "Use for the Facade pattern should present a simpler entry point to a complex subsystem."
 intent_tags = ["facade", "subsystem", "simplify", "entry-point", "surface"]
 when_to_use = ["Simplify subsystem usage for common workflows.", "Choose between facade and adapter."]
 
@@ -110,7 +110,7 @@ priority = 32
 file = "marker-interface.md"
 
 [references.metadata.trigger]
-summary = "Use when the Marker Interface pattern should provide type-level tagging in a constrained metadata environment."
+summary = "Use for the Marker Interface pattern should provide type-level tagging in a constrained metadata environment."
 intent_tags = ["marker-interface", "marker", "interface", "tagging", "metadata", "empty-interface", "legacy"]
 when_to_use = ["Tag classes by type when richer metadata is unavailable.", "Decide whether a marker interface is justified."]
 
@@ -128,7 +128,7 @@ priority = 33
 file = "proxy.md"
 
 [references.metadata.trigger]
-summary = "Use when the Proxy pattern should mediate access to another object or resource."
+summary = "Use for the Proxy pattern should mediate access to another object or resource."
 intent_tags = ["proxy", "access", "lazy", "remote", "virtual"]
 when_to_use = ["Control access, loading, or remoting behind an interface.", "Choose between proxy and decorator."]
 
@@ -146,7 +146,7 @@ priority = 34
 file = "aggregate.md"
 
 [references.metadata.trigger]
-summary = "Use when the Aggregate pattern should add explicit aggregation helpers to a part-whole structure."
+summary = "Use for the Aggregate pattern should add explicit aggregation helpers to a part-whole structure."
 intent_tags = ["aggregate", "children", "aggregation", "collection", "part-whole"]
 when_to_use = ["Design a composite-like container with aggregation behavior.", "Choose between aggregate and composite."]
 
@@ -164,7 +164,7 @@ priority = 35
 file = "composite.md"
 
 [references.metadata.trigger]
-summary = "Use when the Composite pattern should let part and whole share one recursive interface."
+summary = "Use for the Composite pattern should let part and whole share one recursive interface."
 intent_tags = ["composite", "tree", "recursive", "part-whole", "uniform"]
 when_to_use = ["Treat leaves and containers uniformly.", "Choose between composite and aggregate."]
 
@@ -182,7 +182,7 @@ priority = 36
 file = "flyweight.md"
 
 [references.metadata.trigger]
-summary = "Use when the Flyweight pattern should let many similar objects share intrinsic state to reduce memory use."
+summary = "Use for the Flyweight pattern should let many similar objects share intrinsic state to reduce memory use."
 intent_tags = ["flyweight", "memory", "intrinsic", "extrinsic", "sharing"]
 when_to_use = ["Share repeated immutable state across many objects.", "Choose between flyweight and simpler direct object models."]
 
@@ -200,7 +200,7 @@ priority = 37
 file = "pipes-and-filters.md"
 
 [references.metadata.trigger]
-summary = "Use when the Pipes and Filters pattern should decompose processing into sequential transformation stages."
+summary = "Use for the Pipes and Filters pattern should decompose processing into sequential transformation stages."
 intent_tags = ["pipes-and-filters", "pipes", "filters", "pipeline", "stages", "transform"]
 when_to_use = ["Design staged transformation pipelines.", "Choose between pipelines and wrappers."]
 
@@ -218,7 +218,7 @@ priority = 38
 file = "opaque-pointer.md"
 
 [references.metadata.trigger]
-summary = "Use when the Opaque Pointer pattern should hide implementation details behind an opaque handle or incomplete type."
+summary = "Use for the Opaque Pointer pattern should hide implementation details behind an opaque handle or incomplete type."
 intent_tags = ["opaque-pointer", "opaque", "pointer", "representation", "abi", "handle", "private-type"]
 when_to_use = ["Hide representation details behind a private boundary.", "Choose between opaque pointers and more transparent APIs."]
 
@@ -236,7 +236,7 @@ priority = 39
 file = "extensibility.md"
 
 [references.metadata.trigger]
-summary = "Use when the system's extension surface must be chosen deliberately."
+summary = "Use for the system's extension surface must be chosen deliberately."
 intent_tags = ["extensibility", "plugin", "extension", "framework", "boundary"]
 when_to_use = ["Choose an extension model for a system.", "Compare black-box, gray-box, glass-box, and white-box exposure."]
 

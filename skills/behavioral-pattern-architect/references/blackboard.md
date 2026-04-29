@@ -26,7 +26,7 @@ Load when specialized modules should contribute partial solutions to a shared pr
 
 ## Operational Risk
 
-- Opaque coordination and hard debugging. Mitigate with a clear control shell, traceable contributions, and bounded specialist responsibilities.
+- Opaque coordination and hard debugging. Mitigate with clear control shell, traceable contributions, and bounded specialist responsibilities.
 
 ## Source Basis
 

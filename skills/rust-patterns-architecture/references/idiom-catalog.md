@@ -28,4 +28,4 @@ The idioms section captures high-frequency decisions that improve ergonomics and
 
 ## Idiom Decision Heuristic
 
-- If the problem is mostly signature shape, ownership flow, or call-site ergonomics, start with idioms before introducing heavier patterns.
+- If problem is mostly signature shape, ownership flow, or call-site ergonomics, start with idioms before introducing heavier patterns.

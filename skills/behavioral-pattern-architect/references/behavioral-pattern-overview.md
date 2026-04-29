@@ -1,6 +1,6 @@
 # Behavioral Pattern Overview
 
-Load when the user needs family-level guidance before choosing a specific behavioral pattern.
+Load when user needs family-level guidance before choosing a specific behavioral pattern.
 
 ## Intent
 

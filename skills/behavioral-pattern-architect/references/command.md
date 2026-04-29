@@ -22,7 +22,7 @@ Load when actions must be represented as values and invoked later, elsewhere, or
 ## Nearby Alternatives
 
 - Reject when a plain callback or function value is enough and you do not need metadata, history, or undo.
-- Reject when the problem is routing among handlers rather than packaging an action; that points to `Chain of Responsibility`.
+- Reject when problem is routing among handlers rather than packaging an action; that points to `Chain of Responsibility`.
 
 ## Main Tradeoff
 

@@ -2,7 +2,7 @@
 file = "suite-levels-and-shape.md"
 
 [references.metadata.trigger]
-summary = "Use when choosing unit, integration, or E2E mix, pyramid vs trophy, Google test sizes, or CI cost of layers."
+summary = "Use for choosing unit, integration, or E2E mix, pyramid vs trophy, Google test sizes, or CI cost of layers."
 intent_tags = ["testing", "pyramid", "trophy", "integration", "e2e", "ci", "unit", "jest", "pytest"]
 when_to_use = ["Design a test suite shape.", "Explain test pyramid or testing trophy.", "Argue small vs medium vs large tests."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "tdd-canon-and-loop.md"
 
 [references.metadata.trigger]
-summary = "Use when adopting or explaining test-driven development, canon TDD, or test-first workflow."
+summary = "Use for adopting or explaining test-driven development, canon TDD, or test-first workflow."
 intent_tags = ["tdd", "test-first", "refactor", "kent-beck", "workflow"]
 when_to_use = ["Introduce TDD to a team.", "Compare TDD to test-after.", "Clarify red-green-refactor."]
 

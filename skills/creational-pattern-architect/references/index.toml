@@ -2,7 +2,7 @@
 file = "pattern-selection.md"
 
 [references.metadata.trigger]
-summary = "Use when the user needs a fast creational-pattern pick or needs help distinguishing nearby construction patterns."
+summary = "Use for the user needs a fast creational-pattern pick or needs help distinguishing nearby construction patterns."
 intent_tags = ["creational", "pattern", "selection", "construction", "comparison", "routing"]
 when_to_use = ["Choose among creational patterns quickly.", "Resolve confusion between similar creation patterns."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "creational-pattern-overview.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is broadly about creational patterns, object creation flexibility, or choosing among construction approaches."
+summary = "Use for the request is broadly about creational patterns, object creation flexibility, or choosing among construction approaches."
 intent_tags = ["creational", "construction", "overview", "creation", "family"]
 when_to_use = ["Frame a creational design problem before choosing one pattern.", "Explain when creational patterns fit better than structural or behavioral ones."]
 
@@ -38,7 +38,7 @@ priority = 20
 file = "abstract-factory.md"
 
 [references.metadata.trigger]
-summary = "Use when the Abstract Factory pattern should create families of related products."
+summary = "Use for the Abstract Factory pattern should create families of related products."
 intent_tags = ["abstract-factory", "abstract", "factory", "family", "related-products", "theme"]
 when_to_use = ["Create related product families.", "Choose between abstract factory and other creational patterns."]
 
@@ -56,7 +56,7 @@ priority = 30
 file = "factory-method.md"
 
 [references.metadata.trigger]
-summary = "Use when the Factory Method pattern should create products through a creator method rather than direct construction."
+summary = "Use for the Factory Method pattern should create products through a creator method rather than direct construction."
 intent_tags = ["factory-method", "factory", "method", "creator", "instantiate", "subclass", "product"]
 when_to_use = ["Defer product choice to creator logic.", "Choose between factory method and abstract factory."]
 
@@ -74,7 +74,7 @@ priority = 31
 file = "builder.md"
 
 [references.metadata.trigger]
-summary = "Use when the Builder pattern should assemble a complex object step by step."
+summary = "Use for the Builder pattern should assemble a complex object step by step."
 intent_tags = ["builder", "staged", "assembly", "director", "configuration"]
 when_to_use = ["Assemble complex objects in steps.", "Choose between builder and simpler constructors."]
 
@@ -92,7 +92,7 @@ priority = 32
 file = "prototype.md"
 
 [references.metadata.trigger]
-summary = "Use when the Prototype pattern should create objects by cloning configured exemplars."
+summary = "Use for the Prototype pattern should create objects by cloning configured exemplars."
 intent_tags = ["prototype", "clone", "copy", "exemplar", "runtime"]
 when_to_use = ["Create objects by cloning prototypes.", "Choose between prototype and factory-based creation."]
 
@@ -110,7 +110,7 @@ priority = 33
 file = "singleton.md"
 
 [references.metadata.trigger]
-summary = "Use when the Singleton pattern should coordinate a system-wide concern through exactly one instance."
+summary = "Use for the Singleton pattern should coordinate a system-wide concern through exactly one instance."
 intent_tags = ["singleton", "global", "single-instance", "shared", "coordinator"]
 when_to_use = ["Evaluate whether one instance should exist.", "Choose between singleton and dependency injection."]
 
@@ -128,7 +128,7 @@ priority = 34
 file = "dependency-injection.md"
 
 [references.metadata.trigger]
-summary = "Use when the Dependency Injection pattern should supply dependencies from outside the consuming class."
+summary = "Use for the Dependency Injection pattern should supply dependencies from outside the consuming class."
 intent_tags = ["dependency-injection", "dependency", "injection", "composition-root", "wiring", "service"]
 when_to_use = ["Inject collaborators instead of constructing them internally.", "Choose between dependency injection and factory-owned creation."]
 
@@ -146,7 +146,7 @@ priority = 35
 file = "lazy-initialization.md"
 
 [references.metadata.trigger]
-summary = "Use when the Lazy Initialization pattern should defer creation until first use."
+summary = "Use for the Lazy Initialization pattern should defer creation until first use."
 intent_tags = ["lazy", "lazy-initialization", "initialization", "deferred", "first-use", "startup"]
 when_to_use = ["Delay expensive initialization.", "Choose between lazy init and eager setup."]
 
@@ -164,7 +164,7 @@ priority = 36
 file = "object-pool.md"
 
 [references.metadata.trigger]
-summary = "Use when the Object Pool pattern should reuse expensive short-lived objects or resources."
+summary = "Use for the Object Pool pattern should reuse expensive short-lived objects or resources."
 intent_tags = ["object-pool", "object", "pool", "reuse", "resource", "expensive"]
 when_to_use = ["Reuse costly resources safely.", "Choose between pooling and simpler creation models."]
 

@@ -172,9 +172,9 @@ name = "compression-skill-designer"
 relative_path = "skills/compression-skill-designer"
 
 [locals.metadata.trigger]
-summary = "Use for terse communication, caveman mode, compressed persona rules."
-intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "caveman", "mode"]
-when_to_use = ["Design a caveman-like communication skill.", "Create rules for token-efficient agent responses.", "Review a compressed persona skill for accuracy and safety."]
+summary = "Use for terse communication, compressed persona rules."
+intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "mode"]
+when_to_use = ["Design a compressed communication skill.", "Create rules for token-efficient agent responses.", "Review a compressed persona skill for accuracy and safety."]
 skill_role = "meta"
 order_weight = 0
 

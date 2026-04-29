@@ -1,6 +1,6 @@
 # Structural Pattern Overview
 
-Load when the user needs family-level guidance before choosing one structural pattern.
+Load when user needs family-level guidance before choosing one structural pattern.
 
 ## Intent
 
@@ -18,7 +18,7 @@ Load when the user needs family-level guidance before choosing one structural pa
 
 ## Overuse Risks
 
-- Structural indirection is easy to add and hard to remove. Prefer the lightest boundary that preserves clarity.
+- Structural indirection is easy to add and hard to remove. Prefer lightest boundary that preserves clarity.
 
 ## Source Basis
 

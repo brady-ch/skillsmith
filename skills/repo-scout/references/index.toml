@@ -2,7 +2,7 @@
 file = "repo-briefing.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is primarily about understanding the repository and producing an implementation brief."
+summary = "Use for the request is primarily about understanding the repository and producing an implementation brief."
 intent_tags = ["repo", "brief", "analysis"]
 when_to_use = ["Summarize repository state before coding.", "Produce an implementation brief."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "risk-triage.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is focused on prioritizing risks, blockers, or mitigation work."
+summary = "Use for the request is focused on prioritizing risks, blockers, or mitigation work."
 intent_tags = ["risk", "triage", "blocker", "mitigation"]
 when_to_use = ["Rank technical risks.", "Provide mitigation steps for likely failures."]
 

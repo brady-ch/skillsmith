@@ -1,6 +1,6 @@
 # Concurrency Pattern Overview
 
-Load when the user needs family-level guidance before choosing one concurrency pattern.
+Load when user needs family-level guidance before choosing one concurrency pattern.
 
 ## Intent
 

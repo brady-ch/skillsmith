@@ -8,7 +8,7 @@ Load when a request may be handled by one of several receivers and senders shoul
 
 ## Core Shape
 
-- A sender targets a handler interface rather than a concrete receiver.
+- A sender targets a handler interface rather than concrete receiver.
 - Each handler either handles the request or forwards it to its successor.
 - The article notes a tree-shaped variant where dispatch may branch rather than stay linear.
 

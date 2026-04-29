@@ -1,13 +1,13 @@
 # Compression Mode Design
 
-Use this guide to design a reusable communication skill that reduces output tokens while preserving technical correctness. Treat JuliusBrussee/caveman as a pattern reference, not text to copy.
+Use to design a reusable communication skill that reduces output tokens while preserving technical correctness. Treat JuliusBrussee's pattern as a reference, not text to copy.
 
 ## Design Goals
 
-- Preserve exact technical meaning, identifiers, code, commands, file paths, error text, API names, and user-provided quoted text.
-- Remove low-value language: filler, repeated acknowledgements, unnecessary hedging, decorative tone, and verbose transitions.
-- Make the mode predictable: users should know when it is active, how terse it gets, and how to turn it off.
-- Keep the skill portable: rules should work across code review, implementation updates, planning, and troubleshooting.
+- Keep exact meaning, ids, code, commands, paths, errors, API names, quoted text.
+- Remove filler, repeated thanks, hedging, decorative tone, verbose transitions.
+- Make mode predictable. User should know when active, how terse, how to turn off.
+- Keep skill portable. Rules should work for review, impl, planning, troubleshooting.
 
 ## Core Skill Structure
 
@@ -50,11 +50,11 @@ Use levels only if they change behavior enough to justify extra complexity.
 | default | Short fragments allowed, articles optional, technical terms exact |
 | ultra | Maximum compression for status updates and simple answers; avoid for risky instructions |
 
-Default to `light` when the audience may be non-technical or the content is safety-sensitive. Default to `default` for developer workflows where terse updates are useful.
+Use `light` for non-technical or safety-sensitive. Use `default` for dev workflows.
 
 ## Safety Fallbacks
 
-Temporarily use normal explicit language for:
+Use normal explicit language for:
 
 - destructive commands or irreversible operations
 - security, privacy, legal, medical, or financial warnings
@@ -62,7 +62,7 @@ Temporarily use normal explicit language for:
 - multi-step procedures where fragments could be executed in the wrong order
 - user confusion, repeated questions, or direct requests for more clarity
 
-Resume compressed style after the risky or ambiguous section is complete.
+Resume compressed style after risky part done.
 
 ## Examples
 
@@ -83,7 +83,7 @@ Safety fallback:
 
 ## Output Checklist
 
-When producing a new compression skill, include:
+When making new compression skill, include:
 
 - concise trigger metadata
 - explicit off switch
@@ -92,4 +92,3 @@ When producing a new compression skill, include:
 - safety fallback rules
 - two or more examples
 - note that generated code, commit messages, and public documentation should stay normal unless the user explicitly wants compressed style there
-

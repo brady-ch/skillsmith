@@ -1,6 +1,6 @@
 # Creational Pattern Overview
 
-Load when the user needs family-level guidance before choosing one construction pattern.
+Load when user needs family-level guidance before choosing one construction pattern.
 
 ## Intent
 
@@ -26,7 +26,7 @@ Load when the user needs family-level guidance before choosing one construction 
 ## Overuse Risks
 
 - Excess abstraction can make creation harder to debug than direct construction.
-- The family article distinguishes class-creational vs object-creational approaches; prefer the lightest object-level indirection that solves the real problem.
+- The family article distinguishes class-creational vs object-creational approaches; prefer lightest object-level indirection that solves the real problem.
 
 ## Source Basis
 

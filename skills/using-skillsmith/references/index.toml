@@ -2,7 +2,7 @@
 file = "best-practices.md"
 
 [references.metadata.trigger]
-summary = "Use when an agent needs skillsmith workflow, setup, validation, or install rules."
+summary = "Use for an agent needs skillsmith workflow, setup, validation, or install rules."
 intent_tags = ["setup", "workflow", "install", "bootstrap", "agent", "rules", "validate"]
 when_to_use = [
   "Set up a skillsmith checkout.",

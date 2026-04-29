@@ -2,7 +2,7 @@
 file = "design-principles.md"
 
 [references.metadata.trigger]
-summary = "Use when the request needs Rust-specific framing, design scope, or decision anchors before choosing a concrete approach."
+summary = "Use for the request needs Rust-specific framing, design scope, or decision anchors before choosing a concrete approach."
 intent_tags = ["rust", "design", "architecture", "tradeoffs"]
 when_to_use = ["Frame a Rust architecture decision.", "Choose principles before implementation details."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "architecture-decisions.md"
 
 [references.metadata.trigger]
-summary = "Use when designing crate boundaries, layers, module decomposition, or safe shells around unsafe cores."
+summary = "Use for designing crate boundaries, layers, module decomposition, or safe shells around unsafe cores."
 intent_tags = ["architecture", "crate", "module", "layering", "decomposition"]
 when_to_use = ["Design Rust module boundaries.", "Refactor a large state object into clearer ownership domains."]
 
@@ -38,7 +38,7 @@ priority = 15
 file = "idiom-catalog.md"
 
 [references.metadata.trigger]
-summary = "Use when the decision is mostly about ownership flow, borrowed arguments, ergonomic signatures, or idiomatic implementation detail."
+summary = "Use for the decision is mostly about ownership flow, borrowed arguments, ergonomic signatures, or idiomatic implementation detail."
 intent_tags = ["idiom", "ownership", "borrow", "ergonomics", "api"]
 when_to_use = ["Resolve ownership friction idiomatically.", "Choose borrowed argument forms or in-place transitions."]
 
@@ -56,7 +56,7 @@ priority = 20
 file = "api-ergonomics.md"
 
 [references.metadata.trigger]
-summary = "Use when function signatures, generic APIs, or call-site flexibility are the main design concern."
+summary = "Use for function signatures, generic APIs, or call-site flexibility are the main design concern."
 intent_tags = ["api", "signature", "ergonomics", "generic", "call-site"]
 when_to_use = ["Refine a Rust API shape.", "Decide how a function should accept data."]
 
@@ -74,7 +74,7 @@ priority = 25
 file = "common-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when deciding whether to use sibling pattern-architect skills first vs this Rust-only skill, or routing to the right Rust reference after pattern choice."
+summary = "Use for deciding whether to use sibling pattern-architect skills first vs this Rust-only skill, or routing to the right Rust reference after pattern choice."
 intent_tags = ["rust", "routing", "selection", "overview", "behavioral", "creational", "structural"]
 when_to_use = ["Choose between generic pattern skills and Rust implementation detail.", "Route after pattern family is known."]
 
@@ -92,7 +92,7 @@ priority = 30
 file = "behavioral-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when encoding a known behavioral pattern in Rust (enum vs dyn, RAII, newtype) — not for selecting Command vs Strategy vs Visitor among families."
+summary = "Use for encoding a known behavioral pattern in Rust (enum vs dyn, RAII, newtype) — not for selecting Command vs Strategy vs Visitor among families."
 intent_tags = ["rust", "raii", "newtype", "interpreter", "visitor", "strategy", "command", "dyn", "trait-object"]
 when_to_use = ["Map a chosen pattern to Rust types and dispatch.", "Compare enum vs trait object for pluggable behavior."]
 
@@ -110,7 +110,7 @@ priority = 35
 file = "creational-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when shaping Rust builders, typestate, fold/try_fold construction — not for picking creational design patterns across families."
+summary = "Use for shaping Rust builders, typestate, fold/try_fold construction — not for picking creational design patterns across families."
 intent_tags = ["rust", "construction", "fold", "initialization", "builder", "typestate"]
 when_to_use = ["Design Rust build() APIs.", "Choose typestate vs runtime-validated builders."]
 
@@ -128,7 +128,7 @@ priority = 40
 file = "structural-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when splitting Rust modules/crates for borrows, or safe shells around unsafe — not for Adapter vs Decorator vs Facade pattern selection."
+summary = "Use for splitting Rust modules/crates for borrows, or safe shells around unsafe — not for Adapter vs Decorator vs Facade pattern selection."
 intent_tags = ["structural", "crate", "module", "unsafe", "composition", "borrow"]
 when_to_use = ["Refactor for borrow checker.", "Isolate unsafe in a small module.", "Size crates for clarity."]
 
@@ -146,7 +146,7 @@ priority = 45
 file = "boundary-safety.md"
 
 [references.metadata.trigger]
-summary = "Use when unsafe code, foreign boundaries, or invariant-sensitive wrappers are in play."
+summary = "Use for unsafe code, foreign boundaries, or invariant-sensitive wrappers are in play."
 intent_tags = ["unsafe", "boundary", "ffi", "invariants", "wrapper"]
 when_to_use = ["Design a safe wrapper around unsafe code.", "Audit unsafe boundary assumptions."]
 
@@ -164,7 +164,7 @@ priority = 50
 file = "ffi-idioms.md"
 
 [references.metadata.trigger]
-summary = "Use when modeling FFI strings, error mapping, object wrappers, or consolidated foreign types."
+summary = "Use for modeling FFI strings, error mapping, object wrappers, or consolidated foreign types."
 intent_tags = ["ffi", "cstr", "cstring", "wrapper", "error-mapping"]
 when_to_use = ["Wrap a C API safely.", "Choose idiomatic Rust string and error handling for FFI."]
 
@@ -182,7 +182,7 @@ priority = 55
 file = "custom-trait-bounds.md"
 
 [references.metadata.trigger]
-summary = "Use when generic bounds are too complex, repeated, or hiding the real capability an API needs."
+summary = "Use for generic bounds are too complex, repeated, or hiding the real capability an API needs."
 intent_tags = ["traits", "bounds", "generics", "readability", "api"]
 when_to_use = ["Reduce noisy where-clauses.", "Name a repeated capability with a custom trait."]
 
@@ -200,7 +200,7 @@ priority = 60
 file = "anti-patterns.md"
 
 [references.metadata.trigger]
-summary = "Use when reviewing code for shortcuts that hide ownership problems, brittle lint policy, or inheritance-like tricks."
+summary = "Use for reviewing code for shortcuts that hide ownership problems, brittle lint policy, or inheritance-like tricks."
 intent_tags = ["anti-pattern", "clone", "borrow-checker", "deref", "warnings", "review"]
 when_to_use = ["Review Rust code for bad shortcuts.", "Decide what not to do before recommending a fix."]
 
@@ -218,7 +218,7 @@ priority = 65
 file = "functional-techniques.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is about compositional design, type-driven style, or functional patterns in Rust."
+summary = "Use for the request is about compositional design, type-driven style, or functional patterns in Rust."
 intent_tags = ["functional", "composition", "type-driven", "optics", "paradigm"]
 when_to_use = ["Explore functional Rust techniques.", "Model APIs through composition and type classes."]
 
@@ -236,7 +236,7 @@ priority = 70
 file = "review-checklist.md"
 
 [references.metadata.trigger]
-summary = "Use when reviewing Rust code or validating a recommendation before handoff."
+summary = "Use for reviewing Rust code or validating a recommendation before handoff."
 intent_tags = ["review", "checklist", "risk", "anti-pattern", "validation"]
 when_to_use = ["Review Rust code changes.", "Validate a recommendation before finalizing it."]
 

@@ -2,7 +2,7 @@
 file = "nondeterminism-catalog.md"
 
 [references.metadata.trigger]
-summary = "Use when tests are flaky, time-dependent, async-racy, or fail only in CI."
+summary = "Use for tests are flaky, time-dependent, async-racy, or fail only in CI."
 intent_tags = ["flaky", "nondeterminism", "async", "timing", "ci", "race"]
 when_to_use = ["Diagnose intermittent test failures.", "Map symptoms to causes.", "Fix sleep-based tests."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "isolation-and-parallelism.md"
 
 [references.metadata.trigger]
-summary = "Use when order-dependent failures, shared fixtures, or parallel CI break tests."
+summary = "Use for order-dependent failures, shared fixtures, or parallel CI break tests."
 intent_tags = ["parallel", "isolation", "fixtures", "pollution", "quarantine"]
 when_to_use = ["Tests pass alone but fail in suite.", "Enable or debug parallel test execution."]
 

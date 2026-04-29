@@ -14,7 +14,7 @@ Load when you need to decide **which reference to open next** — not a second c
 
 ## Then use this Rust skill for implementation
 
-After the pattern *family* is clear (or the task is inherently Rust-only: ownership, `unsafe`, FFI, signatures), route from this repo’s **`reference-router.md`** to:
+After the pattern *family* is clear (or task is inherently Rust-only: ownership, `unsafe`, FFI, signatures), route from this repo’s **`reference-router.md`** to:
 
 - Rust **encoding** of a known pattern → `behavioral-patterns.md`, `creational-patterns.md`, or structural **layout** notes in `structural-patterns.md` (Rust crate/module/borrow — not GoF selection).
 - Idioms and APIs → `idiom-catalog.md`, `api-ergonomics.md`

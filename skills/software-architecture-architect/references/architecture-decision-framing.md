@@ -1,6 +1,6 @@
 # Architecture Decision Framing
 
-Load when the problem is choosing a system direction and the user needs a decision structure, not a pattern catalog.
+Load when choosing system direction. Need decision structure, not pattern catalog.
 
 ## Use For
 
@@ -13,7 +13,7 @@ Load when the problem is choosing a system direction and the user needs a decisi
 1. State the decision in one sentence.
 2. List the constraints that actually matter.
 3. Pick the quality attributes that should dominate.
-4. Compare the lightest viable options, not the longest list.
+4. Compare lightest viable options, not the longest list.
 5. Name the option you reject and why it is heavier or riskier.
 
 ## Good Questions

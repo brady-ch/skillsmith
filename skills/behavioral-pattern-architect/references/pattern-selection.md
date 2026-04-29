@@ -1,6 +1,6 @@
 # Pattern Selection
 
-Load when the user needs a fast routing decision or is comparing nearby behavioral patterns.
+Load when user needs fast routing decision or is comparing nearby behavioral patterns.
 
 ## Fast Map
 

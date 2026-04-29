@@ -20,7 +20,7 @@ Load when a part-whole structure needs explicit aggregation helpers beyond a pla
 
 ## Main Tradeoff
 
-- Aggregate adds collection-oriented helper behavior, but may offer little value beyond a clear container API.
+- Aggregate adds collection-oriented helper behavior, but may offer little value beyond clear container API.
 
 ## Operational Risk
 

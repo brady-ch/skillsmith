@@ -2,7 +2,7 @@
 file = "phased-plan.md"
 
 [references.metadata.trigger]
-summary = "Use when the migration needs staged rollout, compatibility bridging, or cutover sequencing."
+summary = "Use for the migration needs staged rollout, compatibility bridging, or cutover sequencing."
 intent_tags = ["migration", "phase", "cutover", "rollout"]
 when_to_use = ["Design a staged migration.", "Plan a multi-step cutover."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "rollback-operations.md"
 
 [references.metadata.trigger]
-summary = "Use when rollback readiness, failure detection, and operational drills are the primary concern."
+summary = "Use for rollback readiness, failure detection, and operational drills are the primary concern."
 intent_tags = ["rollback", "recovery", "operations", "safety"]
 when_to_use = ["Define rollback triggers.", "Prepare rollback operations and drills."]
 

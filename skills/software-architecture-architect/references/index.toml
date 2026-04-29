@@ -2,7 +2,7 @@
 file = "architecture-decision-framing.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is about architecture decisions, quality attributes, or tradeoff framing."
+summary = "Use for the request is about architecture decisions, quality attributes, or tradeoff framing."
 intent_tags = ["architecture", "system", "design", "tradeoffs", "quality-attributes", "decision"]
 when_to_use = ["Frame architecture options against constraints and quality attributes.", "Choose a direction and explain why."]
 
@@ -20,7 +20,7 @@ priority = 10
 file = "decomposition-and-boundaries.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is about module, package, or service decomposition and dependency direction."
+summary = "Use for the request is about module, package, or service decomposition and dependency direction."
 intent_tags = ["decomposition", "boundaries", "module", "service", "dependency", "layering"]
 when_to_use = ["Split a system into modules or services.", "Choose boundary placement and dependency direction."]
 
@@ -38,7 +38,7 @@ priority = 20
 file = "architecture-review-and-risks.md"
 
 [references.metadata.trigger]
-summary = "Use when the request is about architecture review, risk analysis, or failure modes."
+summary = "Use for the request is about architecture review, risk analysis, or failure modes."
 intent_tags = ["review", "risk", "failure-modes", "coupling", "operability", "resilience"]
 when_to_use = ["Review an architecture for risks and weak points.", "Call out likely failure modes and mitigations."]
 
