@@ -47,12 +47,12 @@ Return:
 
 ## Skill Inventory Note
 
-This repository includes these base skills and intent:
+This repo has these base skills:
 - `repo-scout`: repo assessment and implementation briefing
-- `api-contract-critic`: API contract review and compatibility risk analysis
+- `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
-- `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
-- `product-manager-challenger`: strict product questioning, scope pushback, and repo-native task tracking
+- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
+- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns
+- `product-manager-challenger`: strict product questions, scope pushback, repo-native task tracking

@@ -6,23 +6,23 @@ license: MIT
 
 # Rust Systems Architecture
 
-This is the base skill router. Keep this file lean and load references selectively.
+Base router. Keep lean. Load only needed references.
 
 ## Non-Negotiable Loading Rule
 
-Never load all files in `references/`.
+Do not load all `references/`.
 Load `references/reference-router.md` first, then load only the minimum additional references needed to answer the request.
 
 ## When To Use This Skill
 
-Use when the user asks for:
+Use for:
 - Rust architecture or module/crate design
 - ownership or API-shape decisions
 - idiomatic Rust implementation guidance or anti-pattern review
 - unsafe boundary, FFI, or wrapper design
 - Rust code review with maintainability and correctness tradeoffs
 
-Do not use when:
+Do not use for:
 - the request is not Rust-specific
 - the user only needs generic language-agnostic architecture advice - use `software-architecture-architect`
 - the user only needs **which** behavioral, creational, or structural *design pattern* to pick — use **`behavioral-pattern-architect`**, **`creational-pattern-architect`**, or **`structural-pattern-architect`** (and **`concurrency-pattern-architect`** when relevant) first
@@ -68,12 +68,12 @@ When answering:
 
 ## Skill Inventory Note
 
-This repository includes these base skills and intent:
-- `repo-scout`: repository assessment and implementation briefing
-- `api-contract-critic`: API contract review and compatibility risk analysis
+This repo has these base skills:
+- `repo-scout`: repo assessment and implementation brief
+- `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
+- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
 - `behavioral-pattern-architect`, `creational-pattern-architect`, `structural-pattern-architect`, `concurrency-pattern-architect`: language-agnostic pattern family selection
 - `rust-patterns-architecture`: Rust-specific idioms, APIs, ownership/`unsafe`/FFI, and how to encode patterns in Rust (not duplicate pattern catalogs)

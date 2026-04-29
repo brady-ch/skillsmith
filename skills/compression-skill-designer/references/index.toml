@@ -2,7 +2,7 @@
 file = "compression-mode-design.md"
 
 [references.metadata.trigger]
-summary = "Use when designing or reviewing terse, token-efficient communication skills, caveman-like response modes, or compressed persona rules."
+summary = "Use for terse communication, caveman mode, compressed persona rules."
 intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "caveman", "mode"]
 when_to_use = [
   "Design a caveman-like communication skill.",

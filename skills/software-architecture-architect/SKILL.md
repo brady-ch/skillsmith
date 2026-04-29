@@ -1,28 +1,28 @@
 ---
 name: software-architecture-architect
-description: Use when the user needs language-agnostic system architecture guidance, module or service decomposition, boundary design, or tradeoff framing.
+description: Use for language-agnostic system architecture, decomposition, boundary design, tradeoffs.
 license: MIT
 ---
 
 # Software Architecture Architect
 
-This is the base skill router. Keep this file lean and load references selectively.
+Base router. Keep lean. Load only needed references.
 
 ## Non-Negotiable Loading Rule
 
-Never load all files in `references/`.
+Do not load all `references/`.
 Load `references/reference-router.md` first, then only the minimum additional reference needed to answer the request.
 
 ## When To Use This Skill
 
-Use when the user asks for:
+Use for:
 - system architecture or design direction
 - module, package, or service decomposition
 - boundary placement, dependency direction, or ownership splits
 - architecture decision framing, quality attributes, or tradeoff analysis
 - architecture review, risk review, or failure-mode analysis
 
-Do not use when:
+Do not use for:
 - the main question is which GoF pattern family or pattern name to choose - use `behavioral-pattern-architect`, `creational-pattern-architect`, `structural-pattern-architect`, or `concurrency-pattern-architect`
 - the question is Rust-specific implementation detail, ownership flow, unsafe boundaries, or FFI - use `rust-patterns-architecture`
 
@@ -52,13 +52,13 @@ Do not use when:
 
 ## Skill Inventory Note
 
-This repository includes these base skills and intent:
-- `repo-scout`: repository assessment and implementation briefing
-- `api-contract-critic`: API contract review and compatibility risk analysis
+This repo has these base skills:
+- `repo-scout`: repo assessment and implementation brief
+- `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
+- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
 - `behavioral-pattern-architect`, `creational-pattern-architect`, `structural-pattern-architect`, `concurrency-pattern-architect`: language-agnostic pattern family selection
-- `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
-- `product-manager-challenger`: strict product questioning, scope pushback, and repo-native task tracking
+- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns
+- `product-manager-challenger`: strict product questions, scope pushback, repo-native task tracking

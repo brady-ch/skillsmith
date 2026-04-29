@@ -1,25 +1,25 @@
 ---
 name: migration-guardian
-description: Use when planning data or service migrations with rollback-first safety constraints.
+description: Use for data or service migrations with rollback-first safety.
 ---
 
 # Migration Guardian
 
-This is the base skill router. Keep this file lean and route to references on demand.
+Base router. Keep lean. Route to references on demand.
 
 ## Non-Negotiable Loading Rule
 
-Never load all files in `references/`.
+Do not load all `references/`.
 Load `reference-router.md` first, then only one additional reference unless blocked.
 
 ## When To Use This Skill
 
-Use when the user asks for:
+Use for:
 - phased migrations with backward compatibility
 - rollback-first deployment planning
 - migration checkpoints and verification strategy
 
-Do not use when:
+Do not use for:
 - change is a trivial one-step refactor with no migration surface
 - no state/data/interface evolution is involved
 
@@ -33,11 +33,11 @@ Do not use when:
 
 ## Skill Inventory Note
 
-This repository includes these base skills and intent:
+This repo has these base skills:
 - `repo-scout`: repo assessment and implementation briefing
-- `api-contract-critic`: API contract review and compatibility risk analysis
+- `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
-- `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
+- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
+- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns

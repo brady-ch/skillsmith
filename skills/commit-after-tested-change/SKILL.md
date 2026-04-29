@@ -1,6 +1,6 @@
 ---
 name: commit-after-tested-change
-description: Use when you want to commit each completed, tested change before moving on to the next slice of work.
+description: Use for commit after each tested slice.
 ---
 
 # Commit After Tested Change
@@ -13,12 +13,12 @@ Read `references/reference-router.md` first. Then load only the minimum addition
 
 ## When To Use This Skill
 
-Use when the user asks for:
+Use for:
 - a commit cadence tied to passing tests
 - incremental delivery with one commit per completed slice
 - checkpoint commits after validated work
 
-Do not use when:
+Do not use for:
 - the user wants one final commit only
 - the work is exploratory and intentionally uncommitted
 

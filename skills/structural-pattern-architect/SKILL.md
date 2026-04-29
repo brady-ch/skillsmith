@@ -1,21 +1,21 @@
 ---
 name: structural-pattern-architect
-description: Use when choosing structural software design patterns for interface adaptation, subsystem simplification, runtime wrapping, part-whole composition, abstraction-implementation decoupling, shared representations, extensibility boundaries, or access indirection.
+description: Use for structural pattern choice: adaptation, wrapping, composition, shared representation, indirection.
 license: CC-BY-SA-4.0
 ---
 
 # Structural Pattern Architect
 
-This is the base skill router. Keep this file lean and load references selectively.
+Base router. Keep lean. Load only needed references.
 
 ## Non-Negotiable Loading Rule
 
-Never load all files in `references/`.
+Do not load all `references/`.
 Load `references/reference-router.md` first, then load only the minimum additional references needed to answer the request.
 
 ## When To Use This Skill
 
-Use when the user asks for:
+Use for:
 - structural design pattern selection
 - interface adaptation or compatibility shims
 - simplifying a complex subsystem behind one entry point
@@ -25,7 +25,7 @@ Use when the user asks for:
 - memory reduction through shared intrinsic state
 - extensibility boundary design across white-box, glass-box, gray-box, or black-box extension models
 
-Do not use when:
+Do not use for:
 - the problem is mainly about algorithm choice or behavioral coordination
 - the main issue is object creation or lifecycle rather than object relationships
 - the request is about framework-specific APIs instead of structural design guidance
@@ -58,14 +58,14 @@ When answering:
 
 ## Skill Inventory Note
 
-This repository includes these base skills and intent:
-- `repo-scout`: repository assessment and implementation briefing
-- `api-contract-critic`: API contract review and compatibility risk analysis
+This repo has these base skills:
+- `repo-scout`: repo assessment and implementation brief
+- `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
-- `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
+- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
+- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns
 - `behavioral-pattern-architect`: language-agnostic behavioral pattern selection and tradeoff guidance
 - `concurrency-pattern-architect`: language-agnostic concurrency pattern selection and synchronization guidance
 - `structural-pattern-architect`: language-agnostic structural pattern selection and boundary-shaping guidance

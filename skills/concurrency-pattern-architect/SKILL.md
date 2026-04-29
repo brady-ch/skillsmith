@@ -1,21 +1,21 @@
 ---
 name: concurrency-pattern-architect
-description: Use when choosing concurrency design patterns for event loops, asynchronous completion, serialized actors, worker pools, synchronization, guarded waiting, lock granularity, or thread-local isolation.
+description: Use for concurrency pattern choice: event loops, async completion, actors, pools, sync, isolation.
 license: CC-BY-SA-4.0
 ---
 
 # Concurrency Pattern Architect
 
-This is the base skill router. Keep this file lean and load references selectively.
+Base router. Keep lean. Load only needed references.
 
 ## Non-Negotiable Loading Rule
 
-Never load all files in `references/`.
+Do not load all `references/`.
 Load `references/reference-router.md` first, then load only the minimum additional references needed to answer the request.
 
 ## When To Use This Skill
 
-Use when the user asks for:
+Use for:
 - concurrency pattern selection
 - event-loop, reactor, or async completion design
 - worker pools, active objects, or task scheduling
@@ -23,7 +23,7 @@ Use when the user asks for:
 - guarded waiting, refuse-vs-block behavior, or backpressure decisions
 - thread-local state, lazy initialization, or shared-state isolation
 
-Do not use when:
+Do not use for:
 - the problem is mainly about distributed system messaging rather than local concurrency control
 - the user only needs language-specific API syntax
 - the question is about data-model design with little concurrency behavior involved
@@ -56,13 +56,13 @@ When answering:
 
 ## Skill Inventory Note
 
-This repository includes these base skills and intent:
-- `repo-scout`: repository assessment and implementation briefing
-- `api-contract-critic`: API contract review and compatibility risk analysis
+This repo has these base skills:
+- `repo-scout`: repo assessment and implementation brief
+- `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
-- `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
+- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
+- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns
 - `behavioral-pattern-architect`: language-agnostic behavioral pattern selection and tradeoff guidance
 - `concurrency-pattern-architect`: language-agnostic concurrency pattern selection and synchronization guidance

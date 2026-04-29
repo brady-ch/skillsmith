@@ -1,48 +1,48 @@
 ---
 name: using-skillsmith
-description: Use when working in a skillsmith checkout or installing the project's default agent rules.
+description: Use when in skillsmith checkout or installing default agent rules.
 ---
 
 # Using Skillsmith
 
-Base router. Keep it short. Load only what you need.
+Base router. Keep short. Load minimum.
 
 ## Non-Negotiable Loading Rule
 
-Read `references/reference-router.md` first. Then load only the minimum extra reference.
+Read `references/reference-router.md` first. Then load only one extra reference.
 
 ## When To Use This Skill
 
-Use when the user asks for:
+Use for:
 - skillsmith workflow or setup guidance
 - agent bootstrap or install conventions
 - catalog selection, validation, or install-flow reminders
 - terse output using `compression-skill-designer`, unless safety or clarity needs more detail
 
-Do not use when:
-- the task is unrelated to skillsmith or its agent workflow
-- the user asks for a different repo skill
+Do not use for:
+- task not about skillsmith or its agent workflow
+- user want different repo skill
 
 ## Reference Map
 
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/best-practices.md` | Need the repo workflow, setup, validation, and install rules |
+| `references/best-practices.md` | Need repo workflow, setup, validation, install rules |
 
 ## Project Rule
 
-- After any repo change, rerun `skillsmith setup` so installed rules stay current.
+- After repo change, rerun `skillsmith setup`. Keep rules fresh.
 
 ## Skill Inventory Note
 
-This repository includes these base skills and intent:
-- `repo-scout`: repository assessment and implementation briefing
-- `api-contract-critic`: API contract review and compatibility risk analysis
+This repo has these base skills:
+- `repo-scout`: repo assessment and implementation brief
+- `api-contract-critic`: API contract review and compatibility risks
 - `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
+- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
 - `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
-- `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
+- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
+- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns
 - `compression-skill-designer`: terse output mode and compression rules
-- `product-manager-challenger`: strict product questioning, scope pushback, and repo-native task tracking
+- `product-manager-challenger`: strict product questions, scope pushback, repo-native task tracking
