@@ -45,6 +45,36 @@ fn recommend_prefers_umbrella_architecture_skill_for_broad_query() {
         res.recommendations
             .first()
             .map(|entry| entry.suggested_reference_file.as_str()),
-        Some("architecture-decision-framing.md")
+        Some("architecture-decision-framing-wenyan.md")
+    );
+}
+
+#[test]
+fn recommend_wenyan_engineering_principles_does_not_suggest_english_companion_for_principles_intent()
+{
+    let repo_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let catalog_path = repo_root.join("catalog/catalog.toml");
+    let catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
+    let mut cache = CatalogCache::new(catalog);
+    let intent = "engineering principles and wenyan rewrite workflow";
+    let res = recommend_for_intent(
+        &mut cache,
+        &repo_root,
+        intent,
+        15,
+        Some("wenyan-engineering-principles"),
+        None,
+    )
+    .expect("recommend should succeed for wenyan skill");
+    let first = res.recommendations.first().expect("expected one recommendation");
+    assert_ne!(
+        first.suggested_reference_file.as_str(),
+        "english-alternative.md"
+    );
+    assert!(
+        first.suggested_reference_file.ends_with("-wenyan.md")
+            || first.suggested_reference_file == "reference-router.md",
+        "expected Wenyan slice or router, got {}",
+        first.suggested_reference_file
     );
 }

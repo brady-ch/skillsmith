@@ -500,7 +500,7 @@ fn explain_routes_behavioral_intent_to_article_file() {
             .expect("behavioral explain");
 
     assert_eq!(explain.skill_name, "behavioral-pattern-architect");
-    assert_eq!(explain.reference.file, "observer.md");
+    assert_eq!(explain.reference.file, "observer-wenyan.md");
 }
 
 #[test]
@@ -515,7 +515,7 @@ fn explain_routes_creational_intent_to_article_file() {
             .expect("creational explain");
 
     assert_eq!(explain.skill_name, "creational-pattern-architect");
-    assert_eq!(explain.reference.file, "builder.md");
+    assert_eq!(explain.reference.file, "builder-wenyan.md");
 }
 
 #[test]
@@ -535,7 +535,7 @@ fn explain_routes_concurrency_intent_to_article_file() {
     .expect("concurrency explain");
 
     assert_eq!(explain.skill_name, "concurrency-pattern-architect");
-    assert_eq!(explain.reference.file, "thread-pool.md");
+    assert_eq!(explain.reference.file, "thread-pool-wenyan.md");
 }
 
 #[test]
@@ -550,7 +550,7 @@ fn explain_routes_structural_intent_to_article_file() {
             .expect("structural explain");
 
     assert_eq!(explain.skill_name, "structural-pattern-architect");
-    assert_eq!(explain.reference.file, "adapter.md");
+    assert_eq!(explain.reference.file, "adapter-wenyan.md");
 }
 
 #[test]
