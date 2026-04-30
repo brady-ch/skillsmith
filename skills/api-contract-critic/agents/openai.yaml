@@ -1,4 +1,0 @@
-version: 1
-display_name: API Contract Critic
-short_description: Strict API contract review for clarity and compatibility.
-default_prompt: Review these interfaces and list concrete API contract risks with remediation steps.

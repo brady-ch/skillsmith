@@ -24,8 +24,7 @@ Use for:
 - Wenyan-first or compressed engineering-principles rewrites that still need real architecture framing (English companion only when explicitly requested)
 
 Do not use for:
-- GoF pattern choice - use pattern architect siblings
-- Rust ownership/unsafe/FFI detail - use `rust-patterns-architecture`
+- narrow GoF pattern *catalog* pickup (this catalog keeps one architecture skill; use architecture skill for boundaries, then plain design judgment)
 
 ## Reference Map
 
@@ -40,11 +39,11 @@ Do not use for:
 
 1. Load `references/reference-router.md`.
 2. Load one targeted reference.
-3. If the request narrows into pattern-family selection, hand off to the relevant sibling pattern skill.
-4. If the request narrows into Rust implementation or safety, hand off to `rust-patterns-architecture`.
-5. Include one rejected alternative, one main tradeoff, and one concrete risk mitigation.
+3. Stay at system framing and boundaries—avoid expanding into exhaustive pattern catalogs in one load.
 
 ## Output Contract
+
+Each answer should give:
 
 1. Recommendation
 2. Rejected alternative
@@ -53,13 +52,8 @@ Do not use for:
 
 ## Skill Inventory Note
 
-Base skills:
-- `repo-scout`: repo assessment and implementation brief
-- `api-contract-critic`: API contract review and compatibility risks
-- `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
-- `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
-- `behavioral-pattern-architect`, `creational-pattern-architect`, `structural-pattern-architect`, `concurrency-pattern-architect`: language-agnostic pattern family selection
-- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns
-- `product-manager-challenger`: strict product questions, scope pushback, repo-native task tracking
+Default catalog locals:
+- `software-architecture-architect`
+- `product-manager-challenger`
+- `compression-skill-designer`
+- `using-skillsmith`

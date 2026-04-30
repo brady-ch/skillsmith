@@ -1,4 +1,0 @@
-version: 1
-display_name: Commit After Tested Change
-short_description: Commit each completed slice only after its tests pass.
-default_prompt: Work in small slices. Run the relevant tests before committing. Do not commit failing or untested changes. After each completed, tested slice, stage only that slice and commit it with a short imperative message. Preserve unrelated user edits.

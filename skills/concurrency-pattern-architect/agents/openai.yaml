@@ -1,4 +1,0 @@
-version: 1
-display_name: Concurrency Pattern Architect
-short_description: Choose concurrency patterns with explicit tradeoffs.
-default_prompt: Recommend the best concurrency pattern for this design problem, reject one nearby alternative, and include the main operational risk.

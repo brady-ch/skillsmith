@@ -1,4 +1,0 @@
-version: 1
-display_name: Test determinism
-short_description: Diagnose flaky and nondeterministic tests using Fowler’s taxonomy and isolation practices.
-default_prompt: Identify likely flake sources, order-dependent failures, and parallel-test hazards; suggest fixes and quarantine policy.

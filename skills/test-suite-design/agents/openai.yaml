@@ -1,4 +1,0 @@
-version: 1
-display_name: Test suite design
-short_description: Authoritative guidance on test levels, pyramid vs trophy, and TDD workflow pointers.
-default_prompt: Recommend a test mix and levels with tradeoffs; cite pyramid, trophy, or TDD references as appropriate.

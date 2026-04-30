@@ -1,4 +1,0 @@
-version: 1
-display_name: Migration Guardian
-short_description: Safe migration planning with rollback-aware checkpoints.
-default_prompt: Propose a phased migration plan with explicit rollback triggers and verification checkpoints.

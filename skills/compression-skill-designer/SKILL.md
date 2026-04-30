@@ -34,13 +34,8 @@ Do not use for:
 
 ## Skill Inventory Note
 
-Base skills:
-- `repo-scout`: repo assessment and implementation brief
-- `api-contract-critic`: API contract review and compatibility risks
-- `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
-- `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
-- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns
-- `compression-skill-designer`: terse, token-efficient communication skill design
-- `product-manager-challenger`: strict product questions, scope pushback, repo-native task tracking
+Default catalog locals:
+- `using-skillsmith`
+- `product-manager-challenger`
+- `software-architecture-architect`
+- `compression-skill-designer`

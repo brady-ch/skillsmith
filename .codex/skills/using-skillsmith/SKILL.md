@@ -1,44 +1,58 @@
 ---
 name: using-skillsmith
-description: Use when working in a skillsmith checkout or installing the project's default agent rules.
+description: Use when in skillsmith checkout or installing default agent rules.
 ---
 
 # Using Skillsmith
 
-This is the base skill router. Keep this file lean and load references selectively.
+本技為根路由。文務短。載入務少。
 
 ## Non-Negotiable Loading Rule
 
-Load `references/reference-router.md` first, then only the minimum additional reference needed.
+先讀 `references/reference-router.md`。後只載一參考。
 
 ## When To Use This Skill
 
-Use when the user asks for:
-- skillsmith repo workflow or setup guidance
-- agent bootstrap or install conventions
-- catalog selection, validation, or install-flow reminders
-- default response style should stay compressed using `compression-skill-designer` unless safety or clarity requires fuller wording
+Use for:
+- skillsmith 流程、setup 之導
+- agent bootstrap、install 之法
+- catalog 選技、validate、install-flow 提醒
+- 以 `compression-skill-designer` 為省言，除非安全或清晰需詳
 
-Do not use when:
-- the task is unrelated to skillsmith or its agent workflow
-- the user specifically asks for a different repo skill
+Do not use for:
+- 非 skillsmith 或 agent workflow
+- user 指他 repo skill
 
 ## Reference Map
 
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/best-practices.md` | Need the repo workflow, setup, validation, and install rules |
+| `references/best-practices-wenyan.md` | Need repo workflow, setup, validation, install rules |
+
+## Human readers
+
+- Full English checklist: `references/best-practices-english.md`.
+
+## Project Rule
+
+- repo 變，復行 `skillsmith setup`。令規則常新。
+
+## Decision tree (token-first software work)
+
+Use MCP **`skillsmith_route_trace`** or **`skillsmith_recommend`** (short intent, small `limit`), then fetch only `SKILL.md` → `references/reference-router.md` → **one** reference. Rough branch order:
+
+1. **Scope / product risk** — vague asks, prioritization, tracking → `product-manager-challenger`
+2. **System shape** — modules, services, boundaries, tradeoffs → `software-architecture-architect`
+3. **Terse output / Wenyan skill design** — compression rules, persona modes → `compression-skill-designer`
+4. **This tool** — install, validate, catalog, hooks → `using-skillsmith`
+
+Remote catalog entries (e.g. installer smoke tests) still use **`install` / `sources`**; they are not part of this default decision tree.
 
 ## Skill Inventory Note
 
-This repository includes these base skills and intent:
-- `repo-scout`: repository assessment and implementation briefing
-- `api-contract-critic`: API contract review and compatibility risk analysis
-- `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD workflow pointers
-- `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: language-agnostic system architecture, decomposition, boundaries, and tradeoff framing
-- `rust-patterns-architecture`: Rust-specific idioms, patterns, architecture, and anti-pattern review
-- `compression-skill-designer`: terse output mode and compression rules
-- `product-manager-challenger`: strict product questioning, scope pushback, and repo-native task tracking
+Default catalog locals (high value per token):
+- `using-skillsmith`
+- `product-manager-challenger`
+- `software-architecture-architect`
+- `compression-skill-designer`

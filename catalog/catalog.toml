@@ -1,3 +1,5 @@
+# Token-first catalog: small set of high value-per-token locals. Route with recommend/trace,
+# then SKILL.md → reference-router.md → one reference (decision-tree style).
 [[locals]]
 name = "using-skillsmith"
 relative_path = "skills/using-skillsmith"
@@ -28,47 +30,26 @@ tier = "lite"
 token_hint = 900
 
 [[locals]]
-name = "commit-after-tested-change"
-relative_path = "skills/commit-after-tested-change"
+name = "product-manager-challenger"
+relative_path = "skills/product-manager-challenger"
 
 [locals.metadata.trigger]
-summary = "Use when you want a commit cadence that records each completed, tested change before moving on."
-intent_tags = ["git", "commit", "tested", "workflow", "checkpoint", "delivery"]
-when_to_use = [
-  "Need a process for committing only after tests pass.",
-  "Want incremental commits for completed work slices.",
-]
-skill_role = "process"
-order_weight = -4
+summary = "Use when the user wants strict product management, hard questioning, scope pushback, or repo-native tracking for approved work."
+intent_tags = ["product", "pm", "scope", "requirements", "tracking", "todo", "prioritization"]
+when_to_use = ["Challenge a product request that may not make sense yet.", "Create and maintain a repository tracking checklist with item detail folders."]
 
 [locals.metadata.objective]
-summary = "Guide incremental commits that only happen after a slice is complete and tested."
+summary = "Pressure-test product requests, force clear scope and success criteria, and maintain a durable execution tracker in the repo."
 
 [locals.metadata.output]
-summary = "Return a tested-change commit loop, a test gate, and commit-scope guardrails."
+summary = "Return direct challenges, a clarified problem statement, and tracked repo updates with explicit completion criteria."
 
 [locals.metadata.navigation]
-summary = "Load the router first, then the commit cadence reference."
-priority = 6
+summary = "Load the router first, then one reference for challenge flow, tracking setup, or item detail routing."
+priority = 22
 
-[[locals]]
-name = "repo-scout"
-relative_path = "skills/repo-scout"
-
-[locals.metadata.trigger]
-summary = "Use when a user needs repository discovery, implementation briefing, or architectural gap analysis."
-intent_tags = ["repo", "analysis", "brief", "architecture"]
-when_to_use = ["Assess a repository before implementation.", "Produce a concrete implementation brief."]
-
-[locals.metadata.objective]
-summary = "Inspect the repository quickly and produce a terse implementation brief."
-
-[locals.metadata.output]
-summary = "Return current-state facts, a likely implementation path, and explicit risks."
-
-[locals.metadata.navigation]
-summary = "Load the reference router first, then exactly one reference based on whether the request is briefing or risk triage."
-priority = 10
+[locals.metadata]
+token_hint = 1200
 
 [[locals]]
 name = "software-architecture-architect"
@@ -96,85 +77,8 @@ summary = "Return a concrete architecture recommendation with a rejected alterna
 summary = "Load the router first, then one reference for decision framing, decomposition, or architecture review."
 priority = 14
 
-[[locals]]
-name = "api-contract-critic"
-relative_path = "skills/api-contract-critic"
-
-[locals.metadata.trigger]
-summary = "Use when reviewing API surfaces for contract ambiguity, compatibility risk, or weak defaults."
-intent_tags = ["api", "contract", "compatibility", "review"]
-when_to_use = ["Review an API before release.", "Check whether a contract change is breaking."]
-
-[locals.metadata.objective]
-summary = "Review API surfaces and identify ambiguity, coupling, and compatibility risks."
-
-[locals.metadata.output]
-summary = "Return contract findings, compatibility classification, and required clarifications."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then one reference for either contract auditing or compatibility classification."
-priority = 20
-
-[[locals]]
-name = "migration-guardian"
-relative_path = "skills/migration-guardian"
-
-[locals.metadata.trigger]
-summary = "Use when planning staged migrations with rollback-first safety constraints."
-intent_tags = ["migration", "rollback", "schema", "cutover"]
-when_to_use = ["Design a phased migration plan.", "Define rollback triggers and checks."]
-
-[locals.metadata.objective]
-summary = "Plan safe schema and service migrations with rollback-aware checkpoints."
-
-[locals.metadata.output]
-summary = "Return stage sequencing, checkpoints, rollback triggers, and verification steps."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then one reference for phased rollout or rollback operations."
-priority = 30
-
-[[locals]]
-name = "test-suite-design"
-relative_path = "skills/test-suite-design"
-
-[locals.metadata.trigger]
-summary = "Use when choosing unit versus integration versus end-to-end test mix, explaining the test pyramid or testing trophy, sizing tests for CI, or weighing test-driven development against test-after habits."
-intent_tags = ["testing", "pyramid", "trophy", "integration", "e2e", "tdd", "ci", "unit", "jest", "pytest"]
-when_to_use = ["Design automated test levels.", "Compare pyramid vs trophy or Google test sizes.", "Introduce TDD workflow."]
-skill_role = "process"
-order_weight = 0
-
-[locals.metadata.objective]
-summary = "Recommend test suite shape and TDD pointers with explicit tradeoffs."
-
-[locals.metadata.output]
-summary = "Return level mix, rejected alternative, and cross-links to determinism or API contract skills when relevant."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then suite levels or TDD reference."
-priority = 12
-
-[[locals]]
-name = "test-determinism"
-relative_path = "skills/test-determinism"
-
-[locals.metadata.trigger]
-summary = "Use for flaky, order-dependent, time-dependent, or inconsistent CI tests."
-intent_tags = ["flaky", "nondeterminism", "parallel", "ci", "async", "timing", "race", "pollution"]
-when_to_use = ["Diagnose flaky tests.", "Fix intermittent CI failures.", "Debug parallel test pollution."]
-skill_role = "process"
-order_weight = 1
-
-[locals.metadata.objective]
-summary = "Diagnose nondeterminism and isolation failures using Fowler’s taxonomy."
-
-[locals.metadata.output]
-summary = "Return likely cause, fix, and when to use contract testing or quarantine."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then nondeterminism catalog or isolation reference."
-priority = 13
+[locals.metadata]
+token_hint = 1400
 
 [[locals]]
 name = "compression-skill-designer"
@@ -202,119 +106,8 @@ summary = "Return trigger rules, compression levels, exact-preservation rules, s
 summary = "Load the router first, then the compression mode design reference."
 priority = 14
 
-[[locals]]
-name = "rust-patterns-architecture"
-relative_path = "skills/rust-patterns-architecture"
-
-[locals.metadata.trigger]
-summary = "Use when the request is specifically about Rust idioms, architecture, ownership flow, unsafe boundaries, FFI wrappers, or anti-pattern review."
-intent_tags = ["rust", "ownership", "architecture", "ffi", "unsafe", "review", "idioms", "api"]
-when_to_use = ["Design or review Rust systems.", "Choose Rust-specific idioms and API shapes.", "Audit unsafe or FFI boundaries."]
-
-[locals.metadata.objective]
-summary = "Provide Rust-specific idioms, architecture defaults, API guidance, and anti-pattern prevention."
-
-[locals.metadata.output]
-summary = "Return a concrete Rust recommendation with rejected alternative, tradeoffs, and one explicit risk mitigation."
-
-[locals.metadata.navigation]
-summary = "Load the Rust router first. Defer generic pattern-family selection to behavioral/creational/structural/concurrency architect skills; use one reference here for Rust idioms, encoding, APIs, and boundaries."
-priority = 15
-
-[[locals]]
-name = "creational-pattern-architect"
-relative_path = "skills/creational-pattern-architect"
-
-[locals.metadata.trigger]
-summary = "Use when the request is about creational design pattern selection, object construction, staged builders, abstract factories, factory methods, runtime cloning, dependency injection, lazy initialization, or object pooling."
-intent_tags = ["creational", "builder", "factory", "abstract-factory", "factory-method", "prototype", "singleton", "dependency-injection", "lazy", "object-pool", "construction"]
-when_to_use = ["Choose a creational design pattern.", "Compare builder, factory, prototype, singleton, or dependency wiring approaches.", "Explain object construction tradeoffs."]
-
-[locals.metadata.objective]
-summary = "Provide targeted creational-pattern guidance with an explicit recommendation, rejected alternative, and operational risk."
-
-[locals.metadata.output]
-summary = "Return one recommended pattern, the reason it fits, the nearest rejected alternative, and one mitigation."
-
-[locals.metadata.navigation]
-summary = "Load the creational router first, then either quick selection, core patterns, or extended patterns based on the actual construction problem."
-priority = 16
-
-[[locals]]
-name = "behavioral-pattern-architect"
-relative_path = "skills/behavioral-pattern-architect"
-
-[locals.metadata.trigger]
-summary = "Use when the request is about behavioral design pattern selection, event propagation, undoable commands, runtime strategy changes, state-driven behavior, or rule composition."
-intent_tags = ["behavioral", "patterns", "observer", "strategy", "state", "command", "pubsub", "design"]
-when_to_use = ["Choose a behavioral pattern for a system design.", "Compare observer, pub-sub, strategy, state, command, or related patterns."]
-
-[locals.metadata.objective]
-summary = "Provide targeted behavioral-pattern guidance with an explicit recommendation, rejected alternative, and operational risk."
-
-[locals.metadata.output]
-summary = "Return one recommended pattern, the reason it fits, the nearest rejected alternative, and one mitigation."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then either quick selection, core patterns, or extended patterns based on the actual design problem."
-priority = 18
-
-[[locals]]
-name = "concurrency-pattern-architect"
-relative_path = "skills/concurrency-pattern-architect"
-
-[locals.metadata.trigger]
-summary = "Use when the request is about concurrency pattern selection, event-loop design, worker pools, synchronization, guarded waiting, or thread-local isolation."
-intent_tags = ["concurrency", "threads", "reactor", "proactor", "thread-pool", "lock", "semaphore", "monitor"]
-when_to_use = ["Choose a concurrency pattern for a system design.", "Compare worker, event, lock, or isolation patterns under concurrent load."]
-
-[locals.metadata.objective]
-summary = "Provide concurrency-pattern guidance with an explicit recommendation, rejected alternative, and operational risk."
-
-[locals.metadata.output]
-summary = "Return one recommended concurrency pattern, the reason it fits, the nearest rejected alternative, and one mitigation."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then either quick selection, event and worker patterns, synchronization patterns, or isolation patterns based on the problem."
-priority = 19
-
-[[locals]]
-name = "structural-pattern-architect"
-relative_path = "skills/structural-pattern-architect"
-
-[locals.metadata.trigger]
-summary = "Use when the request is about structural pattern selection, interface adaptation, subsystem facades, wrappers, part-whole composition, abstraction-implementation decoupling, shared representation, or extensibility boundaries."
-intent_tags = ["structural", "adapter", "facade", "decorator", "proxy", "bridge", "composite", "flyweight", "extensibility"]
-when_to_use = ["Choose a structural pattern for a system design.", "Compare adapters, facades, wrappers, composition, or representation-sharing patterns.", "Choose an extensibility boundary or plugin surface."]
-
-[locals.metadata.objective]
-summary = "Provide structural-pattern guidance with an explicit recommendation, rejected alternative, and boundary-related risk."
-
-[locals.metadata.output]
-summary = "Return one recommended structural pattern, the reason it fits, the nearest rejected alternative, and one mitigation."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then either quick selection, interface and wrapper patterns, composition and representation patterns, or cross-pattern tradeoffs based on the problem."
-priority = 21
-
-[[locals]]
-name = "product-manager-challenger"
-relative_path = "skills/product-manager-challenger"
-
-[locals.metadata.trigger]
-summary = "Use when the user wants strict product management, hard questioning, scope pushback, or repo-native tracking for approved work."
-intent_tags = ["product", "pm", "scope", "requirements", "tracking", "todo", "prioritization"]
-when_to_use = ["Challenge a product request that may not make sense yet.", "Create and maintain a repository tracking checklist with item detail folders."]
-
-[locals.metadata.objective]
-summary = "Pressure-test product requests, force clear scope and success criteria, and maintain a durable execution tracker in the repo."
-
-[locals.metadata.output]
-summary = "Return direct challenges, a clarified problem statement, and tracked repo updates with explicit completion criteria."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then one reference for challenge flow, tracking setup, or item detail routing."
-priority = 22
+[locals.metadata]
+token_hint = 950
 
 [[sources]]
 name = "codex-skills-example"

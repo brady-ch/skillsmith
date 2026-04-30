@@ -38,15 +38,21 @@ Do not use for:
 
 - repo 變，復行 `skillsmith setup`。令規則常新。
 
+## Decision tree (token-first software work)
+
+Use MCP **`skillsmith_route_trace`** or **`skillsmith_recommend`** (short intent, small `limit`), then fetch only `SKILL.md` → `references/reference-router.md` → **one** reference. Rough branch order:
+
+1. **Scope / product risk** — vague asks, prioritization, tracking → `product-manager-challenger`
+2. **System shape** — modules, services, boundaries, tradeoffs → `software-architecture-architect`
+3. **Terse output / Wenyan skill design** — compression rules, persona modes → `compression-skill-designer`
+4. **This tool** — install, validate, catalog, hooks → `using-skillsmith`
+
+Remote catalog entries (e.g. installer smoke tests) still use **`install` / `sources`**; they are not part of this default decision tree.
+
 ## Skill Inventory Note
 
-本 repo 諸 base skills:
-- `repo-scout`: repo assessment and implementation brief
-- `api-contract-critic`: API contract review and compatibility risks
-- `migration-guardian`: migration planning with rollback-first safety
-- `test-suite-design`: test levels, pyramid/trophy/sizes, TDD pointers
-- `test-determinism`: flaky tests, nondeterminism, isolation, parallel runs
-- `software-architecture-architect`: system architecture, decomposition, boundaries, tradeoffs
-- `rust-patterns-architecture`: Rust idioms, patterns, architecture, anti-patterns
-- `compression-skill-designer`: terse output mode and compression rules
-- `product-manager-challenger`: strict product questions, scope pushback, repo-native task tracking
+Default catalog locals (high value per token):
+- `using-skillsmith`
+- `product-manager-challenger`
+- `software-architecture-architect`
+- `compression-skill-designer`
