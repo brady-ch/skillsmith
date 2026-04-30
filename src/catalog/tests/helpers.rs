@@ -30,8 +30,8 @@ pub(super) fn test_metadata(summary: &str, tags: &[&str]) -> ToonMetadata {
 pub(super) fn valid_catalog() -> Catalog {
     Catalog {
         locals: vec![LocalSkill {
-            name: "repo-scout".to_string(),
-            relative_path: "skills/repo-scout".to_string(),
+            name: "fixture-skill".to_string(),
+            relative_path: "skills/fixture-skill".to_string(),
             metadata: test_metadata("Inspect repositories", &["repo", "analysis"]),
         }],
         sources: vec![RemoteSource {

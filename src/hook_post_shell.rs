@@ -107,14 +107,14 @@ mod tests {
             "schema_version": 1,
             "intent": "test",
             "recommendations": [{
-                "skill_name": "repo-scout",
+                "skill_name": "using-skillsmith",
                 "source": null,
-                "skill_path": "skills/repo-scout",
+                "skill_path": "skills/using-skillsmith",
                 "score": 3,
                 "skill_role": "implementation",
                 "order_weight": 0,
                 "reasons": [],
-                "suggested_reference_file": "repo-briefing-wenyan.md",
+                "suggested_reference_file": "best-practices-wenyan.md",
                 "reference_reasons": []
             }]
         })
@@ -159,9 +159,9 @@ mod tests {
             .get("additional_context")
             .and_then(|x| x.as_str())
             .expect("context");
-        assert!(ctx.contains("repo-scout"));
-        assert!(ctx.contains("skills/repo-scout"));
-        assert!(ctx.contains("repo-briefing-wenyan.md"));
+        assert!(ctx.contains("using-skillsmith"));
+        assert!(ctx.contains("skills/using-skillsmith"));
+        assert!(ctx.contains("best-practices-wenyan.md"));
     }
 
     #[test]

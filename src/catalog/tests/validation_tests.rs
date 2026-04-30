@@ -11,8 +11,8 @@ fn validates_successful_catalog() {
 fn rejects_duplicate_local_names() {
     let mut catalog = valid_catalog();
     catalog.locals.push(LocalSkill {
-        name: "repo-scout".to_string(),
-        relative_path: "skills/repo-scout-2".to_string(),
+        name: "fixture-skill".to_string(),
+        relative_path: "skills/fixture-skill-2".to_string(),
         metadata: test_metadata("dup", &["dup"]),
     });
     assert!(catalog.validate().is_err());

@@ -15,20 +15,9 @@ const CURSOR_HOOKS_JSON: &str = include_str!("templates/cursor-hooks.json");
 const SESSION_BOOTSTRAP: &str = include_str!("templates/session-bootstrap.md");
 const DEFAULT_AGENT_SKILL_PACK: &[&str] = &[
     "using-skillsmith",
-    "compression-skill-designer",
-    "repo-scout",
     "product-manager-challenger",
     "software-architecture-architect",
-    "api-contract-critic",
-    "migration-guardian",
-    "test-suite-design",
-    "test-determinism",
-    "rust-patterns-architecture",
-    "creational-pattern-architect",
-    "behavioral-pattern-architect",
-    "structural-pattern-architect",
-    "concurrency-pattern-architect",
-    "commit-after-tested-change",
+    "compression-skill-designer",
 ];
 
 fn set_executable(path: &Path) -> Result<(), AppError> {
@@ -45,7 +34,7 @@ fn set_executable(path: &Path) -> Result<(), AppError> {
     Ok(())
 }
 
-/// Installs the default expert engineering skill pack into project-local runtime directories.
+/// Installs the default token-first skill pack into project-local runtime directories.
 pub fn install_project_agent_rules(
     project_root: &Path,
     catalog: &Catalog,

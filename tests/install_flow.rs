@@ -83,8 +83,8 @@ priority = 10
 fn local_catalog() -> Catalog {
     Catalog {
         locals: vec![LocalSkill {
-            name: "repo-scout".to_string(),
-            relative_path: "skills/repo-scout".to_string(),
+            name: "fixture-skill".to_string(),
+            relative_path: "skills/fixture-skill".to_string(),
             metadata: metadata("Inspect repositories", &["repo", "analysis"]),
         }],
         sources: Vec::new(),
@@ -93,20 +93,9 @@ fn local_catalog() -> Catalog {
 
 const DEFAULT_AGENT_SKILL_PACK: &[&str] = &[
     "using-skillsmith",
-    "compression-skill-designer",
-    "repo-scout",
     "product-manager-challenger",
     "software-architecture-architect",
-    "api-contract-critic",
-    "migration-guardian",
-    "test-suite-design",
-    "test-determinism",
-    "rust-patterns-architecture",
-    "creational-pattern-architect",
-    "behavioral-pattern-architect",
-    "structural-pattern-architect",
-    "concurrency-pattern-architect",
-    "commit-after-tested-change",
+    "compression-skill-designer",
 ];
 
 fn bootstrap_catalog() -> Catalog {
@@ -117,7 +106,7 @@ fn bootstrap_catalog() -> Catalog {
                 name: (*skill).to_string(),
                 relative_path: format!("skills/{skill}"),
                 metadata: metadata(
-                    "Provide default Core SE Pack guidance for project-local agent runtimes.",
+                    "Provide default token-first pack content for project-local agent runtimes.",
                     &["setup", "bootstrap", "install", "agent", "rules"],
                 ),
             })
@@ -130,11 +119,15 @@ fn bootstrap_catalog() -> Catalog {
 fn installs_local_skill_successfully() {
     let repo = TempDir::new().expect("temp repo");
     let target = TempDir::new().expect("temp target");
-    write_skill(&repo.path().join("skills/repo-scout"), "repo-scout", "desc");
+    write_skill(
+        &repo.path().join("skills/fixture-skill"),
+        "fixture-skill",
+        "desc",
+    );
 
     let catalog = local_catalog();
     let req = InstallRequest {
-        skill_name: "repo-scout".to_string(),
+        skill_name: "fixture-skill".to_string(),
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
@@ -149,12 +142,16 @@ fn installs_local_skill_successfully() {
 fn blocks_conflict_without_force() {
     let repo = TempDir::new().expect("temp repo");
     let target = TempDir::new().expect("temp target");
-    write_skill(&repo.path().join("skills/repo-scout"), "repo-scout", "desc");
-    write_skill(&target.path().join("repo-scout"), "repo-scout", "old");
+    write_skill(
+        &repo.path().join("skills/fixture-skill"),
+        "fixture-skill",
+        "desc",
+    );
+    write_skill(&target.path().join("fixture-skill"), "fixture-skill", "old");
 
     let catalog = local_catalog();
     let req = InstallRequest {
-        skill_name: "repo-scout".to_string(),
+        skill_name: "fixture-skill".to_string(),
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
@@ -169,12 +166,16 @@ fn blocks_conflict_without_force() {
 fn replaces_conflict_with_force() {
     let repo = TempDir::new().expect("temp repo");
     let target = TempDir::new().expect("temp target");
-    write_skill(&repo.path().join("skills/repo-scout"), "repo-scout", "new");
-    write_skill(&target.path().join("repo-scout"), "repo-scout", "old");
+    write_skill(
+        &repo.path().join("skills/fixture-skill"),
+        "fixture-skill",
+        "new",
+    );
+    write_skill(&target.path().join("fixture-skill"), "fixture-skill", "old");
 
     let catalog = local_catalog();
     let req = InstallRequest {
-        skill_name: "repo-scout".to_string(),
+        skill_name: "fixture-skill".to_string(),
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: true,
@@ -190,11 +191,11 @@ fn replaces_conflict_with_force() {
 fn fails_when_skill_md_missing() {
     let repo = TempDir::new().expect("temp repo");
     let target = TempDir::new().expect("temp target");
-    fs::create_dir_all(repo.path().join("skills/repo-scout")).expect("create skill folder");
+    fs::create_dir_all(repo.path().join("skills/fixture-skill")).expect("create skill folder");
 
     let catalog = local_catalog();
     let req = InstallRequest {
-        skill_name: "repo-scout".to_string(),
+        skill_name: "fixture-skill".to_string(),
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
@@ -208,13 +209,13 @@ fn fails_when_skill_md_missing() {
 fn fails_when_reference_router_missing() {
     let repo = TempDir::new().expect("temp repo");
     let target = TempDir::new().expect("temp target");
-    let skill_dir = repo.path().join("skills/repo-scout");
-    write_skill(&skill_dir, "repo-scout", "desc");
+    let skill_dir = repo.path().join("skills/fixture-skill");
+    write_skill(&skill_dir, "fixture-skill", "desc");
     fs::remove_file(skill_dir.join("references/reference-router.md")).expect("remove router");
 
     let catalog = local_catalog();
     let req = InstallRequest {
-        skill_name: "repo-scout".to_string(),
+        skill_name: "fixture-skill".to_string(),
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
@@ -228,13 +229,13 @@ fn fails_when_reference_router_missing() {
 fn fails_when_no_additional_reference_file_exists() {
     let repo = TempDir::new().expect("temp repo");
     let target = TempDir::new().expect("temp target");
-    let skill_dir = repo.path().join("skills/repo-scout");
-    write_skill(&skill_dir, "repo-scout", "desc");
+    let skill_dir = repo.path().join("skills/fixture-skill");
+    write_skill(&skill_dir, "fixture-skill", "desc");
     fs::remove_file(skill_dir.join("references/guide.md")).expect("remove guide");
 
     let catalog = local_catalog();
     let req = InstallRequest {
-        skill_name: "repo-scout".to_string(),
+        skill_name: "fixture-skill".to_string(),
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
@@ -253,7 +254,7 @@ fn installs_default_agent_rules_into_all_project_runtimes() {
         write_skill(
             &repo.path().join(format!("skills/{skill}")),
             skill,
-            "default Core SE Pack skill",
+            "default token-first pack skill",
         );
     }
 
@@ -282,13 +283,13 @@ fn installs_default_agent_rules_into_all_project_runtimes() {
 fn fails_when_reference_index_missing() {
     let repo = TempDir::new().expect("temp repo");
     let target = TempDir::new().expect("temp target");
-    let skill_dir = repo.path().join("skills/repo-scout");
-    write_skill(&skill_dir, "repo-scout", "desc");
+    let skill_dir = repo.path().join("skills/fixture-skill");
+    write_skill(&skill_dir, "fixture-skill", "desc");
     fs::remove_file(skill_dir.join("references/index.toml")).expect("remove index");
 
     let catalog = local_catalog();
     let req = InstallRequest {
-        skill_name: "repo-scout".to_string(),
+        skill_name: "fixture-skill".to_string(),
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
@@ -303,11 +304,15 @@ fn fails_when_reference_index_missing() {
 fn installs_local_skill_via_symlink() {
     let repo = TempDir::new().expect("temp repo");
     let target = TempDir::new().expect("temp target");
-    write_skill(&repo.path().join("skills/repo-scout"), "repo-scout", "desc");
+    write_skill(
+        &repo.path().join("skills/fixture-skill"),
+        "fixture-skill",
+        "desc",
+    );
 
     let catalog = local_catalog();
     let req = InstallRequest {
-        skill_name: "repo-scout".to_string(),
+        skill_name: "fixture-skill".to_string(),
         source_name: None,
         target_root: target.path().to_path_buf(),
         force: false,
@@ -377,14 +382,14 @@ fn installs_remote_skill_from_pinned_ref() {
 #[test]
 fn explain_selects_indexed_reference_without_loading_all() {
     let repo = TempDir::new().expect("temp repo");
-    let skill_dir = repo.path().join("skills/repo-scout");
-    write_skill(&skill_dir, "repo-scout", "desc");
+    let skill_dir = repo.path().join("skills/fixture-skill");
+    write_skill(&skill_dir, "fixture-skill", "desc");
 
     let mut cache = skillsmith::catalog::CatalogCache::new(local_catalog());
     let explain = explain_skill_selection(
         &mut cache,
         repo.path(),
-        Some("repo-scout"),
+        Some("fixture-skill"),
         Some("guide"),
         None,
     )
@@ -394,34 +399,30 @@ fn explain_selects_indexed_reference_without_loading_all() {
 }
 
 #[test]
-fn explain_prefers_creational_skill_for_generic_builder_intent() {
+fn explain_prefers_construction_skill_for_builder_intent() {
     let repo = TempDir::new().expect("temp repo");
-    let creational_dir = repo.path().join("skills/creational-pattern-architect");
-    let rust_dir = repo.path().join("skills/rust-patterns-architecture");
+    let a_dir = repo.path().join("skills/construction-skill");
+    let b_dir = repo.path().join("skills/rust-line-skill");
     write_skill(
-        &creational_dir,
-        "creational-pattern-architect",
-        "language-agnostic creational guidance",
+        &a_dir,
+        "construction-skill",
+        "language-agnostic construction guidance",
     );
-    write_skill(
-        &rust_dir,
-        "rust-patterns-architecture",
-        "rust-specific design guidance",
-    );
+    write_skill(&b_dir, "rust-line-skill", "rust-specific design guidance");
 
     let catalog = Catalog {
         locals: vec![
             LocalSkill {
-                name: "creational-pattern-architect".to_string(),
-                relative_path: "skills/creational-pattern-architect".to_string(),
+                name: "construction-skill".to_string(),
+                relative_path: "skills/construction-skill".to_string(),
                 metadata: metadata(
                     "Choose creational design patterns for builders and factories",
                     &["creational", "builder", "factory", "construction"],
                 ),
             },
             LocalSkill {
-                name: "rust-patterns-architecture".to_string(),
-                relative_path: "skills/rust-patterns-architecture".to_string(),
+                name: "rust-line-skill".to_string(),
+                relative_path: "skills/rust-line-skill".to_string(),
                 metadata: metadata(
                     "Rust-specific architecture and ownership guidance",
                     &["rust", "architecture", "ownership", "api"],
@@ -436,38 +437,34 @@ fn explain_prefers_creational_skill_for_generic_builder_intent() {
         explain_skill_selection(&mut cache, repo.path(), None, Some("builder pattern"), None)
             .expect("generic builder explain");
 
-    assert_eq!(explain.skill_name, "creational-pattern-architect");
+    assert_eq!(explain.skill_name, "construction-skill");
 }
 
 #[test]
-fn explain_prefers_rust_skill_for_rust_specific_api_intent() {
+fn explain_prefers_rust_line_skill_for_rust_specific_api_intent() {
     let repo = TempDir::new().expect("temp repo");
-    let creational_dir = repo.path().join("skills/creational-pattern-architect");
-    let rust_dir = repo.path().join("skills/rust-patterns-architecture");
+    let a_dir = repo.path().join("skills/construction-skill");
+    let b_dir = repo.path().join("skills/rust-line-skill");
     write_skill(
-        &creational_dir,
-        "creational-pattern-architect",
-        "language-agnostic creational guidance",
+        &a_dir,
+        "construction-skill",
+        "language-agnostic construction guidance",
     );
-    write_skill(
-        &rust_dir,
-        "rust-patterns-architecture",
-        "rust-specific design guidance",
-    );
+    write_skill(&b_dir, "rust-line-skill", "rust-specific design guidance");
 
     let catalog = Catalog {
         locals: vec![
             LocalSkill {
-                name: "creational-pattern-architect".to_string(),
-                relative_path: "skills/creational-pattern-architect".to_string(),
+                name: "construction-skill".to_string(),
+                relative_path: "skills/construction-skill".to_string(),
                 metadata: metadata(
                     "Choose creational design patterns for builders and factories",
                     &["creational", "builder", "factory", "construction"],
                 ),
             },
             LocalSkill {
-                name: "rust-patterns-architecture".to_string(),
-                relative_path: "skills/rust-patterns-architecture".to_string(),
+                name: "rust-line-skill".to_string(),
+                relative_path: "skills/rust-line-skill".to_string(),
                 metadata: metadata(
                     "Rust-specific architecture and ownership guidance",
                     &["rust", "architecture", "ownership", "api"],
@@ -487,41 +484,11 @@ fn explain_prefers_rust_skill_for_rust_specific_api_intent() {
     )
     .expect("rust explain");
 
-    assert_eq!(explain.skill_name, "rust-patterns-architecture");
+    assert_eq!(explain.skill_name, "rust-line-skill");
 }
 
 #[test]
-fn explain_routes_behavioral_intent_to_article_file() {
-    let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
-    let catalog =
-        Catalog::load_from_file(&repo_root.join("catalog/catalog.toml")).expect("load catalog");
-    let mut cache = skillsmith::catalog::CatalogCache::new(catalog);
-
-    let explain =
-        explain_skill_selection(&mut cache, repo_root, None, Some("observer pattern"), None)
-            .expect("behavioral explain");
-
-    assert_eq!(explain.skill_name, "behavioral-pattern-architect");
-    assert_eq!(explain.reference.file, "observer-wenyan.md");
-}
-
-#[test]
-fn explain_routes_creational_intent_to_article_file() {
-    let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
-    let catalog =
-        Catalog::load_from_file(&repo_root.join("catalog/catalog.toml")).expect("load catalog");
-    let mut cache = skillsmith::catalog::CatalogCache::new(catalog);
-
-    let explain =
-        explain_skill_selection(&mut cache, repo_root, None, Some("builder pattern"), None)
-            .expect("creational explain");
-
-    assert_eq!(explain.skill_name, "creational-pattern-architect");
-    assert_eq!(explain.reference.file, "builder-wenyan.md");
-}
-
-#[test]
-fn explain_routes_concurrency_intent_to_article_file() {
+fn explain_routes_architecture_intent_to_decomposition_reference() {
     let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
     let catalog =
         Catalog::load_from_file(&repo_root.join("catalog/catalog.toml")).expect("load catalog");
@@ -531,28 +498,56 @@ fn explain_routes_concurrency_intent_to_article_file() {
         &mut cache,
         repo_root,
         None,
-        Some("thread pool pattern"),
+        Some("microservice decomposition and dependency boundaries"),
         None,
     )
-    .expect("concurrency explain");
+    .expect("architecture explain");
 
-    assert_eq!(explain.skill_name, "concurrency-pattern-architect");
-    assert_eq!(explain.reference.file, "thread-pool-wenyan.md");
+    assert_eq!(explain.skill_name, "software-architecture-architect");
+    assert_eq!(
+        explain.reference.file,
+        "decomposition-and-boundaries-wenyan.md"
+    );
 }
 
 #[test]
-fn explain_routes_structural_intent_to_article_file() {
+fn explain_routes_product_intent_to_challenge_reference() {
     let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
     let catalog =
         Catalog::load_from_file(&repo_root.join("catalog/catalog.toml")).expect("load catalog");
     let mut cache = skillsmith::catalog::CatalogCache::new(catalog);
 
-    let explain =
-        explain_skill_selection(&mut cache, repo_root, None, Some("adapter pattern"), None)
-            .expect("structural explain");
+    let explain = explain_skill_selection(
+        &mut cache,
+        repo_root,
+        None,
+        Some("push back on vague product scope before we commit"),
+        None,
+    )
+    .expect("product explain");
 
-    assert_eq!(explain.skill_name, "structural-pattern-architect");
-    assert_eq!(explain.reference.file, "adapter-wenyan.md");
+    assert_eq!(explain.skill_name, "product-manager-challenger");
+    assert_eq!(explain.reference.file, "intake-and-challenge-wenyan.md");
+}
+
+#[test]
+fn explain_routes_compression_intent_to_mode_design_reference() {
+    let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let catalog =
+        Catalog::load_from_file(&repo_root.join("catalog/catalog.toml")).expect("load catalog");
+    let mut cache = skillsmith::catalog::CatalogCache::new(catalog);
+
+    let explain = explain_skill_selection(
+        &mut cache,
+        repo_root,
+        None,
+        Some("design token-efficient Wenyan agent communication"),
+        None,
+    )
+    .expect("compression explain");
+
+    assert_eq!(explain.skill_name, "compression-skill-designer");
+    assert_eq!(explain.reference.file, "compression-mode-design-wenyan.md");
 }
 
 #[test]
