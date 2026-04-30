@@ -34,9 +34,33 @@ name = "product-manager-challenger"
 relative_path = "skills/product-manager-challenger"
 
 [locals.metadata.trigger]
-summary = "Use when the user wants strict product management, hard questioning, scope pushback, or repo-native tracking for approved work."
-intent_tags = ["product", "pm", "scope", "requirements", "tracking", "todo", "prioritization"]
-when_to_use = ["Challenge a product request that may not make sense yet.", "Create and maintain a repository tracking checklist with item detail folders."]
+summary = "Use when the user wants strict product management, hard questioning, scope pushback, repo-native tracking, discovery, approval gates, prioritization, or plan handoff for approved work."
+intent_tags = [
+  "product",
+  "pm",
+  "scope",
+  "requirements",
+  "tracking",
+  "todo",
+  "prioritization",
+  "greenfield",
+  "ambiguous",
+  "discovery",
+  "decompose",
+  "acceptance-criteria",
+  "design-approval",
+  "brainstorm",
+  "roadmap",
+  "implementation-plan",
+]
+when_to_use = [
+  "Challenge a product request that may not make sense yet.",
+  "Create and maintain a repository tracking checklist with item detail folders.",
+  "Explore ambiguous or oversized ideas before locking scope.",
+  "Require explicit approval or spec freeze before implementation.",
+  "Prioritize backlog slices or forced tradeoffs under constraints.",
+  "Turn an approved scope into bite-sized engineering steps.",
+]
 
 [locals.metadata.objective]
 summary = "Pressure-test product requests, force clear scope and success criteria, and maintain a durable execution tracker in the repo."
@@ -45,11 +69,11 @@ summary = "Pressure-test product requests, force clear scope and success criteri
 summary = "Return direct challenges, a clarified problem statement, and tracked repo updates with explicit completion criteria."
 
 [locals.metadata.navigation]
-summary = "Load the router first, then one reference for challenge flow, tracking setup, or item detail routing."
+summary = "Load the router first, then one reference for discovery, approval gate, prioritization, plan handoff, challenge flow, tracking setup, or item detail routing."
 priority = 22
 
 [locals.metadata]
-token_hint = 1200
+token_hint = 1500
 
 [[locals]]
 name = "software-architecture-architect"

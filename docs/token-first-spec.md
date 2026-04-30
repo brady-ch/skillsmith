@@ -40,6 +40,8 @@ Shared **token-first** setup:
 
 **Cursor** can add SessionStart plus optional shell follow-up (see below). **Codex** and **Claude** use the same MCP tools when per-turn injection is unavailable; keep MCP in the agent tool list as the portable path.
 
+**Same contract, three hosts — setup checklist:** resolve a tree with `catalog/catalog.toml` (via `SKILLSMITH_REPO_ROOT`, cwd, or `skillsmith setup` upstream); register stdio **`skillsmith mcp serve`** in the agent’s MCP config; use **nano** session bootstrap where hooks exist (see `AGENTS.md` per client). **Anti-pattern:** loading or globbing **all** of `references/` under a skill—always fetch only `SKILL.md`, `references/reference-router.md`, and the **one** suggested reference from **`skillsmith_route_trace`** / **`skillsmith_recommend`**.
+
 `cargo run -- validate` prints **`notice`** lines for local catalog skills missing `token_hint`; they do not fail validation.
 
 ## Wenyan authoring and fallback

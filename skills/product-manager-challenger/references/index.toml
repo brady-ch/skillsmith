@@ -3,7 +3,7 @@ file = "intake-and-challenge-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the request needs strict questioning, scope pressure-testing, or explicit product pushback."
-intent_tags = ["product", "scope", "challenge", "requirements", "prioritization"]
+intent_tags = ["product", "scope", "challenge", "requirements", "pushback"]
 when_to_use = ["Question a weak product request.", "Pressure-test scope or logic before execution."]
 
 [references.metadata.objective]
@@ -13,7 +13,7 @@ summary = "Force clarity on user, problem, value, scope, and success before work
 summary = "Return contradictions, missing decisions, and the next forcing question."
 
 [references.metadata.navigation]
-summary = "Prefer this reference for requirement review, prioritization, and pushback."
+summary = "Prefer this reference for requirement review and pushback (not backlog ordering; see prioritization-wenyan)."
 priority = 10
 
 [[references]]
@@ -51,6 +51,125 @@ summary = "Return the chosen item files, why they are needed, and the resulting 
 [references.metadata.navigation]
 summary = "Prefer this reference when the item-level folder already exists or is being created."
 priority = 30
+
+[[references]]
+file = "discovery-wenyan.md"
+
+[references.metadata.trigger]
+summary = "Use for ambiguous or greenfield asks, scope decomposition, or one-question-at-a-time discovery before hard challenge."
+intent_tags = [
+  "ambiguous",
+  "greenfield",
+  "discovery",
+  "decompose",
+  "scope",
+  "brainstorm",
+  "clarify",
+  "intent",
+]
+when_to_use = [
+  "Explore an unclear or oversized idea before locking scope.",
+  "Decompose a large request into ordered sub-problems.",
+]
+
+[references.metadata.objective]
+summary = "Progress through single questions and explicit splits without loading full implementation context."
+
+[references.metadata.output]
+summary = "Return the next single question, a decomposition table, or why the idea must be split first."
+
+[references.metadata.navigation]
+summary = "Prefer when the ask is fuzzy, multi-system, or discovery should precede intake pressure."
+priority = 11
+
+[[references]]
+file = "approval-gate-wenyan.md"
+
+[references.metadata.trigger]
+summary = "Use for locking scope, explicit approval before coding, or spec-freeze discipline."
+intent_tags = [
+  "approval",
+  "freeze",
+  "spec",
+  "signoff",
+  "lock",
+  "design-approval",
+  "before-code",
+  "acceptance",
+  "criteria",
+]
+when_to_use = [
+  "Gate implementation on explicit user approval.",
+  "Freeze problem statement, success criteria, and out-of-scope boundaries.",
+]
+
+[references.metadata.objective]
+summary = "Stop forward work until scope and success are explicitly approved; surface what must change to proceed."
+
+[references.metadata.output]
+summary = "Return a minimal lock statement (problem, success, out) or the missing approval pieces."
+
+[references.metadata.navigation]
+summary = "Prefer after discovery when the user is about to implement or expand scope without signoff."
+priority = 12
+
+[[references]]
+file = "prioritization-wenyan.md"
+
+[references.metadata.trigger]
+summary = "Use for backlog ordering, roadmap slices, forced tradeoffs, or prioritization frameworks."
+intent_tags = [
+  "prioritize",
+  "priority",
+  "roadmap",
+  "rice",
+  "tradeoff",
+  "ordering",
+  "backlog",
+]
+when_to_use = [
+  "Choose what to build first under constraints.",
+  "Compare options with explicit rejections.",
+]
+
+[references.metadata.objective]
+summary = "Force a small ordered bet with rejects and revisit criteria."
+
+[references.metadata.output]
+summary = "Return stack rank, deferred items with reason, and the next revisit trigger."
+
+[references.metadata.navigation]
+summary = "Prefer when multiple initiatives compete or the user asks what to ship next."
+priority = 13
+
+[[references]]
+file = "handoff-to-plan-wenyan.md"
+
+[references.metadata.trigger]
+summary = "Use after scope approval to skeleton a bite-sized implementation plan for agents."
+intent_tags = [
+  "plan",
+  "implementation-plan",
+  "handoff",
+  "tasks",
+  "steps",
+  "execution",
+]
+when_to_use = [
+  "Turn an approved slice into checklist-sized engineering steps.",
+  "Name files, tests, and verification gates without speculative scope.",
+]
+
+[references.metadata.objective]
+summary = "Produce a terse plan scaffold: goal, touched files, first verifiable steps; defer deep architecture to architecture skill."
+
+[references.metadata.output]
+summary = "Return plan outline, ordered checkable steps, and pointer to boundary work if needed."
+
+[references.metadata.navigation]
+summary = "Prefer when requirements are approved and the next need is execution structure."
+priority = 14
+
 [[references]]
 file = "intake-and-challenge-english.md"
 

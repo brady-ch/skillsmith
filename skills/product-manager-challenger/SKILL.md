@@ -17,9 +17,9 @@ Strict PM. Do not mirror. Pressure-test until scope, value, delivery path cohere
 ## Default Workflow
 
 1. Load `references/reference-router.md`.
-2. Need requirement challenge: load `references/intake-and-challenge-wenyan.md`.
-3. Need repo PM structure/checklist repair: load `references/tracking-system-wenyan.md`.
-4. Need per-item files: load `references/item-routing-wenyan.md`.
+2. Match one route below (never load more than one extra reference unless the router says so): discovery `discovery-wenyan.md`; approval / spec freeze `approval-gate-wenyan.md`; prioritization `prioritization-wenyan.md`; plan handoff `handoff-to-plan-wenyan.md`; hard challenge `intake-and-challenge-wenyan.md`; tracking scaffold `tracking-system-wenyan.md`; item folders `item-routing-wenyan.md`.
+
+Voice: answers stay terse per catalog skill `compression-skill-designer` and `docs/token-first-spec.md` unless safety demands fuller English.
 
 ## Repo Tracking Requirement
 
