@@ -149,3 +149,87 @@ fn intent_matching_orders_process_before_implementation_on_score_tie() {
     assert_eq!(matches[0].skill_name, "a-process-skill");
     assert_eq!(matches[1].skill_name, "z-impl-skill");
 }
+
+#[test]
+fn intent_matching_orders_lower_token_hint_when_score_role_and_weight_tie() {
+    let mut heavy = test_metadata("Same tags", &["api"]);
+    heavy.token_hint = Some(900);
+    let mut light = test_metadata("Same tags", &["api"]);
+    light.token_hint = Some(100);
+
+    let catalog = Catalog {
+        locals: vec![
+            LocalSkill {
+                name: "heavy-skill".to_string(),
+                relative_path: "skills/heavy".to_string(),
+                metadata: heavy,
+            },
+            LocalSkill {
+                name: "light-skill".to_string(),
+                relative_path: "skills/light".to_string(),
+                metadata: light,
+            },
+        ],
+        sources: Vec::new(),
+    };
+
+    let matches = catalog.matches_for_intent("api");
+    assert_eq!(matches[0].skill_name, "light-skill");
+    assert_eq!(matches[1].skill_name, "heavy-skill");
+}
+
+#[test]
+fn intent_matching_orders_known_token_hint_before_missing_when_other_keys_tie() {
+    let mut known = test_metadata("Same tags", &["api"]);
+    known.token_hint = Some(5_000);
+    let mut unknown = test_metadata("Same tags", &["api"]);
+    unknown.token_hint = None;
+
+    let catalog = Catalog {
+        locals: vec![
+            LocalSkill {
+                name: "unknown-hint".to_string(),
+                relative_path: "skills/u".to_string(),
+                metadata: unknown,
+            },
+            LocalSkill {
+                name: "known-hint".to_string(),
+                relative_path: "skills/k".to_string(),
+                metadata: known,
+            },
+        ],
+        sources: Vec::new(),
+    };
+
+    let matches = catalog.matches_for_intent("api");
+    assert_eq!(matches[0].skill_name, "known-hint");
+    assert_eq!(matches[1].skill_name, "unknown-hint");
+}
+
+#[test]
+fn intent_matching_score_still_dominates_token_hint() {
+    let mut weaker = test_metadata("Weaker match", &["api"]);
+    weaker.token_hint = Some(1);
+    let mut stronger = test_metadata("Stronger match", &["api", "versioning"]);
+    stronger.token_hint = Some(10_000);
+
+    let catalog = Catalog {
+        locals: vec![
+            LocalSkill {
+                name: "cheap-weaker".to_string(),
+                relative_path: "skills/cheap".to_string(),
+                metadata: weaker,
+            },
+            LocalSkill {
+                name: "expensive-stronger".to_string(),
+                relative_path: "skills/expensive".to_string(),
+                metadata: stronger,
+            },
+        ],
+        sources: Vec::new(),
+    };
+
+    let matches = catalog.matches_for_intent("api versioning");
+    assert_eq!(matches[0].skill_name, "expensive-stronger");
+    assert_eq!(matches[1].skill_name, "cheap-weaker");
+}

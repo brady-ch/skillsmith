@@ -71,8 +71,17 @@ pub(crate) fn sort_skill_matches(matches: &mut Vec<SkillMatch<'_>>) {
                     .order_weight
                     .cmp(&right.metadata.trigger.order_weight)
             })
+            .then_with(|| {
+                token_hint_sort_key(left.metadata.token_hint)
+                    .cmp(&token_hint_sort_key(right.metadata.token_hint))
+            })
             .then_with(|| left.skill_name.cmp(&right.skill_name))
     });
+}
+
+/// Lower hints sort first; missing hint sorts last (unknown cost).
+fn token_hint_sort_key(hint: Option<u32>) -> u64 {
+    hint.map(|h| h as u64).unwrap_or(u64::MAX)
 }
 
 pub(crate) fn metadata_match_score(
