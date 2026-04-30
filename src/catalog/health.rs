@@ -16,7 +16,10 @@ pub fn health_check_local_skill(
             "missing local skill directory: {}",
             skill_dir.to_string_lossy()
         ));
-        return Ok(CatalogHealthReport { issues });
+        return Ok(CatalogHealthReport {
+            issues,
+            notices: Vec::new(),
+        });
     }
 
     let router = skill_dir.join("references").join("reference-router.md");
@@ -33,14 +36,20 @@ pub fn health_check_local_skill(
             "missing reference index: {}",
             index_path.to_string_lossy()
         ));
-        return Ok(CatalogHealthReport { issues });
+        return Ok(CatalogHealthReport {
+            issues,
+            notices: Vec::new(),
+        });
     }
 
     let content = fs::read_to_string(&index_path)?;
     let index: ReferenceIndex = toml::from_str(&content)?;
     if let Err(err) = index.validate(&index_path) {
         issues.push(err.to_string());
-        return Ok(CatalogHealthReport { issues });
+        return Ok(CatalogHealthReport {
+            issues,
+            notices: Vec::new(),
+        });
     }
 
     for reference in &index.references {
@@ -63,7 +72,15 @@ pub fn health_check_local_skill(
         }
     }
 
-    Ok(CatalogHealthReport { issues })
+    let mut notices = Vec::new();
+    if skill.metadata.token_hint.is_none() {
+        notices.push(format!(
+            "local skill '{}' has no locals.metadata.token_hint (token-first ranking sorts missing hints last among ties; set an opaque integer in catalog.toml)",
+            skill.name
+        ));
+    }
+
+    Ok(CatalogHealthReport { issues, notices })
 }
 
 /// Minimal on-disk check for mixed-catalog / Superpowers-style trees (`validate --profile minimal`).
@@ -78,7 +95,10 @@ pub fn health_check_local_skill_minimal(
             "missing local skill directory: {}",
             skill_dir.to_string_lossy()
         ));
-        return Ok(CatalogHealthReport { issues });
+        return Ok(CatalogHealthReport {
+            issues,
+            notices: Vec::new(),
+        });
     }
 
     let skill_md = skill_dir.join("SKILL.md");
@@ -90,5 +110,8 @@ pub fn health_check_local_skill_minimal(
         ));
     }
 
-    Ok(CatalogHealthReport { issues })
+    Ok(CatalogHealthReport {
+        issues,
+        notices: Vec::new(),
+    })
 }

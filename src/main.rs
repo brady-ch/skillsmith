@@ -331,13 +331,16 @@ fn run_with_catalog(
             profile,
         }) => {
             let catalog = Catalog::load_from_file(&catalog_path)?;
-            let issues = validate_catalog_and_skills(
+            let (issues, notices) = validate_catalog_and_skills(
                 &catalog,
                 &repo_root,
                 source.as_deref(),
                 remote,
                 profile,
             )?;
+            for notice in &notices {
+                println!("notice\t{}", notice);
+            }
             if issues.is_empty() {
                 println!("validation passed");
             } else {
@@ -479,8 +482,9 @@ fn validate_catalog_and_skills(
     source_filter: Option<&str>,
     remote: bool,
     profile: ValidationProfile,
-) -> Result<Vec<String>, AppError> {
+) -> Result<(Vec<String>, Vec<String>), AppError> {
     let mut issues = Vec::new();
+    let mut notices = Vec::new();
 
     for local in &catalog.locals {
         let report = match profile {
@@ -488,6 +492,7 @@ fn validate_catalog_and_skills(
             ValidationProfile::Minimal => health_check_local_skill_minimal(repo_root, local)?,
         };
         issues.extend(report.issues);
+        notices.extend(report.notices);
         if matches!(profile, ValidationProfile::Strict) {
             issues.extend(validate_skill_inventory_note(repo_root, local)?);
         }
@@ -502,7 +507,7 @@ fn validate_catalog_and_skills(
         }
     }
 
-    Ok(issues)
+    Ok((issues, notices))
 }
 
 fn validate_skill_inventory_note(

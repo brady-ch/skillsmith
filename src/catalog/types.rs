@@ -121,6 +121,8 @@ pub struct ExplainMatch {
 #[derive(Debug, Clone)]
 pub struct CatalogHealthReport {
     pub issues: Vec<String>,
+    /// Non-blocking token-first / governance hints (do not fail `validate` by themselves).
+    pub notices: Vec<String>,
 }
 
 #[derive(Debug, Clone)]

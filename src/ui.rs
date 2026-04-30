@@ -513,6 +513,9 @@ fn print_validation(cache: &CatalogCache, repo_root: &Path) -> Result<(), AppErr
     let mut issues = 0usize;
     for skill in &cache.catalog().locals {
         let report = health_check_local_skill(repo_root, skill)?;
+        for notice in report.notices {
+            println!("NOTICE {}", notice);
+        }
         if report.issues.is_empty() {
             println!("OK {}", skill.name);
         } else {
