@@ -17,3 +17,4 @@
 - 人讀：配對之 `*-english.md`。
 - `index.toml`：英伴 `navigation.priority` 宜 ≥1000，毌與文言競 `recommend`/`explain`。
 - 可略英檔於索引（人自開 `SKILL.md` 所指路徑）；若索引之，必大 priority。
+- 吏論文言省言：壓縮則問 `compression-skill-designer`；架構取義問 `software-architecture-architect`（或他域技）；英伴非索勿載。

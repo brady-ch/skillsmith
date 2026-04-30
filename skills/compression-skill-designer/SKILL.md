@@ -18,6 +18,7 @@ Use for:
 - token thrift without meaning loss
 - terse persona rules
 - activation, exit, safety fallback
+- Wenyan-caveman rewrite workflows for engineering-principles-style packs (pair with domain skills for substance)
 
 Do not use for:
 - plain concise writing, not reusable skill

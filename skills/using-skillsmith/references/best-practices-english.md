@@ -36,3 +36,4 @@ Use this checklist in skillsmith repo or when installing project defaults elsewh
 - Humans: read the paired `*-english.md` mirror for full prose.
 - In each `references/index.toml`, give English companions `navigation.priority` ≥ 1000 so `recommend` / `explain` tie-breaks favor Wenyan. Alternatively omit English files from the index and cite the on-disk path in `SKILL.md` for humans only.
 - Keep router backlinks pointed only at `*-wenyan.md` targets.
+- For Wenyan-caveman or compressed “engineering principles” style authoring: use `compression-skill-designer` for compression rules and `software-architecture-architect` (or other domain skills) for technical substance; load English companions only when the user explicitly asks.

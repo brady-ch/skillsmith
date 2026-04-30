@@ -1,4 +1,0 @@
-interface:
-  display_name: "Wenyan Engineering Principles"
-  short_description: "Maintain Wenyan-first engineering principle references"
-  default_prompt: "Maintain the wenyan-engineering-principles skill. Load only the Wenyan references unless the user explicitly asks for the English companion. Keep the English alternative in sync, but do not load it by default."

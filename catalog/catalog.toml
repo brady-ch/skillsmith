@@ -48,30 +48,6 @@ summary = "Load the router first, then the commit cadence reference."
 priority = 6
 
 [[locals]]
-name = "wenyan-engineering-principles"
-relative_path = "skills/wenyan-engineering-principles"
-
-[locals.metadata.trigger]
-summary = "Use when rewriting engineering principles in Wenyan-caveman style."
-intent_tags = ["wenyan", "engineering-principles", "translation", "bilingual", "reference", "skill"]
-when_to_use = [
-  "Need Wenyan rewrites of engineering principles.",
-  "Need to keep Wenyan and English principle references aligned.",
-]
-skill_role = "meta"
-order_weight = 2
-
-[locals.metadata.objective]
-summary = "Provide Wenyan-first principle references with a separate English companion."
-
-[locals.metadata.output]
-summary = "Return the Wenyan slice and the English companion only when asked."
-
-[locals.metadata.navigation]
-summary = "Load the router first, then exactly one Wenyan slice."
-priority = 7
-
-[[locals]]
 name = "repo-scout"
 relative_path = "skills/repo-scout"
 
@@ -96,8 +72,13 @@ relative_path = "skills/software-architecture-architect"
 
 [locals.metadata.trigger]
 summary = "Use when the request is about language-agnostic system architecture, module or service decomposition, boundary design, dependency direction, quality attributes, or architecture tradeoffs."
-intent_tags = ["architecture", "system", "design", "decomposition", "boundaries", "tradeoffs", "quality-attributes", "review", "risk"]
-when_to_use = ["Design or review a system architecture.", "Compare module or service boundaries and architecture tradeoffs."]
+intent_tags = ["architecture", "system", "design", "decomposition", "boundaries", "tradeoffs", "quality-attributes", "review", "risk", "wenyan", "bilingual"]
+when_to_use = [
+  "Design or review a system architecture.",
+  "Compare module or service boundaries and architecture tradeoffs.",
+  "Need Wenyan or compressed rewrites of engineering principles with architecture framing.",
+  "Keep bilingual architecture references aligned (Wenyan default, English companion only when explicitly requested).",
+]
 skill_role = "process"
 order_weight = -5
 
@@ -196,9 +177,14 @@ name = "compression-skill-designer"
 relative_path = "skills/compression-skill-designer"
 
 [locals.metadata.trigger]
-summary = "Use for terse communication, compressed persona rules."
-intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "mode"]
-when_to_use = ["Design a compressed communication skill.", "Create rules for token-efficient agent responses.", "Review a compressed persona skill for accuracy and safety."]
+summary = "Use for terse communication, compressed persona rules, or Wenyan-caveman rewrite workflows for principle content."
+intent_tags = ["skill", "compression", "terse", "persona", "token-efficiency", "mode", "wenyan", "engineering-principles", "translation", "bilingual"]
+when_to_use = [
+  "Design a compressed communication skill.",
+  "Create rules for token-efficient agent responses.",
+  "Review a compressed persona skill for accuracy and safety.",
+  "Design or review Wenyan-caveman rewrite workflows for engineering principles or other bilingual skill packs.",
+]
 skill_role = "meta"
 order_weight = 0
 

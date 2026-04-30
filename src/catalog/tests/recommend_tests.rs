@@ -50,8 +50,7 @@ fn recommend_prefers_umbrella_architecture_skill_for_broad_query() {
 }
 
 #[test]
-fn recommend_wenyan_engineering_principles_does_not_suggest_english_companion_for_principles_intent()
-{
+fn recommend_principles_intent_does_not_suggest_english_companion_for_architecture_skill() {
     let repo_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     let catalog_path = repo_root.join("catalog/catalog.toml");
     let catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
@@ -62,15 +61,12 @@ fn recommend_wenyan_engineering_principles_does_not_suggest_english_companion_fo
         &repo_root,
         intent,
         15,
-        Some("wenyan-engineering-principles"),
+        Some("software-architecture-architect"),
         None,
     )
-    .expect("recommend should succeed for wenyan skill");
+    .expect("recommend should succeed for architecture skill");
     let first = res.recommendations.first().expect("expected one recommendation");
-    assert_ne!(
-        first.suggested_reference_file.as_str(),
-        "english-alternative.md"
-    );
+    assert!(!first.suggested_reference_file.ends_with("-english.md"));
     assert!(
         first.suggested_reference_file.ends_with("-wenyan.md")
             || first.suggested_reference_file == "reference-router.md",

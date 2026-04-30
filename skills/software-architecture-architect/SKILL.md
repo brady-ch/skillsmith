@@ -21,6 +21,7 @@ Use for:
 - boundary, dependency, ownership line
 - quality attributes and tradeoffs
 - architecture risk/failure review
+- Wenyan-first or compressed engineering-principles rewrites that still need real architecture framing (English companion only when explicitly requested)
 
 Do not use for:
 - GoF pattern choice - use pattern architect siblings
