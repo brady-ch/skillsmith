@@ -14,7 +14,7 @@
 
 **Files:** `src/catalog/matching.rs`, `src/catalog/tests/matching_tests.rs`
 
-- [x] **A1–A2:** After `order_weight`, sort by ascending `token_hint`; `None` sorts after any `Some` (unknown cost last). Tests in `matching_tests`.
+- [x] **A1–A2:** After `order_weight`, sort by ascending `token_hint`; `None` sorts after any `Some` (unknown cost last). Tests in `matching_tests`. **Landed** in commit `feat(catalog): tie-break intent sort by token_hint`.
 - [ ] **A3:** Optional `--prefer-lower-token-hint` / score-only flag only if backward-compat demand appears.
 
 **Verify:** `cargo test`
