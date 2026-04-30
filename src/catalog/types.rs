@@ -41,6 +41,15 @@ pub struct ToonMetadata {
     pub objective: ToonText,
     pub output: ToonText,
     pub navigation: ToonNavigation,
+    /// Optional catalog governance: exclude from default recommend/MCP unless opted in.
+    #[serde(default)]
+    pub deprecated: bool,
+    /// Rough opening cost hint for audits and hosts (not validated for accuracy).
+    #[serde(default)]
+    pub token_hint: Option<u32>,
+    /// Optional tier label (`lite`, `standard`, …) for policy or ranking.
+    #[serde(default)]
+    pub tier: Option<String>,
 }
 
 /// Cross-skill ordering: `process` skills sort before `meta`, then `implementation`
@@ -102,7 +111,7 @@ pub struct ReferenceEntry {
     pub metadata: ToonMetadata,
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ExplainMatch {
     pub skill_name: String,
     pub source_name: Option<String>,
@@ -124,14 +133,14 @@ pub struct CatalogCache {
 }
 
 /// Stable JSON output for agents: ranked skills with a suggested reference file each (`schema_version` 1).
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecommendResponse {
     pub schema_version: u32,
     pub intent: String,
     pub recommendations: Vec<RecommendationEntry>,
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecommendationEntry {
     pub skill_name: String,
     pub source: Option<String>,
@@ -142,4 +151,10 @@ pub struct RecommendationEntry {
     pub reasons: Vec<String>,
     pub suggested_reference_file: String,
     pub reference_reasons: Vec<String>,
+    #[serde(default)]
+    pub deprecated: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub token_hint: Option<u32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tier: Option<String>,
 }

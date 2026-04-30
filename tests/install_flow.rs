@@ -29,6 +29,9 @@ fn metadata(summary: &str, tags: &[&str]) -> ToonMetadata {
             summary: "Load the router, then one indexed reference.".to_string(),
             priority: 10,
         },
+        deprecated: false,
+        token_hint: None,
+        tier: None,
     }
 }
 
@@ -385,6 +388,7 @@ fn explain_selects_indexed_reference_without_loading_all() {
         Some("repo-scout"),
         Some("guide"),
         None,
+        false,
     )
     .expect("explain selection");
 
@@ -430,9 +434,15 @@ fn explain_prefers_creational_skill_for_generic_builder_intent() {
     };
 
     let mut cache = skillsmith::catalog::CatalogCache::new(catalog);
-    let explain =
-        explain_skill_selection(&mut cache, repo.path(), None, Some("builder pattern"), None)
-            .expect("generic builder explain");
+    let explain = explain_skill_selection(
+        &mut cache,
+        repo.path(),
+        None,
+        Some("builder pattern"),
+        None,
+        false,
+    )
+    .expect("generic builder explain");
 
     assert_eq!(explain.skill_name, "creational-pattern-architect");
 }
@@ -482,6 +492,7 @@ fn explain_prefers_rust_skill_for_rust_specific_api_intent() {
         None,
         Some("Rust ownership-safe API design"),
         None,
+        false,
     )
     .expect("rust explain");
 
@@ -495,9 +506,15 @@ fn explain_routes_behavioral_intent_to_article_file() {
         Catalog::load_from_file(&repo_root.join("catalog/catalog.toml")).expect("load catalog");
     let mut cache = skillsmith::catalog::CatalogCache::new(catalog);
 
-    let explain =
-        explain_skill_selection(&mut cache, repo_root, None, Some("observer pattern"), None)
-            .expect("behavioral explain");
+    let explain = explain_skill_selection(
+        &mut cache,
+        repo_root,
+        None,
+        Some("observer pattern"),
+        None,
+        false,
+    )
+    .expect("behavioral explain");
 
     assert_eq!(explain.skill_name, "behavioral-pattern-architect");
     assert_eq!(explain.reference.file, "observer-wenyan.md");
@@ -510,9 +527,15 @@ fn explain_routes_creational_intent_to_article_file() {
         Catalog::load_from_file(&repo_root.join("catalog/catalog.toml")).expect("load catalog");
     let mut cache = skillsmith::catalog::CatalogCache::new(catalog);
 
-    let explain =
-        explain_skill_selection(&mut cache, repo_root, None, Some("builder pattern"), None)
-            .expect("creational explain");
+    let explain = explain_skill_selection(
+        &mut cache,
+        repo_root,
+        None,
+        Some("builder pattern"),
+        None,
+        false,
+    )
+    .expect("creational explain");
 
     assert_eq!(explain.skill_name, "creational-pattern-architect");
     assert_eq!(explain.reference.file, "builder-wenyan.md");
@@ -531,6 +554,7 @@ fn explain_routes_concurrency_intent_to_article_file() {
         None,
         Some("thread pool pattern"),
         None,
+        false,
     )
     .expect("concurrency explain");
 
@@ -545,9 +569,15 @@ fn explain_routes_structural_intent_to_article_file() {
         Catalog::load_from_file(&repo_root.join("catalog/catalog.toml")).expect("load catalog");
     let mut cache = skillsmith::catalog::CatalogCache::new(catalog);
 
-    let explain =
-        explain_skill_selection(&mut cache, repo_root, None, Some("adapter pattern"), None)
-            .expect("structural explain");
+    let explain = explain_skill_selection(
+        &mut cache,
+        repo_root,
+        None,
+        Some("adapter pattern"),
+        None,
+        false,
+    )
+    .expect("structural explain");
 
     assert_eq!(explain.skill_name, "structural-pattern-architect");
     assert_eq!(explain.reference.file, "adapter-wenyan.md");

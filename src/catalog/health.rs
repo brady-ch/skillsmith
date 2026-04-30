@@ -54,6 +54,15 @@ pub fn health_check_local_skill(
         }
     }
 
+    if let Some(ref tier) = skill.metadata.tier {
+        if tier.is_empty() || !tier.chars().all(|c| c.is_ascii_alphanumeric() || c == '-') {
+            issues.push(format!(
+                "invalid locals.metadata.tier '{}' for {}",
+                tier, skill.name
+            ));
+        }
+    }
+
     Ok(CatalogHealthReport { issues })
 }
 

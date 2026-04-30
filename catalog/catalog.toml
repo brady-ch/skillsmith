@@ -23,6 +23,11 @@ summary = "Return the repo-root workflow, install guidance, and validation steps
 summary = "Load the router first, then this checklist."
 priority = 5
 
+[locals.metadata]
+deprecated = false
+tier = "lite"
+token_hint = 900
+
 [[locals]]
 name = "commit-after-tested-change"
 relative_path = "skills/commit-after-tested-change"

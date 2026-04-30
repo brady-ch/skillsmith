@@ -496,6 +496,7 @@ fn explain_routing(
         },
         intent.as_deref(),
         None,
+        false,
     )?;
     println!("Skill: {}", explain.skill_name);
     println!("Reference: {}", explain.reference.file);
