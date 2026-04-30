@@ -3,6 +3,7 @@ name = "skillsmith"
 version = "0.1.0"
 edition = "2024"
 repository = "https://github.com/brady-ch/skillsmith"
+default-run = "skillsmith"
 
 [dependencies]
 clap = { version = "4.5.39", features = ["derive"] }
@@ -15,3 +16,6 @@ thiserror = "2.0.12"
 toml = "0.9.2"
 walkdir = "2.5.0"
 serde_yaml = "0.9.34"
+regex = "1.12"
+rmcp = { version = "1.5", features = ["server", "macros", "schemars", "transport-io"] }
+tokio = { version = "1.42", features = ["io-std", "macros", "rt-multi-thread"] }

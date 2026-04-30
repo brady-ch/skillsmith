@@ -36,10 +36,12 @@ Agents should not scrape the catalog by hand. Use machine-readable output and lo
 - **`recommend`** — Rank skills for a free-text task and pick a suggested reference file per skill (schema version 1 JSON). Example:
   - `cargo run -- recommend --intent "migration rollback plan" --format json --limit 5`
   - Optional filters: `--skill <name>`, `--source local` or `--source <remote-source-name>`.
-- **`explain`** — Still resolves one skill + reference; add `--format json` for the same structure in automation.
+  - Locals flagged **`deprecated`** in `[locals.metadata]` are omitted unless `--include-deprecated`.
+- **`explain`** — Still resolves one skill + reference; add `--format json` for the same structure in automation. Omit deprecated catalog locals by default; pass `--include-deprecated` when you must audit them.
+- **`mcp`** — Run `cargo run -- mcp serve` (stdio MCP) inside hosts that spawn subprocess tools. Enables `skillsmith_recommend`, `skillsmith_explain`, and allowlisted **`skillsmith_fetch_file`** reads under catalog skill dirs. Prefer this over stuffing long rules into prompts.
 - **`list`** — With `--format json`, lists locals (no `--intent`) or intent-ranked matches (`--intent`), including `score`, `skill_role`, and `order_weight`.
 
-Typical flow: run `recommend` with the user message as `--intent`, parse JSON, then read `SKILL.md` and `references/<suggested_reference_file>` under the installed skill path (see install targets below).
+Typical flow: run `skillsmith recommend` **or** `skillsmith mcp serve` (`skillsmith_recommend` tool) with the user message as `--intent`, parse JSON, then read only `SKILL.md` + `references/<suggested_reference_file>` under that skill directory (installed path or checkout).
 
 ## Skill ordering (`trigger.skill_role`, `trigger.order_weight`)
 
@@ -56,6 +58,32 @@ Reference-level ordering inside a skill is unchanged: `navigation.priority` in `
 - **Superpowers / multi-tool layouts** often symlink skills under `~/.agents/skills/<name>` while keeping a git clone elsewhere ([Superpowers Codex install](https://raw.githubusercontent.com/obra/superpowers/main/.codex/INSTALL.md)). Skillsmith can mirror that pattern with **`cargo run -- install --name <skill> --link`**: the skill directory in the **current repo** is symlinked into `--target` (local catalog skills only; not remote installs). Use **`--force`** to replace an existing target path.
 - Pick a single **`--target`** that matches how your agent discovers skills (e.g. only `~/.codex/skills` or only `~/.agents/skills`) so installed skills are visible to the runtime you use.
 
+## Catalog location (`SKILLSMITH_REPO_ROOT` and `skillsmith setup`)
+
+Commands need a checkout that contains **`catalog/catalog.toml`**. Resolution order:
+
+1. Environment **`SKILLSMITH_REPO_ROOT`**
+2. **`./catalog/catalog.toml`** relative to the current working directory (typical for contributors)
+3. The data-directory upstream path created by **`skillsmith setup`** (e.g. `~/.local/share/skillsmith/upstream` on Linux)
+
+Run **`skillsmith setup`** after a one-line install to shallow-clone the repo, print `SKILLSMITH_REPO_ROOT`, and optionally install **consumer** Cursor hooks (`.skillsmith/session-bootstrap.md` + portable scripts). Contributor hooks in this repo still use **`hooks/session-start`** and **`skills/using-skillsmith/`**; see [README.md](README.md).
+
+## Agent session hooks (Cursor, Codex, Claude Code)
+
+SessionStart hooks load the contributor bootstrap: **nano** by default (**`skills/using-skillsmith/NANO_BOOTSTRAP.md`**); **`SKILLSMITH_HOOK_BOOTSTRAP=full`** embeds the full **`skills/using-skillsmith/SKILL.md`** (same SessionStart idea as [Superpowers](https://github.com/obra/superpowers)). Consumer installs from **`skillsmith setup`** mirror the contract via `.skillsmith/session-bootstrap.md` (see **`docs/token-first-spec.md`**).
+
+| Client | Config | Notes |
+|--------|--------|--------|
+| **Cursor** | [`.cursor/hooks.json`](.cursor/hooks.json) | Runs [`.cursor/hooks/inject-skillsmith-bootstrap.sh`](.cursor/hooks/inject-skillsmith-bootstrap.sh), which delegates to `hooks/session-start` with `SKILLSMITH_HOOK_PLATFORM=cursor`. Requires **bash** on PATH; on Windows use Git Bash or WSL. Copyable template: [`examples/cursor-session-bootstrap/`](examples/cursor-session-bootstrap/README.md). Verify in Cursor’s Hooks UI / output channel. |
+| **OpenAI Codex** | [`.codex/hooks.json`](.codex/hooks.json) | Enable experimental hooks in Codex `config.toml`: `[features]` → `codex_hooks = true`. Command uses `git rev-parse --show-toplevel` so it works from subdirectories. **Hooks are currently disabled on Windows** (per OpenAI docs). |
+| **Claude Code** | [`hooks/hooks.json`](hooks/hooks.json) | Expects **`CLAUDE_PLUGIN_ROOT`** to point at this **repository root** (same layout as a Claude plugin), so the command `"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd" session-start` resolves. [`hooks/run-hook.cmd`](hooks/run-hook.cmd) is a polyglot wrapper (Windows + Unix) from the Superpowers project. |
+
+Shared implementation: **[`hooks/session-start`](hooks/session-start)** (executable) resolves the repo root, reads the bootstrap skill, and prints JSON in the shape each host expects (`additional_context` vs `hookSpecificOutput`).
+
+**Bare clone without `CLAUDE_PLUGIN_ROOT`:** set `export CLAUDE_PLUGIN_ROOT=/path/to/this/repo` before starting Claude Code, or change the SessionStart command locally to run `env SKILLSMITH_HOOK_PLATFORM=claude bash "$(git rev-parse --show-toplevel)/hooks/session-start"`.
+
+Line endings: [`.gitattributes`](.gitattributes) forces LF for `hooks/session-start` so Windows checkouts do not break the shebang.
+
 ## Validation profiles
 
 - **`cargo run -- validate`** — Default **`--profile strict`**: full skillsmith layout (reference router, `index.toml`, indexed references, Skill Inventory Note in `SKILL.md`, etc.).
@@ -68,6 +96,7 @@ Reference-level ordering inside a skill is unchanged: `navigation.priority` in `
 - `cargo run -- validate` checks local skill structure and TOON metadata (`--profile strict` or `minimal`).
 - `cargo run -- explain --intent "migration rollback"` shows why a skill/reference matched (`--format json` optional).
 - `cargo run -- recommend --intent "…"` ranks skills and suggested references for agents (`--format json` recommended).
+- `cargo run -- mcp serve` runs the stdio MCP server for `skillsmith_recommend` / `skillsmith_fetch_file` tooling.
 - `cargo test` runs unit and integration tests.
 - `cargo fmt` formats Rust source.
 

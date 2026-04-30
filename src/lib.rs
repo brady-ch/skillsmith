@@ -1,6 +1,9 @@
 pub mod catalog;
+pub mod caveman_defluff;
 pub mod error;
+pub mod hook_post_shell;
 pub mod install_targets;
 pub mod installer;
+pub mod mcp;
 pub mod setup;
 pub mod ui;

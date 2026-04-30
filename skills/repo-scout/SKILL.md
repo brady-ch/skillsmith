@@ -31,6 +31,11 @@ Do not use for:
 | `references/repo-briefing-wenyan.md` | Need a structured repo assessment |
 | `references/risk-triage-wenyan.md` | Need severity-ranked findings and mitigation plan |
 
+## Human readers
+
+- `references/repo-briefing-english.md`
+- `references/risk-triage-english.md`
+
 ## Skill Inventory Note
 
 Base skills:

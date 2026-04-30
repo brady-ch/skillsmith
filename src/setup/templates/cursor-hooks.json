@@ -5,6 +5,12 @@
       {
         "command": "bash .cursor/hooks/inject-project-bootstrap.sh"
       }
+    ],
+    "postToolUse": [
+      {
+        "command": "bash .cursor/hooks/post-shell-skillsmith-route.sh",
+        "matcher": "Shell"
+      }
     ]
   }
 }

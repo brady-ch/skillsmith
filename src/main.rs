@@ -1,4 +1,5 @@
 use std::fs;
+use std::io::{Read, Write};
 use std::path::PathBuf;
 use std::process::Command;
 
@@ -9,8 +10,10 @@ use skillsmith::catalog::{
     recommend_for_intent,
 };
 use skillsmith::error::AppError;
+use skillsmith::hook_post_shell;
 use skillsmith::install_targets::{InstallInto, InstallScope, resolve_install_root};
 use skillsmith::installer::{InstallRequest, install_skill, summarize_install, trim_to_owned};
+use skillsmith::mcp;
 use skillsmith::setup::{resolve_catalog_paths, run_setup, run_setup_update};
 use skillsmith::ui::{UiConfig, run_menu};
 
@@ -31,7 +34,10 @@ enum ValidationProfile {
 }
 
 #[derive(Debug, Parser)]
-#[command(name = "skillsmith", about = "Catalog and installer for Codex skills.")]
+#[command(
+    name = "skillsmith",
+    about = "Catalog, MCP routing, installer, and hooks for Codex-style skills."
+)]
 struct Cli {
     #[command(subcommand)]
     command: Option<Commands>,
@@ -102,6 +108,9 @@ enum Commands {
         source: Option<String>,
         #[arg(long, value_enum, default_value_t = OutputFormat::Text)]
         format: OutputFormat,
+        /// Include deprecated catalog entries when resolving intents.
+        #[arg(long, default_value_t = false)]
+        include_deprecated: bool,
     },
     /// Rank catalog skills and suggested reference files for an intent (agent-friendly JSON).
     Recommend {
@@ -115,12 +124,41 @@ enum Commands {
         source: Option<String>,
         #[arg(long, value_enum, default_value_t = OutputFormat::Text)]
         format: OutputFormat,
+        /// Include `[locals.metadata]` entries marked deprecated.
+        #[arg(long, default_value_t = false)]
+        include_deprecated: bool,
+    },
+    /// Model Context Protocol server (stdio) for routed skill loading inside hosts.
+    Mcp {
+        #[command(subcommand)]
+        command: McpCommands,
+    },
+    /// Cursor hook helpers reading JSON from stdin (see docs/token-first-spec.md).
+    Hook {
+        #[command(subcommand)]
+        command: HookCommands,
     },
     /// Interactive install: clone catalog to data dir, print SKILLSMITH_REPO_ROOT, optional Cursor hooks.
     Setup {
         /// Refresh the data-dir catalog checkout (saved URL/ref or defaults). Non-interactive; skips hooks.
         #[arg(long, default_value_t = false)]
         update: bool,
+    },
+}
+
+#[derive(Debug, Subcommand)]
+enum McpCommands {
+    /// Listen on stdin/stdout for MCP JSON-RPC traffic.
+    Serve,
+}
+
+#[derive(Debug, Subcommand)]
+enum HookCommands {
+    /// Cursor `postToolUse` helper after Shell `skillsmith recommend` (emits `additional_context`).
+    PostShellRecommendFollowup {
+        /// Max characters for the injected routing line.
+        #[arg(long, default_value_t = 400)]
+        max_chars: usize,
     },
 }
 
@@ -324,6 +362,7 @@ fn run_with_catalog(
             intent,
             source,
             format,
+            include_deprecated,
         }) => {
             let catalog = Catalog::load_from_file(&catalog_path)?;
             let mut cache = CatalogCache::new(catalog);
@@ -333,6 +372,7 @@ fn run_with_catalog(
                 skill.as_deref(),
                 intent.as_deref(),
                 source.as_deref(),
+                include_deprecated,
             )?;
             match format {
                 OutputFormat::Text => print_explain(explain),
@@ -346,6 +386,7 @@ fn run_with_catalog(
             skill,
             source,
             format,
+            include_deprecated,
         }) => {
             let catalog = Catalog::load_from_file(&catalog_path)?;
             let mut cache = CatalogCache::new(catalog);
@@ -356,11 +397,33 @@ fn run_with_catalog(
                 limit,
                 skill.as_deref(),
                 source.as_deref(),
+                include_deprecated,
             )?;
             match format {
                 OutputFormat::Text => print_recommend_text(&response),
                 OutputFormat::Json => println!("{}", serde_json::to_string_pretty(&response)?),
             }
+            Ok(())
+        }
+        Some(Commands::Mcp {
+            command: McpCommands::Serve,
+        }) => mcp::serve_stdio(repo_root, catalog_path),
+        Some(Commands::Hook {
+            command: HookCommands::PostShellRecommendFollowup { max_chars },
+        }) => {
+            let mut buf = Vec::new();
+            std::io::stdin()
+                .read_to_end(&mut buf)
+                .map_err(|e| AppError::FilesystemError(e.to_string()))?;
+            let out = hook_post_shell::cursor_post_shell_recommend_followup(
+                &buf,
+                &repo_root,
+                &catalog_path,
+                max_chars,
+            )?;
+            std::io::stdout()
+                .write_all(&out)
+                .map_err(|e| AppError::FilesystemError(e.to_string()))?;
             Ok(())
         }
         Some(Commands::Setup { .. }) => {
@@ -391,6 +454,7 @@ fn print_recommend_text(response: &RecommendResponse) {
         println!("skill_role\t{}", skill_role_as_str(rec.skill_role));
         println!("order_weight\t{}", rec.order_weight);
         println!("suggested_reference\t{}", rec.suggested_reference_file);
+        println!("deprecated\t{}", rec.deprecated);
         for r in &rec.reasons {
             println!("reason\t{}", r);
         }
@@ -446,6 +510,17 @@ fn validate_catalog_and_skills(
                 continue;
             }
             issues.extend(validate_remote_source_health(source)?);
+        }
+    }
+
+    if matches!(profile, ValidationProfile::Strict) {
+        for local in &catalog.locals {
+            if local.metadata.deprecated {
+                eprintln!(
+                    "notice: catalog skill '{}' is locals.metadata deprecated; omit from default recommend unless --include-deprecated or MCP flag",
+                    local.name
+                );
+            }
         }
     }
 

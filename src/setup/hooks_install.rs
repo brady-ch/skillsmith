@@ -9,6 +9,7 @@ use crate::error::AppError;
 use crate::installer::{InstallRequest, install_skill, summarize_install};
 
 const PORTABLE_SESSION: &str = include_str!("templates/portable-session-start.sh");
+const POST_SHELL_ROUTE: &str = include_str!("templates/post-shell-skillsmith-route.sh");
 const INJECT_PROJECT: &str = include_str!("templates/inject-project-bootstrap.sh");
 const CURSOR_HOOKS_JSON: &str = include_str!("templates/cursor-hooks.json");
 const SESSION_BOOTSTRAP: &str = include_str!("templates/session-bootstrap.md");
@@ -87,6 +88,10 @@ pub fn install_cursor_hooks(project_root: &Path, replace_hooks_json: bool) -> Re
     set_executable(&portable)?;
     set_executable(&inject)?;
 
+    let post_shell = cursor_hooks.join("post-shell-skillsmith-route.sh");
+    fs::write(&post_shell, POST_SHELL_ROUTE)?;
+    set_executable(&post_shell)?;
+
     let hooks_json = project_root.join(".cursor/hooks.json");
     if replace_hooks_json {
         fs::create_dir_all(project_root.join(".cursor"))?;
@@ -126,15 +131,25 @@ mod tests {
                 .join(".skillsmith/session-bootstrap.md")
                 .is_file()
         );
+        assert!(
+            project
+                .path()
+                .join(".cursor/hooks/post-shell-skillsmith-route.sh")
+                .is_file()
+        );
         let bootstrap = fs::read_to_string(project.path().join(".skillsmith/session-bootstrap.md"))
             .expect("read session bootstrap");
         assert!(
-            bootstrap.contains("recommend --intent \"<task>\" --format json --limit 5"),
-            "expected bootstrap to mention multi-skill recommendations"
+            bootstrap.contains("skillsmith mcp serve"),
+            "expected bootstrap to mention MCP entrypoint"
         );
         assert!(
-            bootstrap.contains("Load every clearly relevant returned skill"),
-            "expected bootstrap to mention multi-skill loading"
+            bootstrap.contains("--format json --limit 4"),
+            "expected bootstrap to cite recommend json limit"
+        );
+        assert!(
+            bootstrap.contains("one") && bootstrap.contains("reference"),
+            "expected bootstrap to stress single-reference loading"
         );
     }
 }

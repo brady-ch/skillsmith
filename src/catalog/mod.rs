@@ -8,6 +8,7 @@ mod health;
 mod matching;
 mod recommend;
 mod reference_index;
+pub(crate) mod repo_paths;
 mod types;
 mod validation;
 
