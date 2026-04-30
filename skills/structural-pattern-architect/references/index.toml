@@ -1,5 +1,5 @@
 [[references]]
-file = "pattern-selection.md"
+file = "pattern-selection-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the user needs a fast structural-pattern pick or needs help distinguishing nearby structural patterns."
@@ -17,7 +17,7 @@ summary = "Prefer this first when the structural design space is still broad."
 priority = 10
 
 [[references]]
-file = "structural-pattern-overview.md"
+file = "structural-pattern-overview-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the request is broadly about structural patterns, object relationships, or choosing among structural boundary styles."
@@ -35,7 +35,7 @@ summary = "Prefer this when the structural problem is still too broad for one sp
 priority = 20
 
 [[references]]
-file = "adapter.md"
+file = "adapter-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Adapter pattern should reuse an existing class through a different client-facing interface."
@@ -53,7 +53,7 @@ summary = "Prefer this when compatibility with an expected interface is the core
 priority = 30
 
 [[references]]
-file = "bridge.md"
+file = "bridge-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Bridge pattern should let abstraction and implementation vary independently."
@@ -71,7 +71,7 @@ summary = "Prefer this when two independent variation dimensions are the core pr
 priority = 40
 
 [[references]]
-file = "decorator.md"
+file = "decorator-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Decorator pattern should add behavior dynamically around one object."
@@ -89,7 +89,7 @@ summary = "Prefer this when runtime behavior augmentation is the core problem."
 priority = 31
 
 [[references]]
-file = "facade.md"
+file = "facade-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Facade pattern should present a simpler entry point to a complex subsystem."
@@ -107,7 +107,7 @@ summary = "Prefer this when simplification of an owned subsystem is the core pro
 priority = 32
 
 [[references]]
-file = "marker-interface.md"
+file = "marker-interface-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Marker Interface pattern should provide type-level tagging in a constrained metadata environment."
@@ -125,7 +125,7 @@ summary = "Prefer this when type-level tagging is the core need."
 priority = 33
 
 [[references]]
-file = "proxy.md"
+file = "proxy-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Proxy pattern should mediate access to another object or resource."
@@ -143,7 +143,7 @@ summary = "Prefer this when access mediation is the core problem."
 priority = 34
 
 [[references]]
-file = "aggregate.md"
+file = "aggregate-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Aggregate pattern should add explicit aggregation helpers to a part-whole structure."
@@ -161,7 +161,7 @@ summary = "Prefer this when aggregation operations are central to the abstractio
 priority = 35
 
 [[references]]
-file = "composite.md"
+file = "composite-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Composite pattern should let part and whole share one recursive interface."
@@ -179,7 +179,7 @@ summary = "Prefer this when recursive uniformity is the core problem."
 priority = 36
 
 [[references]]
-file = "flyweight.md"
+file = "flyweight-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Flyweight pattern should let many similar objects share intrinsic state to reduce memory use."
@@ -197,7 +197,7 @@ summary = "Prefer this when representation sharing is the core problem."
 priority = 37
 
 [[references]]
-file = "pipes-and-filters.md"
+file = "pipes-and-filters-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Pipes and Filters pattern should decompose processing into sequential transformation stages."
@@ -215,7 +215,7 @@ summary = "Prefer this when sequential staged processing is the core structural 
 priority = 38
 
 [[references]]
-file = "opaque-pointer.md"
+file = "opaque-pointer-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Opaque Pointer pattern should hide implementation details behind an opaque handle or incomplete type."
@@ -233,7 +233,7 @@ summary = "Prefer this when representation hiding or ABI stability is the core p
 priority = 39
 
 [[references]]
-file = "extensibility.md"
+file = "extensibility-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the system's extension surface must be chosen deliberately."
@@ -249,3 +249,310 @@ summary = "Return whether extensibility framing is the right level of decision, 
 [references.metadata.navigation]
 summary = "Prefer this when the core decision is how outsiders should extend the system."
 priority = 40
+[[references]]
+file = "adapter-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for adapter (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1030
+
+[[references]]
+file = "aggregate-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for aggregate (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1035
+
+[[references]]
+file = "bridge-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for bridge (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1040
+
+[[references]]
+file = "composite-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for composite (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1036
+
+[[references]]
+file = "decorator-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for decorator (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1031
+
+[[references]]
+file = "extensibility-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for extensibility (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1040
+
+[[references]]
+file = "facade-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for facade (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1032
+
+[[references]]
+file = "flyweight-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for flyweight (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1037
+
+[[references]]
+file = "marker-interface-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for marker-interface (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1033
+
+[[references]]
+file = "opaque-pointer-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for opaque-pointer (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1039
+
+[[references]]
+file = "pattern-selection-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for pattern-selection (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1010
+
+[[references]]
+file = "pipes-and-filters-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for pipes-and-filters (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1038
+
+[[references]]
+file = "proxy-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for proxy (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1034
+
+[[references]]
+file = "structural-pattern-overview-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for structural-pattern-overview (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1020
