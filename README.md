@@ -36,7 +36,7 @@ curl -fsSL https://raw.githubusercontent.com/brady-ch/skillsmith/main/scripts/in
 | `SKILLSMITH_ALLOW_ROOT` | Set to `1` only if you intentionally run the installer as root |
 | `SKILLSMITH_FORCE` | If `1`, passes `--force` to `cargo install` so the binary is rebuilt/reinstalled even when Cargo would otherwise skip |
 
-**After install:** the wizard (`skillsmith setup`) shallow-clones the catalog into a platform data directory (e.g. `~/.local/share/skillsmith/upstream` on Linux), writes `skillsmith.env` next to it with `export SKILLSMITH_REPO_ROOT=...`, installs the default **Core SE Pack** into the project-local agent runtimes (`.codex/skills`, `.claude/skills`, and `.agents/skills`), and optionally installs **Cursor** session hooks in a project you choose (portable layout: `.cursor/` + `.skillsmith/session-bootstrap.md`).
+**After install:** the wizard (`skillsmith setup`) shallow-clones the catalog into a platform data directory (e.g. `~/.local/share/skillsmith/upstream` on Linux), writes `skillsmith.env` next to it with `export SKILLSMITH_REPO_ROOT=...`, installs the default **token-first skill pack** (four high-value-per-token locals: tooling, product challenge, architecture, compression) into the project-local agent runtimes (`.codex/skills`, `.claude/skills`, and `.agents/skills`), and optionally installs **Cursor** session hooks in a project you choose (portable layout: `.cursor/` + `.skillsmith/session-bootstrap.md`).
 
 **Updating:** reinstall the binary with `SKILLSMITH_FORCE=1` when using `scripts/install.sh`, or run `cargo install ... --force` yourself. Refresh only the catalog checkout (no prompts) with `skillsmith setup --update` (uses the URL/ref from the last interactive `setup`, or `SKILLSMITH_GIT_URL` / `SKILLSMITH_GIT_REF` / defaults if you have not run `setup` yet).
 
@@ -69,7 +69,7 @@ cargo run -- setup --update # non-interactive: refresh data-dir catalog from sav
 cargo run -- list
 cargo run -- list --intent migration
 cargo run -- sources
-cargo run -- install --name repo-scout
+cargo run -- install --name using-skillsmith
 cargo run -- validate
 cargo run -- validate --remote
 cargo run -- explain --intent "migration rollback"
@@ -107,7 +107,7 @@ cargo test
 - **Config:** [`.cursor/hooks.json`](.cursor/hooks.json)
 - **Entry script:** [`.cursor/hooks/inject-skillsmith-bootstrap.sh`](.cursor/hooks/inject-skillsmith-bootstrap.sh) (delegates to [`hooks/session-start`](hooks/session-start))
 
-**Consumers** (other projects) get a portable layout from **`skillsmith setup`**: `.cursor/hooks/inject-project-bootstrap.sh`, `.skillsmith/hooks/portable-session-start.sh`, and **`.skillsmith/session-bootstrap.md`** (editable). The hook injects only a minimal English bootstrap that points agents at the installed Core SE Pack and the `recommend --limit 5` routing flow. Same bash requirement.
+**Consumers** (other projects) get a portable layout from **`skillsmith setup`**: `.cursor/hooks/inject-project-bootstrap.sh`, `.skillsmith/hooks/portable-session-start.sh`, and **`.skillsmith/session-bootstrap.md`** (editable). The hook injects only a minimal English bootstrap that points agents at the installed token-first pack and the `recommend --limit 5` routing flow. See **`docs/token-first-spec.md`** for the MCP decision-tree workflow (product → architecture → compression → tooling). Same bash requirement.
 
 To copy the contributor-style bundle by hand, see **[`examples/cursor-session-bootstrap/`](examples/cursor-session-bootstrap/README.md)**.
 
