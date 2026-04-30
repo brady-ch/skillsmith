@@ -10,7 +10,7 @@
 
 ---
 
-## Phase A — Routing metadata (in progress)
+## Phase A — Routing metadata
 
 **Files:** `src/catalog/matching.rs`, `src/catalog/tests/matching_tests.rs`
 
@@ -25,9 +25,9 @@
 
 **Files:** `src/mcp/server.rs`, `AGENTS.md` or bootstrap strings as needed
 
-- [ ] **B1:** Per-client playbook (Cursor / Codex / Claude): nano + MCP + call order documented for consumers.
-- [ ] **B2:** Tighten `#[tool(description = "...")]` strings for budgets (`limit`, short intent).
-- [ ] **B3 (optional):** Thin tool returning paths-only trace `{ skill_md, router, suggested_ref }` without bodies.
+- [x] **B1:** Per-client playbook (Cursor / Codex / Claude): nano + MCP + call order documented for consumers (`docs/token-first-spec.md`, `AGENTS.md`, templates).
+- [x] **B2:** Tighten `#[tool(description = "...")]` strings for budgets (`limit`, short intent) and server `instructions`.
+- [x] **B3:** `skillsmith_route_trace` — paths-only JSON (`schema_version` 1) without bodies or reason arrays.
 
 **Verify:** `cargo test`, manual MCP smoke if tool shapes change.
 
@@ -43,7 +43,7 @@
 ## Phase D — Catalog governance
 
 - [ ] **D1:** Consistent `token_hint` / `tier` in `catalog.toml`; optional `--tier` filter if product wants `lite` defaults.
-- [ ] **D2:** `validate` non-blocking notice for locals missing `token_hint`.
+- [x] **D2:** `validate` prints **`notice\t…`** lines for locals missing `token_hint` (non-blocking).
 - [ ] **D3:** Prune/deprecate overlapping skills (product decision).
 
 ---

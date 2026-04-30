@@ -9,7 +9,7 @@ use rmcp::{
     model::{ServerCapabilities, ServerInfo},
     schemars, tool, tool_handler, tool_router,
 };
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use crate::catalog::repo_paths::{
     catalog_skill_roots, is_under_catalog_skill, join_repo_relative, read_utf8_capped,
@@ -19,9 +19,12 @@ use crate::error::AppError;
 
 #[derive(Debug, Deserialize, schemars::JsonSchema)]
 pub(crate) struct RecommendParams {
-    #[schemars(description = "User task synopsis.")]
+    #[schemars(
+        description = "Short task synopsis; prefer under ~200 characters to keep tool context small."
+    )]
     pub intent: String,
     #[serde(default = "default_limit")]
+    #[schemars(description = "Max skills in the response; prefer 3–5 for token budget.")]
     pub limit: usize,
     pub skill: Option<String>,
     pub source: Option<String>,
@@ -52,6 +55,41 @@ fn default_max_bytes() -> usize {
     65_536
 }
 
+#[derive(Debug, Deserialize, schemars::JsonSchema)]
+pub(crate) struct RouteTraceParams {
+    #[schemars(
+        description = "Short task synopsis; prefer under ~200 characters to keep tool context small."
+    )]
+    pub intent: String,
+    #[serde(default = "default_trace_limit")]
+    #[schemars(description = "How many ranked skills to include (paths only; default 3).")]
+    pub limit: usize,
+    pub skill: Option<String>,
+    pub source: Option<String>,
+}
+
+fn default_trace_limit() -> usize {
+    3
+}
+
+#[derive(Debug, Serialize)]
+struct RouteTraceResponse {
+    schema_version: u32,
+    intent: String,
+    traces: Vec<RouteTraceEntry>,
+}
+
+#[derive(Debug, Serialize)]
+struct RouteTraceEntry {
+    skill_name: String,
+    source: Option<String>,
+    skill_path: String,
+    skill_md: String,
+    reference_router: String,
+    suggested_reference_file: String,
+    suggested_reference: String,
+}
+
 #[derive(Clone)]
 pub struct SkillsmithMcpService {
     tool_router: ToolRouter<Self>,
@@ -73,7 +111,7 @@ impl SkillsmithMcpService {
 impl SkillsmithMcpService {
     #[tool(
         name = "skillsmith_recommend",
-        description = "Rank catalog skills plus one suggested references/ file each (RecommendResponse schema_version 1 JSON)."
+        description = "Rank catalog skills with one suggested references/ file each (schema_version 1 JSON). Call first with a short intent; use limit 3–5; then fetch_file only the paths you need (SKILL.md, router, one reference)."
     )]
     async fn recommend_tool(&self, Parameters(params): Parameters<RecommendParams>) -> String {
         Self::exec_recommend(
@@ -85,7 +123,7 @@ impl SkillsmithMcpService {
 
     #[tool(
         name = "skillsmith_explain",
-        description = "Explain one resolved skill/reference for an intent or explicit skill (ExplainMatch JSON)."
+        description = "Explain one resolved skill and reference (ExplainMatch JSON). Use when you need match reasons or a single deep path; otherwise prefer recommend + fetch_file."
     )]
     async fn explain_tool(&self, Parameters(params): Parameters<ExplainParams>) -> String {
         Self::exec_explain(
@@ -97,10 +135,22 @@ impl SkillsmithMcpService {
 
     #[tool(
         name = "skillsmith_fetch_file",
-        description = "Read a UTF-8 text file under a catalog skill directory (truncated beyond max_bytes)."
+        description = "Read one UTF-8 file under a catalog skill directory (default max_bytes=65536, truncates with suffix). Fetch SKILL.md, then reference-router.md, then exactly one references/ slice from recommend—do not bulk-load every reference."
     )]
     async fn fetch_tool(&self, Parameters(params): Parameters<FetchParams>) -> String {
         Self::exec_fetch(
+            self.repo_root.as_path(),
+            self.catalog_path.as_path(),
+            params,
+        )
+    }
+
+    #[tool(
+        name = "skillsmith_route_trace",
+        description = "Path-only preview of recommend results (schema_version 1 JSON): repo-relative paths for SKILL.md, reference-router.md, and the suggested reference—no file bodies or match reason arrays. Smallest tool output when you only need load order."
+    )]
+    async fn route_trace_tool(&self, Parameters(params): Parameters<RouteTraceParams>) -> String {
+        Self::exec_route_trace(
             self.repo_root.as_path(),
             self.catalog_path.as_path(),
             params,
@@ -147,6 +197,48 @@ impl SkillsmithMcpService {
         .unwrap_or_else(|err| serde_json::json!({ "error": err.to_string() }).to_string())
     }
 
+    fn exec_route_trace(repo_root: &Path, catalog_path: &Path, params: RouteTraceParams) -> String {
+        (|| -> Result<String, AppError> {
+            let catalog = Catalog::load_from_file(catalog_path)?;
+            let mut cache = CatalogCache::new(catalog);
+            let resp = recommend_for_intent(
+                &mut cache,
+                repo_root,
+                &params.intent,
+                params.limit,
+                params.skill.as_deref(),
+                params.source.as_deref(),
+            )?;
+            let intent = resp.intent;
+            let traces: Vec<RouteTraceEntry> = resp
+                .recommendations
+                .into_iter()
+                .map(|e| {
+                    let skill_path = e.skill_path.trim_end_matches('/').to_string();
+                    let suggested_reference_file = e.suggested_reference_file;
+                    let suggested_reference =
+                        format!("{skill_path}/references/{suggested_reference_file}");
+                    RouteTraceEntry {
+                        skill_name: e.skill_name,
+                        source: e.source,
+                        skill_path: skill_path.clone(),
+                        skill_md: format!("{skill_path}/SKILL.md"),
+                        reference_router: format!("{skill_path}/references/reference-router.md"),
+                        suggested_reference_file,
+                        suggested_reference,
+                    }
+                })
+                .collect();
+            let out = RouteTraceResponse {
+                schema_version: 1,
+                intent,
+                traces,
+            };
+            Ok(serde_json::to_string(&out)?)
+        })()
+        .unwrap_or_else(|err| serde_json::json!({ "error": err.to_string() }).to_string())
+    }
+
     fn exec_fetch(repo_root: &Path, catalog_path: &Path, params: FetchParams) -> String {
         (|| -> Result<String, AppError> {
             let catalog = Catalog::load_from_file(catalog_path)?;
@@ -174,7 +266,7 @@ impl SkillsmithMcpService {
 impl ServerHandler for SkillsmithMcpService {
     fn get_info(&self) -> ServerInfo {
         ServerInfo::new(ServerCapabilities::builder().enable_tools().build()).with_instructions(
-            "skillsmith routing: call skillsmith_recommend with the user task, then skillsmith_fetch_file for SKILL.md and one references/ slice. Keep responses terse.",
+            "Token-first skillsmith: (1) skillsmith_route_trace or skillsmith_recommend with a short intent and small limit; (2) skillsmith_fetch_file for SKILL.md, reference-router.md, then one references/ file from the result—never load all references. Keep assistant replies terse.",
         )
     }
 }

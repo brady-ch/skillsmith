@@ -8,7 +8,7 @@
 - `catalog.rs` handles TOON metadata, intent matching, and reference indexes.
 - `installer.rs` validates and installs skills.
 
-Skill content lives under `skills/<skill-name>/` with a required `SKILL.md`, `agents/openai.yaml`, and `references/` directory. Repository-level skill registration is stored in `catalog/catalog.toml`. Integration tests live in `tests/`.
+Skill content lives under `skills/<skill-name>/` with a required `SKILL.md`, `agents/openai.yaml`, and `references/` directory. Repository-level skill registration is stored in `catalog/catalog.toml`. **Default locals** are intentionally small (token-first): `using-skillsmith`, `product-manager-challenger`, `software-architecture-architect`, and `compression-skill-designer`. Intent matching plus each skill’s `reference-router.md` forms a **decision tree**: pick one skill, then one reference—see **`docs/token-first-spec.md`**. Integration tests live in `tests/`.
 
 ## Reference Routers (`references/reference-router.md`)
 
@@ -37,10 +37,10 @@ Agents should not scrape the catalog by hand. Use machine-readable output and lo
   - `cargo run -- recommend --intent "migration rollback plan" --format json --limit 5`
   - Optional filters: `--skill <name>`, `--source local` or `--source <remote-source-name>`.
 - **`explain`** — Still resolves one skill + reference; add `--format json` for the same structure in automation.
-- **`mcp`** — Run `cargo run -- mcp serve` (stdio MCP) inside hosts that spawn subprocess tools. Enables `skillsmith_recommend`, `skillsmith_explain`, and allowlisted **`skillsmith_fetch_file`** reads under catalog skill dirs. Prefer this over stuffing long rules into prompts.
+- **`mcp`** — Run `cargo run -- mcp serve` (stdio MCP) inside hosts that spawn subprocess tools. Exposes **`skillsmith_route_trace`**, **`skillsmith_recommend`**, **`skillsmith_explain`**, and allowlisted **`skillsmith_fetch_file`** reads under catalog skill dirs. Prefer this over stuffing long rules into prompts. See **`docs/token-first-spec.md`** (“MCP clients”) for the Cursor / Codex / Claude playbook.
 - **`list`** — With `--format json`, lists locals (no `--intent`) or intent-ranked matches (`--intent`), including `score`, `skill_role`, and `order_weight`.
 
-Typical flow: run `skillsmith recommend` **or** `skillsmith mcp serve` (`skillsmith_recommend` tool) with the user message as `--intent`, parse JSON, then read only `SKILL.md` + `references/<suggested_reference_file>` under that skill directory (installed path or checkout).
+Typical flow: run **`skillsmith recommend`** (CLI) or **`skillsmith mcp serve`** and use MCP tools **`skillsmith_route_trace`** or **`skillsmith_recommend`** with the user message as the intent, parse JSON, then read only `SKILL.md` + `references/<suggested_reference_file>` under that skill directory (installed path or checkout).
 
 ## Skill ordering (`trigger.skill_role`, `trigger.order_weight`)
 
@@ -95,7 +95,7 @@ Line endings: [`.gitattributes`](.gitattributes) forces LF for `hooks/session-st
 - `cargo run -- validate` checks local skill structure and TOON metadata (`--profile strict` or `minimal`).
 - `cargo run -- explain --intent "migration rollback"` shows why a skill/reference matched (`--format json` optional).
 - `cargo run -- recommend --intent "…"` ranks skills and suggested references for agents (`--format json` recommended).
-- `cargo run -- mcp serve` runs the stdio MCP server for `skillsmith_recommend` / `skillsmith_fetch_file` tooling.
+- `cargo run -- mcp serve` runs the stdio MCP server for `skillsmith_route_trace` / `skillsmith_recommend` / `skillsmith_fetch_file` tooling.
 - `cargo test` runs unit and integration tests.
 - `cargo fmt` formats Rust source.
 

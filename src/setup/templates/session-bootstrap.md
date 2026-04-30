@@ -5,7 +5,7 @@ Injected at Cursor Agent session start by `skillsmith setup` (**nano tier**).
 ## Routing (minimal tokens)
 
 1. Set `SKILLSMITH_REPO_ROOT` to a checkout containing `catalog/catalog.toml`.
-2. Prefer the MCP server (`skillsmith mcp serve`): call `skillsmith_recommend`, then load only paths it returns (`SKILL.md` + `references/` slice).
+2. Prefer the MCP server (`skillsmith mcp serve`): call `skillsmith_route_trace` (paths only, smallest tool output) or `skillsmith_recommend`, then load only paths returned (`SKILL.md` + `references/` slice).
 3. Without MCP: `skillsmith recommend --intent "<task>" --format json --limit 4` — load only ranked skills that clearly match this turn.
 4. For each loaded skill: `SKILL.md` → `references/reference-router.md` → **one** additional reference file unless the router says otherwise.
 5. `skillsmith explain --intent "…" --format json` when picks are ambiguous.
