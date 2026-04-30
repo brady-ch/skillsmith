@@ -32,8 +32,8 @@ Do not use for:
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
 | Routing | `references/reference-router.md` | Always first |
-| Quick selection | `references/pattern-selection.md` | Need fast triage or confusion-pair resolution |
-| Family overview | `references/concurrency-pattern-overview.md` | Need family-level framing before choosing one pattern |
+| Quick selection | `references/pattern-selection-wenyan.md` | Need fast triage or confusion-pair resolution |
+| Family overview | `references/concurrency-pattern-overview-wenyan.md` | Need family-level framing before choosing one pattern |
 | Article-level references | `references/*.md` by pattern name | Need detailed guidance for one specific concurrency article or nearby pair |
 
 ## Workflow

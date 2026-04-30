@@ -1,5 +1,5 @@
 [[references]]
-file = "pattern-selection.md"
+file = "pattern-selection-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the user needs a fast concurrency-pattern pick or needs help distinguishing nearby coordination patterns."
@@ -17,7 +17,7 @@ summary = "Prefer this first when the concurrency design space is still broad."
 priority = 10
 
 [[references]]
-file = "concurrency-pattern-overview.md"
+file = "concurrency-pattern-overview-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the request is broadly about concurrency patterns, concurrent processing, or choosing among coordination styles."
@@ -35,7 +35,7 @@ summary = "Prefer this when the concurrency problem is still too broad for one s
 priority = 20
 
 [[references]]
-file = "active-object.md"
+file = "active-object-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Active Object pattern should invoke one object's methods asynchronously but execute them serially on its own thread or queue."
@@ -53,7 +53,7 @@ summary = "Prefer this when one object's state should be serialized behind async
 priority = 30
 
 [[references]]
-file = "reactor.md"
+file = "reactor-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Reactor pattern should demultiplex readiness events and dispatch short handlers from an event loop."
@@ -71,7 +71,7 @@ summary = "Prefer this when readiness-driven event dispatch is the core problem.
 priority = 31
 
 [[references]]
-file = "proactor.md"
+file = "proactor-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Proactor pattern should notify completion handlers after asynchronous background work finishes."
@@ -89,7 +89,7 @@ summary = "Prefer this when completion-driven asynchronous work is the core prob
 priority = 32
 
 [[references]]
-file = "thread-pool.md"
+file = "thread-pool-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Thread Pool pattern should run many independent tasks on a bounded worker set."
@@ -107,7 +107,7 @@ summary = "Prefer this when bounded worker execution is the core problem."
 priority = 33
 
 [[references]]
-file = "scheduled-task.md"
+file = "scheduled-task-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Scheduled Task pattern should run work on a clock or interval."
@@ -125,7 +125,7 @@ summary = "Prefer this when time-based triggering is the core problem."
 priority = 34
 
 [[references]]
-file = "scheduler.md"
+file = "scheduler-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Scheduler pattern should choose which work gets resources next."
@@ -143,7 +143,7 @@ summary = "Prefer this when resource arbitration is the core problem."
 priority = 35
 
 [[references]]
-file = "balking.md"
+file = "balking-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Balking pattern should fail or return immediately if state is not ready."
@@ -161,7 +161,7 @@ summary = "Prefer this when immediate refusal is the core semantic choice."
 priority = 36
 
 [[references]]
-file = "guarded-suspension.md"
+file = "guarded-suspension-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Guarded Suspension pattern should wait until a predicate becomes true."
@@ -179,7 +179,7 @@ summary = "Prefer this when guarded waiting is the core problem."
 priority = 37
 
 [[references]]
-file = "barrier.md"
+file = "barrier-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Barrier pattern should make all participants reach the same phase boundary before continuing."
@@ -197,7 +197,7 @@ summary = "Prefer this when phase alignment is the core problem."
 priority = 38
 
 [[references]]
-file = "monitor.md"
+file = "monitor-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Monitor pattern should combine mutual exclusion and condition waiting for one shared object."
@@ -215,7 +215,7 @@ summary = "Prefer this when one shared object owns both state and synchronizatio
 priority = 39
 
 [[references]]
-file = "lock.md"
+file = "lock-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Lock pattern should provide straightforward exclusive access to shared state."
@@ -233,7 +233,7 @@ summary = "Prefer this when simple mutual exclusion is the core problem."
 priority = 40
 
 [[references]]
-file = "readers-writer-lock.md"
+file = "readers-writer-lock-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Readers-Writer Lock pattern should let many readers proceed while writers remain exclusive."
@@ -251,7 +251,7 @@ summary = "Prefer this when read-heavy access is the core shared-state property.
 priority = 41
 
 [[references]]
-file = "semaphore.md"
+file = "semaphore-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Semaphore pattern should use a finite number of permits to bound concurrent access."
@@ -269,7 +269,7 @@ summary = "Prefer this when finite-capacity sharing is the core problem."
 priority = 42
 
 [[references]]
-file = "thread-local-storage.md"
+file = "thread-local-storage-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Thread-Local Storage pattern should keep state private per thread instead of shared."
@@ -287,7 +287,7 @@ summary = "Prefer this when per-thread isolation is the core move."
 priority = 43
 
 [[references]]
-file = "double-checked-locking.md"
+file = "double-checked-locking-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Double-Checked Locking pattern is being considered for lazy initialization of shared state."
@@ -305,7 +305,7 @@ summary = "Prefer this when a shared lazy-init optimization is under discussion.
 priority = 44
 
 [[references]]
-file = "join-pattern.md"
+file = "join-pattern-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the Join pattern should express coordination as atomic combinations of messages."
@@ -321,3 +321,398 @@ summary = "Return whether Join Pattern fits, its adoption cost, and one mitigati
 [references.metadata.navigation]
 summary = "Prefer this when higher-level message coordination is the core problem."
 priority = 45
+[[references]]
+file = "active-object-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for active-object (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1030
+
+[[references]]
+file = "balking-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for balking (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1036
+
+[[references]]
+file = "barrier-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for barrier (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1038
+
+[[references]]
+file = "concurrency-pattern-overview-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for concurrency-pattern-overview (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1020
+
+[[references]]
+file = "double-checked-locking-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for double-checked-locking (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1044
+
+[[references]]
+file = "guarded-suspension-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for guarded-suspension (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1037
+
+[[references]]
+file = "join-pattern-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for join-pattern (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1045
+
+[[references]]
+file = "lock-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for lock (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1040
+
+[[references]]
+file = "monitor-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for monitor (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1039
+
+[[references]]
+file = "pattern-selection-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for pattern-selection (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1010
+
+[[references]]
+file = "proactor-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for proactor (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1032
+
+[[references]]
+file = "reactor-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for reactor (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1031
+
+[[references]]
+file = "readers-writer-lock-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for readers-writer-lock (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1041
+
+[[references]]
+file = "scheduled-task-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for scheduled-task (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1034
+
+[[references]]
+file = "scheduler-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for scheduler (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1035
+
+[[references]]
+file = "semaphore-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for semaphore (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1042
+
+[[references]]
+file = "thread-local-storage-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for thread-local-storage (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1043
+
+[[references]]
+file = "thread-pool-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for thread-pool (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1033
