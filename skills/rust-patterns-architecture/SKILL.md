@@ -32,20 +32,20 @@ Do not use for:
 | Topic | Reference | Load When |
 |-------|-----------|-----------|
 | Routing | `references/reference-router.md` | Always first |
-| Design principles | `references/design-principles.md` | Need framing, scope, and Rust-specific decision anchors |
-| Architecture decisions | `references/architecture-decisions.md` | Need module boundaries, crate decomposition, or layering guidance |
-| Idiom catalog | `references/idiom-catalog.md` | Need language-level ownership/API idioms |
-| API ergonomics | `references/api-ergonomics.md` | Function signatures and call-site flexibility |
-| Sibling skills vs this skill | `references/common-patterns.md` | Route pattern-family questions to other architect skills; Rust implementation after |
-| Behavioral *in Rust* | `references/behavioral-patterns.md` | Encoding Command/Strategy/Visitor/etc. with Rust types and dispatch — not family selection |
-| Creational *in Rust* | `references/creational-patterns.md` | Builder/typestate/fold/`Result` construction — not picking Abstract Factory vs Builder |
-| Layout / crates / borrows | `references/structural-patterns.md` | Module split, unsafe shells, borrowing — not Adapter vs Decorator choice |
-| Boundary safety | `references/boundary-safety.md` | Unsafe containment and foreign boundary safety |
-| FFI idioms | `references/ffi-idioms.md` | FFI string and error handling details |
-| Trait-bound simplification | `references/custom-trait-bounds.md` | Need to reduce complex generic bounds with custom traits |
-| Anti-patterns | `references/anti-patterns.md` | Need explicit guidance on what not to do |
-| Functional techniques | `references/functional-techniques.md` | Type-driven API and compositional design choices |
-| Review checklist | `references/review-checklist.md` | Reviewing code or final validation before handoff |
+| Design principles | `references/design-principles-wenyan.md` | Need framing, scope, and Rust-specific decision anchors |
+| Architecture decisions | `references/architecture-decisions-wenyan.md` | Need module boundaries, crate decomposition, or layering guidance |
+| Idiom catalog | `references/idiom-catalog-wenyan.md` | Need language-level ownership/API idioms |
+| API ergonomics | `references/api-ergonomics-wenyan.md` | Function signatures and call-site flexibility |
+| Sibling skills vs this skill | `references/common-patterns-wenyan.md` | Route pattern-family questions to other architect skills; Rust implementation after |
+| Behavioral *in Rust* | `references/behavioral-patterns-wenyan.md` | Encoding Command/Strategy/Visitor/etc. with Rust types and dispatch — not family selection |
+| Creational *in Rust* | `references/creational-patterns-wenyan.md` | Builder/typestate/fold/`Result` construction — not picking Abstract Factory vs Builder |
+| Layout / crates / borrows | `references/structural-patterns-wenyan.md` | Module split, unsafe shells, borrowing — not Adapter vs Decorator choice |
+| Boundary safety | `references/boundary-safety-wenyan.md` | Unsafe containment and foreign boundary safety |
+| FFI idioms | `references/ffi-idioms-wenyan.md` | FFI string and error handling details |
+| Trait-bound simplification | `references/custom-trait-bounds-wenyan.md` | Need to reduce complex generic bounds with custom traits |
+| Anti-patterns | `references/anti-patterns-wenyan.md` | Need explicit guidance on what not to do |
+| Functional techniques | `references/functional-techniques-wenyan.md` | Type-driven API and compositional design choices |
+| Review checklist | `references/review-checklist-wenyan.md` | Reviewing code or final validation before handoff |
 
 ## Workflow
 
