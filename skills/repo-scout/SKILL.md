@@ -28,8 +28,8 @@ Do not use for:
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/repo-briefing.md` | Need a structured repo assessment |
-| `references/risk-triage.md` | Need severity-ranked findings and mitigation plan |
+| `references/repo-briefing-wenyan.md` | Need a structured repo assessment |
+| `references/risk-triage-wenyan.md` | Need severity-ranked findings and mitigation plan |
 
 ## Skill Inventory Note
 

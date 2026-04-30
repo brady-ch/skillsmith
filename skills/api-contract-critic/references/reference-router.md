@@ -4,8 +4,8 @@ Read first. Load one more unless blocked.
 
 ## Route
 
-- Need full contract audit: load `contract-review.md`
-- Need release compatibility plan: load `compatibility-matrix.md`
+- Need full contract audit: load `contract-review-wenyan.md`
+- Need release compatibility plan: load `compatibility-matrix-wenyan.md`
 
 ## Stop Condition
 

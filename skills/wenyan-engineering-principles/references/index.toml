@@ -150,5 +150,5 @@ summary = "Provide the English companion for maintenance only."
 summary = "Return the English alternative without changing the Wenyan source."
 
 [references.metadata.navigation]
-summary = "Do not load by default."
-priority = 1
+summary = "Do not load by default. High priority number loses intent tie-breaks (human-only)."
+priority = 1000

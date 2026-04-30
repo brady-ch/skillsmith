@@ -4,8 +4,8 @@
 
 ## Route
 
-- commit-after-tested-change workflow、test gate、commit guardrails：載 `commit-cadence.md`
+- commit-after-tested-change workflow、test gate、commit guardrails：載 `commit-cadence-wenyan.md`
 
 ## Stop Condition
 
-載 `commit-cadence.md` 後即止。除非 user 求他 git workflow detail。
+載 `commit-cadence-wenyan.md` 後即止。除非 user 求他 git workflow detail。

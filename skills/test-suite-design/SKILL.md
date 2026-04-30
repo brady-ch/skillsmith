@@ -29,8 +29,8 @@ Do not use for:
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/suite-levels-and-shape.md` | Pyramid, trophy, sizes, layer balance |
-| `references/tdd-canon-and-loop.md` | TDD loop, canon TDD, test-first |
+| `references/suite-levels-and-shape-wenyan.md` | Pyramid, trophy, sizes, layer balance |
+| `references/tdd-canon-and-loop-wenyan.md` | TDD loop, canon TDD, test-first |
 
 ## Skill Inventory Note
 

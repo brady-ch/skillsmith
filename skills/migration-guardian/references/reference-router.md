@@ -4,8 +4,8 @@ Read first. Load one more only.
 
 ## Route
 
-- Need staged migration: load `phased-plan.md`
-- Need rollback triggers/runbook: load `rollback-operations.md`
+- Need staged migration: load `phased-plan-wenyan.md`
+- Need rollback triggers/runbook: load `rollback-operations-wenyan.md`
 
 ## Stop Condition
 

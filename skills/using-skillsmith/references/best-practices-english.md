@@ -29,3 +29,10 @@ Use this checklist in skillsmith repo or when installing project defaults elsewh
 - Prefer concrete next steps over vague advice.
 - If task touches catalog or skill layout, verify with `validate`.
 - If task touches Rust code, verify with tests or targeted checks before finish.
+
+## Bilingual Wenyan packs (authoring)
+
+- Agents: load `references/reference-router.md`, then exactly one `*-wenyan.md` slice per router instruction.
+- Humans: read the paired `*-english.md` mirror for full prose.
+- In each `references/index.toml`, give English companions `navigation.priority` ≥ 1000 so `recommend` / `explain` tie-breaks favor Wenyan. Alternatively omit English files from the index and cite the on-disk path in `SKILL.md` for humans only.
+- Keep router backlinks pointed only at `*-wenyan.md` targets.

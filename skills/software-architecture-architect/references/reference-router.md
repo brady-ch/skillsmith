@@ -4,9 +4,9 @@ Read first. Load one more unless blocked.
 
 ## Route
 
-- Need framing, quality attributes, tradeoffs: load `architecture-decision-framing.md`
-- Need decomposition, boundary, dependency direction: load `decomposition-and-boundaries.md`
-- Need review, risks, failure modes: load `architecture-review-and-risks.md`
+- Need framing, quality attributes, tradeoffs: load `architecture-decision-framing-wenyan.md`
+- Need decomposition, boundary, dependency direction: load `decomposition-and-boundaries-wenyan.md`
+- Need review, risks, failure modes: load `architecture-review-and-risks-wenyan.md`
 - GoF pattern family: use sibling pattern skill
 - Rust implementation detail: hand off to `rust-patterns-architecture`
 

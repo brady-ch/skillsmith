@@ -4,8 +4,8 @@ Read first. Load one more unless blocked.
 
 ## Route
 
-- Need short discovery brief: load `repo-briefing.md`
-- Need severity order and mitigation: load `risk-triage.md`
+- Need short discovery brief: load `repo-briefing-wenyan.md`
+- Need severity order and mitigation: load `risk-triage-wenyan.md`
 
 ## Stop Condition
 

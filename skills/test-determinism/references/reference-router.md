@@ -4,8 +4,8 @@ Read first. Load one more unless blocked.
 
 ## Route
 
-- Need symptom -> cause map: load `nondeterminism-catalog.md`
-- Need fixtures, pollution, parallelism: load `isolation-and-parallelism.md`
+- Need symptom -> cause map: load `nondeterminism-catalog-wenyan.md`
+- Need fixtures, pollution, parallelism: load `isolation-and-parallelism-wenyan.md`
 
 ## Stop Condition
 

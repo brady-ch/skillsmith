@@ -4,7 +4,7 @@ Read first. Load one more unless blocked.
 
 ## Route
 
-- Need terse/token-compressed communication skill: load `compression-mode-design.md`
+- Need terse/token-compressed communication skill: load `compression-mode-design-wenyan.md`
 
 ## Stop Condition
 

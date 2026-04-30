@@ -1,5 +1,5 @@
 [[references]]
-file = "nondeterminism-catalog.md"
+file = "nondeterminism-catalog-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for tests are flaky, time-dependent, async-racy, or fail only in CI."
@@ -17,7 +17,7 @@ summary = "Prefer for symptom-to-cause mapping."
 priority = 10
 
 [[references]]
-file = "isolation-and-parallelism.md"
+file = "isolation-and-parallelism-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for order-dependent failures, shared fixtures, or parallel CI break tests."
@@ -33,3 +33,46 @@ summary = "Return isolation or parallelism changes and a conservative CI policy 
 [references.metadata.navigation]
 summary = "Prefer for fixture scope and parallel runners."
 priority = 20
+[[references]]
+file = "isolation-and-parallelism-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for isolation-and-parallelism (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1020
+
+[[references]]
+file = "nondeterminism-catalog-english.md"
+
+[references.metadata.trigger]
+summary = "Human-readable English mirror for nondeterminism-catalog (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1010

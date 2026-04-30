@@ -4,8 +4,8 @@ Read first. Load one more unless blocked.
 
 ## Route
 
-- Need pyramid/trophy/sizes/layer balance: load `suite-levels-and-shape.md`
-- Need TDD loop/test-first: load `tdd-canon-and-loop.md`
+- Need pyramid/trophy/sizes/layer balance: load `suite-levels-and-shape-wenyan.md`
+- Need TDD loop/test-first: load `tdd-canon-and-loop-wenyan.md`
 
 ## Stop Condition
 

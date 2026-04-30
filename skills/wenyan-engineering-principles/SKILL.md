@@ -30,6 +30,7 @@ Read `references/reference-router.md` first. Then load one Wenyan reference only
 | `references/design-wenyan.md` | Features and system design |
 | `references/programming-performance-wenyan.md` | Programming and performance |
 | `references/concurrency-testing-collaboration-wenyan.md` | Concurrency, testing, time management, collaboration |
+| `references/english-alternative.md` | Human-readable English mirror only (not default agent routing) |
 
 ## Rule
 

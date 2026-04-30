@@ -29,8 +29,8 @@ Do not use for:
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/nondeterminism-catalog.md` | Symptom taxonomy and fixes |
-| `references/isolation-and-parallelism.md` | Fixtures, pollution, parallelism |
+| `references/nondeterminism-catalog-wenyan.md` | Symptom taxonomy and fixes |
+| `references/isolation-and-parallelism-wenyan.md` | Fixtures, pollution, parallelism |
 
 ## Skill Inventory Note
 

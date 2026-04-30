@@ -28,7 +28,11 @@ Do not use for:
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/best-practices.md` | Need repo workflow, setup, validation, install rules |
+| `references/best-practices-wenyan.md` | Need repo workflow, setup, validation, install rules |
+
+## Human readers
+
+- Full English checklist: `references/best-practices-english.md`.
 
 ## Project Rule
 

@@ -28,8 +28,8 @@ Do not use for:
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/contract-review.md` | Need full API contract audit |
-| `references/compatibility-matrix.md` | Need explicit compatibility strategy or versioning policy |
+| `references/contract-review-wenyan.md` | Need full API contract audit |
+| `references/compatibility-matrix-wenyan.md` | Need explicit compatibility strategy or versioning policy |
 
 ## Skill Inventory Note
 

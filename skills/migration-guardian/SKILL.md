@@ -28,8 +28,8 @@ Do not use for:
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/phased-plan.md` | Need migration sequencing and cutover design |
-| `references/rollback-operations.md` | Need rollback criteria, drills, and runbook detail |
+| `references/phased-plan-wenyan.md` | Need migration sequencing and cutover design |
+| `references/rollback-operations-wenyan.md` | Need rollback criteria, drills, and runbook detail |
 
 ## Skill Inventory Note
 

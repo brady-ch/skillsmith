@@ -27,7 +27,7 @@ Do not use for:
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/commit-cadence.md` | Need the concrete tested-change commit workflow and guardrails |
+| `references/commit-cadence-wenyan.md` | Need the concrete tested-change commit workflow and guardrails |
 
 ## Skill Inventory Note
 

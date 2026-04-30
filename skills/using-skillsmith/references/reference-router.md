@@ -4,8 +4,8 @@
 
 ## Route
 
-- repo workflow、setup、validation、install、agent bootstrap 規則：載 `best-practices.md`
+- repo workflow、setup、validation、install、agent bootstrap 規則：載 `best-practices-wenyan.md`
 
 ## Stop Condition
 
-載 `best-practices.md` 後即止。除非 user 求他 skillsmith skill 或更深 repo 查驗。
+載 `best-practices-wenyan.md` 後即止。除非 user 求他 skillsmith skill 或更深 repo 查驗。

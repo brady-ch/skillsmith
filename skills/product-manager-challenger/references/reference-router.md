@@ -4,9 +4,9 @@ Read first. Load one more unless task needs both repo setup and item routing.
 
 ## Route
 
-- Need challenge, missing logic, priority pressure: load `intake-and-challenge.md`
-- Need repo checklist/tracking setup or repair: load `tracking-system.md`
-- Need per-item detail routing: load `item-routing.md`
+- Need challenge, missing logic, priority pressure: load `intake-and-challenge-wenyan.md`
+- Need repo checklist/tracking setup or repair: load `tracking-system-wenyan.md`
+- Need per-item detail routing: load `item-routing-wenyan.md`
 
 ## Stop Condition
 

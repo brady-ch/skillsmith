@@ -29,7 +29,7 @@ Do not use for:
 | Reference | Load When |
 | --- | --- |
 | `references/reference-router.md` | Always first |
-| `references/compression-mode-design.md` | Need to design or review a token-compressed communication skill |
+| `references/compression-mode-design-wenyan.md` | Need to design or review a token-compressed communication skill |
 
 ## Skill Inventory Note
 

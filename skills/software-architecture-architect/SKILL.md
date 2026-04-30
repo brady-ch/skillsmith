@@ -31,9 +31,9 @@ Do not use for:
 | Topic | Reference | Load When |
 |---|---|---|
 | Routing | `references/reference-router.md` | Always first |
-| Decision framing | `references/architecture-decision-framing.md` | Need constraints, quality attributes, and tradeoff framing |
-| Decomposition and boundaries | `references/decomposition-and-boundaries.md` | Need module/service splits or dependency direction |
-| Review and risks | `references/architecture-review-and-risks.md` | Need architecture review, risks, or failure modes |
+| Decision framing | `references/architecture-decision-framing-wenyan.md` | Need constraints, quality attributes, and tradeoff framing |
+| Decomposition and boundaries | `references/decomposition-and-boundaries-wenyan.md` | Need module/service splits or dependency direction |
+| Review and risks | `references/architecture-review-and-risks-wenyan.md` | Need architecture review, risks, or failure modes |
 
 ## Workflow
 
