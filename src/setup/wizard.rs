@@ -151,6 +151,9 @@ fn run_setup_inner(update_catalog_only: bool) -> Result<(), AppError> {
         "Using catalog {} @ {} (override with SKILLSMITH_GIT_URL / SKILLSMITH_GIT_REF or edit setup.toml).",
         url_trim, ref_trim
     );
+    println!(
+        "Session hooks/MCP bootstrap defaults to nano (token-thin); full skill paste uses SKILLSMITH_HOOK_BOOTSTRAP=full (skillsmith-repo hooks)."
+    );
     let repo_root = apply_catalog_checkout(&state_path, url_trim, ref_trim)?;
     let catalog = Catalog::load_from_file(&repo_root.join(CATALOG_REL))?;
     let project_root = prompt_project_root(&theme)?;
