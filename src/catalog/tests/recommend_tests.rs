@@ -10,7 +10,7 @@ fn recommend_skips_remote_skills_without_local_reference_index() {
     let catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
     let mut cache = CatalogCache::new(catalog);
     let intent = "refactor codebase to align with skillsmith catalog, CLI workflows, and skill authoring conventions";
-    let res = recommend_for_intent(&mut cache, &repo_root, intent, 15, None, None, false)
+    let res = recommend_for_intent(&mut cache, &repo_root, intent, 15, None, None)
         .expect("recommend should not fail when remote paths are absent");
 
     assert!(
@@ -32,7 +32,7 @@ fn recommend_prefers_umbrella_architecture_skill_for_broad_query() {
     let catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
     let mut cache = CatalogCache::new(catalog);
     let intent = "system architecture tradeoffs and module boundaries";
-    let res = recommend_for_intent(&mut cache, &repo_root, intent, 5, None, None, false)
+    let res = recommend_for_intent(&mut cache, &repo_root, intent, 5, None, None)
         .expect("recommend should succeed for architecture query");
 
     assert_eq!(
@@ -63,7 +63,6 @@ fn recommend_principles_intent_does_not_suggest_english_companion_for_architectu
         15,
         Some("software-architecture-architect"),
         None,
-        false,
     )
     .expect("recommend should succeed for architecture skill");
     let first = res
@@ -76,40 +75,5 @@ fn recommend_principles_intent_does_not_suggest_english_companion_for_architectu
             || first.suggested_reference_file == "reference-router.md",
         "expected Wenyan slice or router, got {}",
         first.suggested_reference_file
-    );
-}
-
-#[test]
-fn recommend_skips_deprecated_locals_by_default() {
-    let repo_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    let catalog_path = repo_root.join("catalog/catalog.toml");
-    let mut catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
-    catalog
-        .locals
-        .iter_mut()
-        .find(|s| s.name == "using-skillsmith")
-        .expect("using-skillsmith in catalog")
-        .metadata
-        .deprecated = true;
-    let mut cache = CatalogCache::new(catalog);
-    let intent = "skillsmith bootstrap install workflow agent rules validate";
-
-    let res = recommend_for_intent(&mut cache, &repo_root, intent, 20, None, None, false)
-        .expect("recommend default");
-    assert!(
-        !res.recommendations
-            .iter()
-            .any(|r| r.skill_name == "using-skillsmith"),
-        "deprecated locals should be hidden from default recommend output"
-    );
-
-    let res_inc = recommend_for_intent(&mut cache, &repo_root, intent, 20, None, None, true)
-        .expect("recommend include deprecated");
-    assert!(
-        res_inc
-            .recommendations
-            .iter()
-            .any(|r| r.skill_name == "using-skillsmith"),
-        "include_deprecated should restore deprecated entries"
     );
 }

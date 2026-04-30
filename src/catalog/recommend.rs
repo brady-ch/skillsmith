@@ -12,7 +12,6 @@ pub fn recommend_for_intent(
     limit: usize,
     skill_filter: Option<&str>,
     source_filter: Option<&str>,
-    include_deprecated: bool,
 ) -> Result<RecommendResponse, AppError> {
     let mut matches: Vec<_> = {
         let catalog = cache.catalog();
@@ -37,9 +36,6 @@ pub fn recommend_for_intent(
     let mut recommendations = Vec::new();
 
     for (source_name, skill_name, skill_path, metadata, score, reasons) in matches.into_iter() {
-        if metadata.deprecated && !include_deprecated {
-            continue;
-        }
         if limit != 0 && recommendations.len() >= take_n {
             break;
         }
@@ -69,7 +65,6 @@ pub fn recommend_for_intent(
             reasons,
             suggested_reference_file: reference.file,
             reference_reasons,
-            deprecated: metadata.deprecated,
             token_hint: metadata.token_hint,
             tier: metadata.tier.clone(),
         });

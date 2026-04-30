@@ -115,8 +115,7 @@ mod tests {
                 "order_weight": 0,
                 "reasons": [],
                 "suggested_reference_file": "repo-briefing-wenyan.md",
-                "reference_reasons": [],
-                "deprecated": false
+                "reference_reasons": []
             }]
         })
         .to_string()

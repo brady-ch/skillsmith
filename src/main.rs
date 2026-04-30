@@ -108,9 +108,6 @@ enum Commands {
         source: Option<String>,
         #[arg(long, value_enum, default_value_t = OutputFormat::Text)]
         format: OutputFormat,
-        /// Include deprecated catalog entries when resolving intents.
-        #[arg(long, default_value_t = false)]
-        include_deprecated: bool,
     },
     /// Rank catalog skills and suggested reference files for an intent (agent-friendly JSON).
     Recommend {
@@ -124,9 +121,6 @@ enum Commands {
         source: Option<String>,
         #[arg(long, value_enum, default_value_t = OutputFormat::Text)]
         format: OutputFormat,
-        /// Include `[locals.metadata]` entries marked deprecated.
-        #[arg(long, default_value_t = false)]
-        include_deprecated: bool,
     },
     /// Model Context Protocol server (stdio) for routed skill loading inside hosts.
     Mcp {
@@ -362,7 +356,6 @@ fn run_with_catalog(
             intent,
             source,
             format,
-            include_deprecated,
         }) => {
             let catalog = Catalog::load_from_file(&catalog_path)?;
             let mut cache = CatalogCache::new(catalog);
@@ -372,7 +365,6 @@ fn run_with_catalog(
                 skill.as_deref(),
                 intent.as_deref(),
                 source.as_deref(),
-                include_deprecated,
             )?;
             match format {
                 OutputFormat::Text => print_explain(explain),
@@ -386,7 +378,6 @@ fn run_with_catalog(
             skill,
             source,
             format,
-            include_deprecated,
         }) => {
             let catalog = Catalog::load_from_file(&catalog_path)?;
             let mut cache = CatalogCache::new(catalog);
@@ -397,7 +388,6 @@ fn run_with_catalog(
                 limit,
                 skill.as_deref(),
                 source.as_deref(),
-                include_deprecated,
             )?;
             match format {
                 OutputFormat::Text => print_recommend_text(&response),
@@ -454,7 +444,6 @@ fn print_recommend_text(response: &RecommendResponse) {
         println!("skill_role\t{}", skill_role_as_str(rec.skill_role));
         println!("order_weight\t{}", rec.order_weight);
         println!("suggested_reference\t{}", rec.suggested_reference_file);
-        println!("deprecated\t{}", rec.deprecated);
         for r in &rec.reasons {
             println!("reason\t{}", r);
         }
@@ -510,17 +499,6 @@ fn validate_catalog_and_skills(
                 continue;
             }
             issues.extend(validate_remote_source_health(source)?);
-        }
-    }
-
-    if matches!(profile, ValidationProfile::Strict) {
-        for local in &catalog.locals {
-            if local.metadata.deprecated {
-                eprintln!(
-                    "notice: catalog skill '{}' is locals.metadata deprecated; omit from default recommend unless --include-deprecated or MCP flag",
-                    local.name
-                );
-            }
         }
     }
 

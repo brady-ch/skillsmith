@@ -41,9 +41,6 @@ pub struct ToonMetadata {
     pub objective: ToonText,
     pub output: ToonText,
     pub navigation: ToonNavigation,
-    /// Optional catalog governance: exclude from default recommend/MCP unless opted in.
-    #[serde(default)]
-    pub deprecated: bool,
     /// Rough opening cost hint for audits and hosts (not validated for accuracy).
     #[serde(default)]
     pub token_hint: Option<u32>,
@@ -151,8 +148,6 @@ pub struct RecommendationEntry {
     pub reasons: Vec<String>,
     pub suggested_reference_file: String,
     pub reference_reasons: Vec<String>,
-    #[serde(default)]
-    pub deprecated: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub token_hint: Option<u32>,
     #[serde(skip_serializing_if = "Option::is_none")]

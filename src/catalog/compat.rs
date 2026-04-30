@@ -107,7 +107,6 @@ fn migrate_description(name: &str, description: &str) -> ToonMetadata {
             summary: "Load the router first, then one matching reference.".to_string(),
             priority: 50,
         },
-        deprecated: false,
         token_hint: None,
         tier: None,
     }

@@ -36,8 +36,7 @@ Agents should not scrape the catalog by hand. Use machine-readable output and lo
 - **`recommend`** — Rank skills for a free-text task and pick a suggested reference file per skill (schema version 1 JSON). Example:
   - `cargo run -- recommend --intent "migration rollback plan" --format json --limit 5`
   - Optional filters: `--skill <name>`, `--source local` or `--source <remote-source-name>`.
-  - Locals flagged **`deprecated`** in `[locals.metadata]` are omitted unless `--include-deprecated`.
-- **`explain`** — Still resolves one skill + reference; add `--format json` for the same structure in automation. Omit deprecated catalog locals by default; pass `--include-deprecated` when you must audit them.
+- **`explain`** — Still resolves one skill + reference; add `--format json` for the same structure in automation.
 - **`mcp`** — Run `cargo run -- mcp serve` (stdio MCP) inside hosts that spawn subprocess tools. Enables `skillsmith_recommend`, `skillsmith_explain`, and allowlisted **`skillsmith_fetch_file`** reads under catalog skill dirs. Prefer this over stuffing long rules into prompts.
 - **`list`** — With `--format json`, lists locals (no `--intent`) or intent-ranked matches (`--intent`), including `score`, `skill_role`, and `order_weight`.
 

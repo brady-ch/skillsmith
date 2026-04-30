@@ -452,7 +452,6 @@ mod tests {
                 summary: summary.to_string(),
                 priority: 10,
             },
-            deprecated: false,
             token_hint: None,
             tier: None,
         }

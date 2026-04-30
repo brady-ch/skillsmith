@@ -22,7 +22,6 @@ pub(super) fn test_metadata(summary: &str, tags: &[&str]) -> ToonMetadata {
             summary: "navigation".to_string(),
             priority: 10,
         },
-        deprecated: false,
         token_hint: None,
         tier: None,
     }

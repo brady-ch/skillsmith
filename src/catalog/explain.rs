@@ -11,7 +11,6 @@ pub fn explain_skill_selection(
     skill_name: Option<&str>,
     intent: Option<&str>,
     source_name: Option<&str>,
-    include_deprecated: bool,
 ) -> Result<ExplainMatch, AppError> {
     let catalog = cache.catalog();
     let selected = if let Some(name) = skill_name {
@@ -50,9 +49,6 @@ pub fn explain_skill_selection(
             .matches_for_intent(intent_text)
             .into_iter()
             .find(|m| {
-                if m.metadata.deprecated && !include_deprecated {
-                    return false;
-                }
                 if m.source_name.is_some() && !index_path_for(&m.skill_path).is_file() {
                     return false;
                 }

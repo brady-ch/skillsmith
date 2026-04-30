@@ -24,7 +24,6 @@ summary = "Load the router first, then this checklist."
 priority = 5
 
 [locals.metadata]
-deprecated = false
 tier = "lite"
 token_hint = 900
 

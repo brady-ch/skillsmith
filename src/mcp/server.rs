@@ -25,8 +25,6 @@ pub(crate) struct RecommendParams {
     pub limit: usize,
     pub skill: Option<String>,
     pub source: Option<String>,
-    #[serde(default)]
-    pub include_deprecated: bool,
 }
 
 fn default_limit() -> usize {
@@ -38,8 +36,6 @@ pub(crate) struct ExplainParams {
     pub intent: Option<String>,
     pub skill: Option<String>,
     pub source: Option<String>,
-    #[serde(default)]
-    pub include_deprecated: bool,
 }
 
 #[derive(Debug, Deserialize, schemars::JsonSchema)]
@@ -124,7 +120,6 @@ impl SkillsmithMcpService {
                 params.limit,
                 params.skill.as_deref(),
                 params.source.as_deref(),
-                params.include_deprecated,
             )?;
             Ok(serde_json::to_string(&resp)?)
         })()
@@ -146,7 +141,6 @@ impl SkillsmithMcpService {
                 params.skill.as_deref(),
                 params.intent.as_deref(),
                 params.source.as_deref(),
-                params.include_deprecated,
             )?;
             Ok(serde_json::to_string(&explain)?)
         })()

@@ -34,11 +34,8 @@ Optional fields under `[locals.metadata]` (serde defaults apply):
 
 | Field | Meaning |
 | --- | --- |
-| `deprecated` | When true, excluded from default `skillsmith recommend` and MCP unless `include_deprecated` |
 | `token_hint` | Approximate SKILL+router opener cost estimate for ranking/audits (opaque integer) |
 | `tier` | Free string for policy (`lite`, `standard`, …); validate passes if empty or alphanumeric + hyphen |
-
-Strict validate emits **non-blocking** notices for deprecated locals (warnings only; exits success).
 
 ## Cursor per-turn hints (supported today)
 

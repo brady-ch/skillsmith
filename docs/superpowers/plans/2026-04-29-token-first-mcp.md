@@ -4,7 +4,7 @@
 
 **Goal:** Make skillsmith the shared budget layer across Cursor, Codex, and Claude—minimal bootstrap, router-first loading, wenyan references, and ranking that prefers lower `token_hint` when match quality ties.
 
-**Architecture:** Host adapters (hooks + MCP) inject tiny routing hints; `matches_for_intent` / `recommend` core sorts by score, role, `order_weight`, then **`token_hint`**; catalog governance (`tier`, `deprecated`, `token_hint`) controls noise.
+**Architecture:** Host adapters (hooks + MCP) inject tiny routing hints; `matches_for_intent` / `recommend` core sorts by score, role, `order_weight`, then **`token_hint`**; catalog governance (`tier`, `token_hint`) controls noise.
 
 **Tech stack:** Rust CLI/MCP, existing `catalog.toml` TOON metadata, `docs/token-first-spec.md` contract.
 
