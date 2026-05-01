@@ -45,11 +45,7 @@ After install, **`skillsmith setup`** typically: clones the catalog under a plat
 
 ## Agent workflow (token-first)
 
-1. Point the host at a tree that contains **`catalog/catalog.toml`** (env, cwd, or `setup` upstream).
-2. Register stdio MCP: **`skillsmith mcp serve`**.
-3. Per turn: call **`skillsmith_route_trace`** or **`skillsmith_recommend`** with a short intent, then **`skillsmith_fetch_file`** only for **`SKILL.md`**, **`references/reference-router.md`**, and the **one** suggested reference — not the whole `references/` folder.
-
-Session hooks (Cursor, Codex, Claude) are documented in **AGENTS.md**; portable consumer bootstrap stays minimal (nano tier) per **docs/token-first-spec.md**.
+Invariants live in **[AGENTS.md](AGENTS.md)**; bootstrap tiers, MCP tool budgets, host hooks, validate profiles, and `--link` installs live in **[docs/token-first-spec.md](docs/token-first-spec.md)**. Short version: register stdio **`skillsmith mcp serve`**, call **`skillsmith_route_trace`** / **`skillsmith_recommend`**, then fetch only `SKILL.md`, `references/reference-router.md`, and the one suggested reference.
 
 ---
 
@@ -87,7 +83,7 @@ catalog/
   catalog.toml             # registers locals and remote sources
 ```
 
-Validation and catalog fields are specified in **AGENTS.md**.
+Validation profiles and catalog metadata fields are specified in **[docs/token-first-spec.md](docs/token-first-spec.md)** ("Validation profiles" + "Corpus governance"); `AGENTS.md` is the router.
 
 ---
 
@@ -103,7 +99,7 @@ cargo run -- validate
 
 ## Cursor hooks
 
-**This repository** uses **`.cursor/hooks.json`** and delegates to **`hooks/session-start`** (see **AGENTS.md**). Canonical skill sources live under **`skills/`** in this checkout; **`.codex/skills`**, **`.claude/skills`**, and **`.agents/skills`** here are install targets (often generated or symlinked), not a second source of truth. **Other projects** get a portable layout from **`skillsmith setup`**; hand-copy option: **[examples/cursor-session-bootstrap/](examples/cursor-session-bootstrap/README.md)**.
+Repo hooks live in **[`.cursor/hooks.json`](.cursor/hooks.json)** and delegate to **[`hooks/session-start`](hooks/session-start)**; canonical skill sources are under **`skills/`** (the `.codex/skills`, `.claude/skills`, `.agents/skills` dirs are install targets, not sources). Portable layout for other projects: **`skillsmith setup`** or hand-copy **[examples/cursor-session-bootstrap/](examples/cursor-session-bootstrap/README.md)**. Host wiring details: **[docs/token-first-spec.md](docs/token-first-spec.md)** "Hosts and hooks".
 
 ---
 

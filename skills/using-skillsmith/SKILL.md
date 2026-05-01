@@ -34,23 +34,15 @@ Do not use for:
 
 - Full English checklist: `references/best-practices-english.md`.
 
-## Project rule (consumer vs contributor)
+## Project rule
 
-- **Consumer**（upstream data dir、`skillsmith setup`）：規則大變後可 **`skillsmith setup --update`** 或復行 setup。
-- **Contributor**（本 tree 為 catalogue）：cwd 含 `catalog/catalog.toml` 或設 `SKILLSMITH_REPO_ROOT`；改 skill/catalog/hooks 後 **`cargo run -- validate`**；要於 agent path 試技能則 **`cargo run -- install --name … --link --target …`**（擇一路徑）。
+- **Consumer** (upstream data dir, `skillsmith setup`)：規則大變後 **`skillsmith setup --update`**。
+- **Contributor** (本 tree)：cwd 含 `catalog/catalog.toml` 或設 `SKILLSMITH_REPO_ROOT`；改 skill/catalog/hooks 後 **`cargo run -- validate`**；agent path 試技能用 **`cargo run -- install --name … --link --target …`**。
 
 ## Token-first routing
 
-Default locals、載入順、MCP/CLI：**`docs/token-first-spec.md`**。起手用 **`skillsmith_route_trace`** 或 **`skillsmith_recommend`**（短 intent、小 `limit`），再以 `SKILL.md` → `references/reference-router.md` → **一** reference。
+Default locals、載入順、MCP/CLI、bootstrap tiers：**`docs/token-first-spec.md`**。起手用 **`skillsmith_route_trace`** 或 **`skillsmith_recommend`**（短 intent、小 `limit`），再以 `SKILL.md` → `references/reference-router.md` → **一** reference。
 
 ## Skill Inventory Note
 
-Default catalog locals (high value per token):
-- `using-skillsmith`
-- `product-management-orchestrator`
-- `pm-explorer`
-- `pm-challenger`
-- `pm-prioritizer`
-- `pm-delivery-planner`
-- `software-architecture-architect`
-- `compression-skill-designer`
+Catalog 為單一真源：`catalog/catalog.toml`，或 `cargo run -- list --format json`。
