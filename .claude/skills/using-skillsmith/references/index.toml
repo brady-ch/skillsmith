@@ -1,8 +1,8 @@
 [[references]]
-file = "best-practices.md"
+file = "best-practices-wenyan.md"
 
 [references.metadata.trigger]
-summary = "Use when an agent needs skillsmith workflow, setup, validation, or install rules."
+summary = "Use for an agent needs skillsmith workflow, setup, validation, or install rules."
 intent_tags = ["setup", "workflow", "install", "bootstrap", "agent", "rules", "validate"]
 when_to_use = [
   "Set up a skillsmith checkout.",
@@ -21,4 +21,24 @@ summary = "Return the repo-root workflow, install guidance, and validation steps
 [references.metadata.navigation]
 summary = "Load the router first, then this checklist."
 priority = 10
+[[references]]
+file = "best-practices-english.md"
 
+[references.metadata.trigger]
+summary = "Human-readable English mirror for best-practices (not for default agent routing)."
+intent_tags = ["english", "human", "companion"]
+when_to_use = [
+  "Read the English companion for this topic.",
+]
+skill_role = "meta"
+order_weight = 99
+
+[references.metadata.objective]
+summary = "Provide the English text for human readers and editors."
+
+[references.metadata.output]
+summary = "Return the same structure as the Wenyan agent slice, in English."
+
+[references.metadata.navigation]
+summary = "Human companion only; loses intent tie-breaks vs Wenyan slices."
+priority = 1010

@@ -1,4 +1,4 @@
 version: 1
 display_name: Using Skillsmith
 short_description: Default workflow and install guidance for agents working in skillsmith.
-default_prompt: Work from the repo root, use recommend/explain/validate instead of hand-scraping, preserve unrelated user changes, keep edits minimal and verified, and default to compression-skill-designer output unless safety or clarity requires full wording.
+default_prompt: Work from the repo root. Use recommend/explain/validate, not hand-scraping. Keep changes minimal and verified. Preserve unrelated user edits. Default to compression-skill-designer style: terse, exact, and fuller only when safety or clarity needs it. After any repo change, rerun skillsmith setup.

@@ -1,12 +1,11 @@
 # Reference Router
 
-Read this file first. Then load only the minimum additional reference needed.
+先讀。後只載一參考。
 
 ## Route
 
-- Load `best-practices.md` for repository workflow, setup, validation, install, or agent bootstrap rules.
+- repo workflow、setup、validation、install、agent bootstrap 規則：載 `best-practices-wenyan.md`
 
 ## Stop Condition
 
-Stop after `best-practices.md` unless the user explicitly asks for a different skillsmith skill or a deeper repo-specific investigation.
-
+載 `best-practices-wenyan.md` 後即止。除非 user 求他 skillsmith skill 或更深 repo 查驗。
