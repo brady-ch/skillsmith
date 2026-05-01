@@ -93,7 +93,11 @@ fn local_catalog() -> Catalog {
 
 const DEFAULT_AGENT_SKILL_PACK: &[&str] = &[
     "using-skillsmith",
-    "product-manager-challenger",
+    "product-management-orchestrator",
+    "pm-explorer",
+    "pm-challenger",
+    "pm-prioritizer",
+    "pm-delivery-planner",
     "software-architecture-architect",
     "compression-skill-designer",
 ];
@@ -526,8 +530,8 @@ fn explain_routes_product_intent_to_challenge_reference() {
     )
     .expect("product explain");
 
-    assert_eq!(explain.skill_name, "product-manager-challenger");
-    assert_eq!(explain.reference.file, "intake-and-challenge-wenyan.md");
+    assert_eq!(explain.skill_name, "pm-challenger");
+    assert_eq!(explain.reference.file, "scope-pressure-test-english.md");
 }
 
 #[test]

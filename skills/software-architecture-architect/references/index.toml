@@ -3,7 +3,7 @@ file = "architecture-decision-framing-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the request is about architecture decisions, quality attributes, or tradeoff framing."
-intent_tags = ["architecture", "system", "design", "tradeoffs", "quality-attributes", "decision"]
+intent_tags = ["architecture", "system", "design", "tradeoffs", "quality-attributes", "decision", "wenyan"]
 when_to_use = ["Frame architecture options against constraints and quality attributes.", "Choose a direction and explain why."]
 
 [references.metadata.objective]
@@ -21,7 +21,7 @@ file = "decomposition-and-boundaries-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the request is about module, package, or service decomposition and dependency direction."
-intent_tags = ["decomposition", "boundaries", "module", "service", "dependency", "layering"]
+intent_tags = ["decomposition", "boundaries", "module", "service", "dependency", "layering", "wenyan"]
 when_to_use = ["Split a system into modules or services.", "Choose boundary placement and dependency direction."]
 
 [references.metadata.objective]
@@ -39,7 +39,7 @@ file = "architecture-review-and-risks-wenyan.md"
 
 [references.metadata.trigger]
 summary = "Use for the request is about architecture review, risk analysis, or failure modes."
-intent_tags = ["review", "risk", "failure-modes", "coupling", "operability", "resilience"]
+intent_tags = ["review", "risk", "failure-modes", "coupling", "operability", "resilience", "wenyan"]
 when_to_use = ["Review an architecture for risks and weak points.", "Call out likely failure modes and mitigations."]
 
 [references.metadata.objective]

@@ -1,0 +1,4 @@
+version: 1
+display_name: PM Delivery Planner
+short_description: Execution-focused PM handoff role that turns approved scope into verifiable steps.
+default_prompt: Convert approved scope into a concrete delivery plan with files, tests, and verification gates.

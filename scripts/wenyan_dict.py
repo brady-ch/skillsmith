@@ -27,49 +27,6 @@ _a(
 - 涉契、安、法者不得瘦身失實。""",
 )
 
-# --- product-manager-challenger ---
-_a(
-    "product-manager-challenger/intake-and-challenge",
-    """# 納詰
-
-## 用
-- 範弱、需糊、先施壓後行工。
-
-## 旨
-- 逼人、題、值、域、成標先明。
-
-## 出
-- 轢漏缺、未決之點、下一迫問。""",
-)
-
-_a(
-    "product-manager-challenger/tracking-system",
-    """# 蹤檢
-
-## 用
-- 庫內立 PM 檢表、執蹤、項次夾層。
-
-## 旨
-- 檢於庫、項有夾、狀可勾。
-
-## 出
-- 檔更、項態、闕執之節。""",
-)
-
-_a(
-    "product-manager-challenger/item-routing",
-    """# 項次路由
-
-## 用
-- 決細目入何檔於項夾之下。
-
-## 旨
-- 每類訊各歸一檔、毋積亂。
-
-## 出
-- 所取檔、其故、態之隨變。""",
-)
-
 # --- using-skillsmith ---
 _a(
     "using-skillsmith/best-practices",

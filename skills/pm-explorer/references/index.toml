@@ -1,0 +1,45 @@
+[[references]]
+file = "option-research-english.md"
+
+[references.metadata.trigger]
+summary = "Use for research-first option generation and evidence framing."
+intent_tags = ["research", "exploration", "options", "analysis", "problem", "user"]
+when_to_use = [
+  "Explore solution options before scope lock.",
+  "Compare alternatives with explicit tradeoffs.",
+]
+skill_role = "process"
+order_weight = -20
+
+[references.metadata.objective]
+summary = "Produce structured option analysis and recommendation."
+
+[references.metadata.output]
+summary = "Return recommended and rejected options with reasons."
+
+[references.metadata.navigation]
+summary = "Prefer when option space is still open."
+priority = 10
+
+[[references]]
+file = "skills-gap-analysis-english.md"
+
+[references.metadata.trigger]
+summary = "Use for analyzing other skills and identifying capability gaps."
+intent_tags = ["gaps", "skills", "audit", "coverage", "capability", "improvement"]
+when_to_use = [
+  "Inspect nearby skills for overlap and missing capabilities.",
+  "Document high-impact improvements for skillsmith.",
+]
+skill_role = "process"
+order_weight = -10
+
+[references.metadata.objective]
+summary = "Produce a skills-gap analysis tied to practical improvements."
+
+[references.metadata.output]
+summary = "Return gap list with impact and suggested changes."
+
+[references.metadata.navigation]
+summary = "Prefer when exploration includes a skill-system audit."
+priority = 20

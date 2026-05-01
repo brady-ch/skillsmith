@@ -42,7 +42,7 @@ Do not use for:
 
 Use MCP **`skillsmith_route_trace`** or **`skillsmith_recommend`** (short intent, small `limit`), then fetch only `SKILL.md` → `references/reference-router.md` → **one** reference. Rough branch order:
 
-1. **Scope / product risk** — vague asks, prioritization, tracking → `product-manager-challenger`
+1. **Scope / product risk** — vague asks, exploration, prioritization, tracking → `product-management-orchestrator`
 2. **System shape** — modules, services, boundaries, tradeoffs → `software-architecture-architect`
 3. **Terse output / Wenyan skill design** — compression rules, persona modes → `compression-skill-designer`
 4. **This tool** — install, validate, catalog, hooks → `using-skillsmith`
@@ -53,6 +53,10 @@ Remote catalog entries (e.g. installer smoke tests) still use **`install` / `sou
 
 Default catalog locals (high value per token):
 - `using-skillsmith`
-- `product-manager-challenger`
+- `product-management-orchestrator`
+- `pm-explorer`
+- `pm-challenger`
+- `pm-prioritizer`
+- `pm-delivery-planner`
 - `software-architecture-architect`
 - `compression-skill-designer`

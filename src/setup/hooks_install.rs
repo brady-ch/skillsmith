@@ -15,7 +15,11 @@ const CURSOR_HOOKS_JSON: &str = include_str!("templates/cursor-hooks.json");
 const SESSION_BOOTSTRAP: &str = include_str!("templates/session-bootstrap.md");
 const DEFAULT_AGENT_SKILL_PACK: &[&str] = &[
     "using-skillsmith",
-    "product-manager-challenger",
+    "product-management-orchestrator",
+    "pm-explorer",
+    "pm-challenger",
+    "pm-prioritizer",
+    "pm-delivery-planner",
     "software-architecture-architect",
     "compression-skill-designer",
 ];

@@ -1,0 +1,4 @@
+version: 1
+display_name: PM Prioritizer
+short_description: Analytical prioritization role for roadmap and capacity tradeoffs.
+default_prompt: Rank competing options with explicit tradeoffs, defer list, and revisit triggers.

@@ -54,6 +54,6 @@ Each answer should give:
 
 Default catalog locals:
 - `software-architecture-architect`
-- `product-manager-challenger`
+- `product-management-orchestrator`
 - `compression-skill-designer`
 - `using-skillsmith`

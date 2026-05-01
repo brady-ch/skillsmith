@@ -1,0 +1,45 @@
+[[references]]
+file = "forced-ranking-english.md"
+
+[references.metadata.trigger]
+summary = "Use for explicit stack ranking and defer decisions."
+intent_tags = ["priority", "prioritize", "ranking", "roadmap", "tradeoff", "backlog"]
+when_to_use = [
+  "Choose one next product bet from multiple options.",
+  "Force ordering and document deferrals.",
+]
+skill_role = "implementation"
+order_weight = -12
+
+[references.metadata.objective]
+summary = "Select one next bet with explicit rejections and revisit trigger."
+
+[references.metadata.output]
+summary = "Return ordered ranking, deferred items, and next selected item."
+
+[references.metadata.navigation]
+summary = "Prefer for quick forced-ordering decisions."
+priority = 10
+
+[[references]]
+file = "scoring-and-capacity-english.md"
+
+[references.metadata.trigger]
+summary = "Use for score-based prioritization constrained by available capacity."
+intent_tags = ["rice", "capacity", "effort", "impact", "confidence", "dependencies"]
+when_to_use = [
+  "Apply scoring plus capacity constraints to choose what ships first.",
+  "Set revisit criteria for deferred options.",
+]
+skill_role = "implementation"
+order_weight = -8
+
+[references.metadata.objective]
+summary = "Choose a feasible next bet using scoring and capacity."
+
+[references.metadata.output]
+summary = "Return score table, selected bet, and revisit criteria."
+
+[references.metadata.navigation]
+summary = "Prefer when scoring and capacity tradeoffs are both needed."
+priority = 20

@@ -77,3 +77,63 @@ fn recommend_principles_intent_does_not_suggest_english_companion_for_architectu
         first.suggested_reference_file
     );
 }
+
+#[test]
+fn recommend_pm_research_intent_prefers_orchestrator() {
+    let repo_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let catalog_path = repo_root.join("catalog/catalog.toml");
+    let catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
+    let mut cache = CatalogCache::new(catalog);
+    let intent = "explore product options and identify capability gaps";
+    let res = recommend_for_intent(&mut cache, &repo_root, intent, 5, None, None)
+        .expect("recommend should succeed for pm research intent");
+
+    assert_eq!(
+        res.recommendations
+            .first()
+            .map(|entry| entry.skill_name.as_str()),
+        Some("product-management-orchestrator")
+    );
+    assert_eq!(
+        res.recommendations
+            .first()
+            .map(|entry| entry.suggested_reference_file.as_str()),
+        Some("exploration-phase-english.md")
+    );
+}
+
+#[test]
+fn recommend_pm_prioritization_intent_prefers_pm_prioritizer() {
+    let repo_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let catalog_path = repo_root.join("catalog/catalog.toml");
+    let catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
+    let mut cache = CatalogCache::new(catalog);
+    let intent = "prioritize roadmap options with capacity tradeoffs";
+    let res = recommend_for_intent(&mut cache, &repo_root, intent, 5, None, None)
+        .expect("recommend should succeed for pm prioritization intent");
+
+    assert_eq!(
+        res.recommendations
+            .first()
+            .map(|entry| entry.skill_name.as_str()),
+        Some("pm-prioritizer")
+    );
+}
+
+#[test]
+fn recommend_pm_delivery_handoff_intent_prefers_pm_delivery_planner() {
+    let repo_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let catalog_path = repo_root.join("catalog/catalog.toml");
+    let catalog = Catalog::load_from_file(&catalog_path).expect("load catalog");
+    let mut cache = CatalogCache::new(catalog);
+    let intent = "delivery handoff plan with execution steps and blockers";
+    let res = recommend_for_intent(&mut cache, &repo_root, intent, 5, None, None)
+        .expect("recommend should succeed for pm delivery handoff intent");
+
+    assert_eq!(
+        res.recommendations
+            .first()
+            .map(|entry| entry.skill_name.as_str()),
+        Some("pm-delivery-planner")
+    );
+}

@@ -8,7 +8,7 @@
 - `catalog.rs` handles TOON metadata, intent matching, and reference indexes.
 - `installer.rs` validates and installs skills.
 
-Skill content lives under `skills/<skill-name>/` with a required `SKILL.md`, `agents/openai.yaml`, and `references/` directory. Repository-level skill registration is stored in `catalog/catalog.toml`. **Default locals** are intentionally small (token-first): `using-skillsmith`, `product-manager-challenger`, `software-architecture-architect`, and `compression-skill-designer`. Intent matching plus each skill’s `reference-router.md` forms a **decision tree**: pick one skill, then one reference—see **`docs/token-first-spec.md`**. Integration tests live in `tests/`.
+Skill content lives under `skills/<skill-name>/` with a required `SKILL.md`, `agents/openai.yaml`, and `references/` directory. Repository-level skill registration is stored in `catalog/catalog.toml`. **Default locals** are intentionally small (token-first): `using-skillsmith`, `product-management-orchestrator` (+ PM role skills), `software-architecture-architect`, and `compression-skill-designer`. Intent matching plus each skill’s `reference-router.md` forms a **decision tree**: pick one skill, then one reference—see **`docs/token-first-spec.md`**. Integration tests live in `tests/`.
 
 ## Reference Routers (`references/reference-router.md`)
 

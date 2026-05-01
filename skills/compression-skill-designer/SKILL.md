@@ -36,6 +36,6 @@ Do not use for:
 
 Default catalog locals:
 - `using-skillsmith`
-- `product-manager-challenger`
+- `product-management-orchestrator`
 - `software-architecture-architect`
 - `compression-skill-designer`

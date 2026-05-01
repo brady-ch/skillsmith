@@ -4,7 +4,7 @@ Operational contract for nano vs full bootstrap, hooks, MCP tools, wenyan author
 
 ## Default catalog = decision tree
 
-Shipping **locals** in `catalog/catalog.toml` prioritize **value per token**: strict product questioning (`product-manager-challenger`), system boundaries and tradeoffs (`software-architecture-architect`), terse / Wenyan communication design (`compression-skill-designer`), and this tool’s workflow (`using-skillsmith`). Remote entries under `[[sources]]` exist for installer validation and are not part of that default tree.
+Shipping **locals** in `catalog/catalog.toml` prioritize **value per token**: research-first product orchestration (`product-management-orchestrator` + PM role skills), system boundaries and tradeoffs (`software-architecture-architect`), terse / Wenyan communication design (`compression-skill-designer`), and this tool’s workflow (`using-skillsmith`). Remote entries under `[[sources]]` exist for installer validation and are not part of that default tree.
 
 **Routing:** use **`skillsmith_route_trace`** or **`skillsmith_recommend`** with a short intent; load only `SKILL.md` → `references/reference-router.md` → **one** suggested reference. Treat that path as a branching prompt-injection flow (scope → structure → voice → tooling) rather than pre-loading every skill.
 

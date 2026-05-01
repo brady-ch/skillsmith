@@ -1,0 +1,45 @@
+[[references]]
+file = "delivery-skeleton-english.md"
+
+[references.metadata.trigger]
+summary = "Use for turning approved scope into a checkable delivery skeleton."
+intent_tags = ["plan", "delivery", "tasks", "steps", "handoff", "execution"]
+when_to_use = [
+  "Convert approved scope into concrete implementation steps.",
+  "Specify touched files, steps, and verification gates.",
+]
+skill_role = "implementation"
+order_weight = -12
+
+[references.metadata.objective]
+summary = "Create a concrete delivery plan with verifiable first steps."
+
+[references.metadata.output]
+summary = "Return ordered implementation steps and verification mapping."
+
+[references.metadata.navigation]
+summary = "Prefer for initial execution handoff planning."
+priority = 10
+
+[[references]]
+file = "dependency-and-blocker-english.md"
+
+[references.metadata.trigger]
+summary = "Use for dependency mapping and blocker management during delivery planning."
+intent_tags = ["dependencies", "blockers", "sequence", "owners", "escalation"]
+when_to_use = [
+  "Plan work sequencing around dependencies.",
+  "Capture blockers and explicit unblock conditions.",
+]
+skill_role = "implementation"
+order_weight = -8
+
+[references.metadata.objective]
+summary = "Plan around dependencies and unblock path for execution."
+
+[references.metadata.output]
+summary = "Return blockers, owners, sequence adjustments, and escalation trigger."
+
+[references.metadata.navigation]
+summary = "Prefer when delivery risk is dependency-heavy."
+priority = 20

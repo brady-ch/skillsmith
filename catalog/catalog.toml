@@ -30,50 +30,189 @@ tier = "lite"
 token_hint = 900
 
 [[locals]]
-name = "product-manager-challenger"
-relative_path = "skills/product-manager-challenger"
+name = "product-management-orchestrator"
+relative_path = "skills/product-management-orchestrator"
 
 [locals.metadata.trigger]
-summary = "Use when the user wants strict product management, hard questioning, scope pushback, repo-native tracking, discovery, approval gates, prioritization, or plan handoff for approved work."
+summary = "Use for automatic product management flow: research-first exploration, skills-gap scan, then role handoff to challenge, prioritization, or delivery planning."
 intent_tags = [
   "product",
   "pm",
-  "scope",
+  "research",
+  "exploration",
+  "options",
+  "gaps",
+  "competitor",
+  "analysis",
   "requirements",
-  "tracking",
-  "todo",
-  "prioritization",
-  "greenfield",
-  "ambiguous",
-  "discovery",
-  "decompose",
-  "acceptance-criteria",
-  "design-approval",
-  "brainstorm",
   "roadmap",
-  "implementation-plan",
+  "prioritization",
+  "handoff",
 ]
 when_to_use = [
-  "Challenge a product request that may not make sense yet.",
-  "Create and maintain a repository tracking checklist with item detail folders.",
-  "Explore ambiguous or oversized ideas before locking scope.",
-  "Require explicit approval or spec freeze before implementation.",
-  "Prioritize backlog slices or forced tradeoffs under constraints.",
-  "Turn an approved scope into bite-sized engineering steps.",
+  "Start product work with exploration before narrowing scope.",
+  "Explore related skills and identify capability gaps in skillsmith.",
+  "Route work to the next PM role after discovery artifacts exist.",
 ]
+skill_role = "process"
+order_weight = -30
 
 [locals.metadata.objective]
-summary = "Pressure-test product requests, force clear scope and success criteria, and maintain a durable execution tracker in the repo."
+summary = "Orchestrate research-first PM workflow with explicit stage transitions and durable repo artifacts."
 
 [locals.metadata.output]
-summary = "Return direct challenges, a clarified problem statement, and tracked repo updates with explicit completion criteria."
+summary = "Return exploration findings, identified gaps, selected next role, and repo-tracked next action."
 
 [locals.metadata.navigation]
-summary = "Load the router first, then one reference for discovery, approval gate, prioritization, plan handoff, challenge flow, tracking setup, or item detail routing."
-priority = 22
+summary = "Load the router first, then one reference for exploration stage execution or role routing."
+priority = 8
 
 [locals.metadata]
-token_hint = 1500
+token_hint = 1100
+
+[[locals]]
+name = "pm-explorer"
+relative_path = "skills/pm-explorer"
+
+[locals.metadata.trigger]
+summary = "Use for neutral-curious product exploration, option analysis, and skill-gap discovery."
+intent_tags = [
+  "research",
+  "exploration",
+  "discovery",
+  "options",
+  "gaps",
+  "audit",
+  "product",
+  "analysis",
+]
+when_to_use = [
+  "Generate product options and compare tradeoffs before scope lock.",
+  "Review other skills and identify capability gaps.",
+]
+skill_role = "process"
+order_weight = -22
+
+[locals.metadata.objective]
+summary = "Produce evidence-backed product options and capability-gap findings."
+
+[locals.metadata.output]
+summary = "Return options, gaps, recommendation, and explicit rejected alternative."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then one reference for option research or skill-gap analysis."
+priority = 11
+
+[locals.metadata]
+token_hint = 1050
+
+[[locals]]
+name = "pm-challenger"
+relative_path = "skills/pm-challenger"
+
+[locals.metadata.trigger]
+summary = "Use for strict product scope pressure-testing, contradiction checks, and acceptance hardening."
+intent_tags = [
+  "challenge",
+  "scope",
+  "requirements",
+  "pushback",
+  "acceptance",
+  "criteria",
+  "quality",
+  "product",
+]
+when_to_use = [
+  "Pressure-test weak product logic before planning.",
+  "Harden measurable done criteria for approved work.",
+]
+skill_role = "implementation"
+order_weight = -15
+
+[locals.metadata.objective]
+summary = "Force coherent scope, explicit non-goals, and measurable success criteria."
+
+[locals.metadata.output]
+summary = "Return contradictions, narrowed scope, and acceptance gates for handoff."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then one reference for scope challenge or acceptance hardening."
+priority = 12
+
+[locals.metadata]
+token_hint = 1000
+
+[[locals]]
+name = "pm-prioritizer"
+relative_path = "skills/pm-prioritizer"
+
+[locals.metadata.trigger]
+summary = "Use for analytical ordering of product options, backlog tradeoffs, and roadmap selection."
+intent_tags = [
+  "prioritize",
+  "priority",
+  "ranking",
+  "roadmap",
+  "backlog",
+  "tradeoff",
+  "capacity",
+  "rice",
+]
+when_to_use = [
+  "Choose one next bet when multiple options compete.",
+  "Set deferral reasons and revisit triggers.",
+]
+skill_role = "implementation"
+order_weight = -14
+
+[locals.metadata.objective]
+summary = "Select the highest-value feasible next bet with explicit deferrals."
+
+[locals.metadata.output]
+summary = "Return ranked options, selected bet, deferred list, and revisit trigger."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then one reference for forced ranking or scoring with capacity."
+priority = 13
+
+[locals.metadata]
+token_hint = 980
+
+[[locals]]
+name = "pm-delivery-planner"
+relative_path = "skills/pm-delivery-planner"
+
+[locals.metadata.trigger]
+summary = "Use for execution-focused PM handoff from approved scope into checkable delivery steps."
+intent_tags = [
+  "plan",
+  "delivery",
+  "handoff",
+  "execution",
+  "tasks",
+  "steps",
+  "dependencies",
+  "blockers",
+]
+when_to_use = [
+  "Convert approved scope into verifiable execution steps.",
+  "Handle dependency and blocker-aware delivery sequencing.",
+]
+skill_role = "implementation"
+order_weight = -13
+
+[locals.metadata.objective]
+summary = "Produce practical delivery skeletons linked to verification and blocker handling."
+
+[locals.metadata.output]
+summary = "Return sequence of checkable steps, verification gates, and blocker ownership."
+
+[locals.metadata.navigation]
+summary = "Load the router first, then one reference for delivery skeleton or blocker handling."
+priority = 14
+
+[locals.metadata]
+token_hint = 980
 
 [[locals]]
 name = "software-architecture-architect"

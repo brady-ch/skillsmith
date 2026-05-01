@@ -150,10 +150,15 @@ fn normalize_token(token: &str) -> std::borrow::Cow<'_, str> {
 }
 
 pub(crate) fn tokenize(input: &str) -> Vec<String> {
+    const STOPWORDS: &[&str] = &[
+        "a", "an", "and", "as", "at", "by", "for", "from", "in", "into", "is", "of", "on", "or",
+        "the", "to", "with",
+    ];
     input
         .split(|ch: char| !ch.is_ascii_alphanumeric() && ch != '-')
         .filter(|segment| !segment.trim().is_empty())
         .map(|segment| segment.trim().to_lowercase())
+        .filter(|segment| !STOPWORDS.contains(&segment.as_str()))
         .collect()
 }
 

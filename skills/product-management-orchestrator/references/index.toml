@@ -1,0 +1,45 @@
+[[references]]
+file = "exploration-phase-english.md"
+
+[references.metadata.trigger]
+summary = "Use for mandatory research-first product exploration, option generation, and skillsmith gap analysis."
+intent_tags = ["product", "research", "exploration", "options", "gaps", "competitor", "analysis"]
+when_to_use = [
+  "Start product work with discovery before narrowing scope.",
+  "Compare options and identify capabilities missing from current skills.",
+]
+skill_role = "process"
+order_weight = -20
+
+[references.metadata.objective]
+summary = "Create exploration artifacts and explicit recommendation before any execution planning."
+
+[references.metadata.output]
+summary = "Return option analysis, skill-gap findings, and a single recommended direction."
+
+[references.metadata.navigation]
+summary = "Prefer this reference for first-pass PM work."
+priority = 10
+
+[[references]]
+file = "role-routing-english.md"
+
+[references.metadata.trigger]
+summary = "Use for selecting the next PM role after exploration."
+intent_tags = ["handoff", "routing", "next-step", "role", "challenge", "prioritize", "plan"]
+when_to_use = [
+  "Choose which PM role should execute the next stage.",
+  "Package outputs for the next role without re-running discovery.",
+]
+skill_role = "process"
+order_weight = -10
+
+[references.metadata.objective]
+summary = "Route exploration outputs to the correct PM role skill with a complete handoff payload."
+
+[references.metadata.output]
+summary = "Return chosen role, handoff inputs, and completion condition."
+
+[references.metadata.navigation]
+summary = "Prefer this reference for stage transition decisions."
+priority = 20

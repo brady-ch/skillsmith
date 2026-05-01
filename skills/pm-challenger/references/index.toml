@@ -1,0 +1,45 @@
+[[references]]
+file = "scope-pressure-test-english.md"
+
+[references.metadata.trigger]
+summary = "Use for strict scope challenge and contradiction detection."
+intent_tags = ["challenge", "scope", "requirements", "pushback", "contradiction"]
+when_to_use = [
+  "Pressure-test weak requests before planning.",
+  "Narrow scope to one coherent delivery slice.",
+]
+skill_role = "implementation"
+order_weight = -10
+
+[references.metadata.objective]
+summary = "Force clarity on scope, assumptions, and constraints."
+
+[references.metadata.output]
+summary = "Return contradictions, forcing questions, and narrowed scope."
+
+[references.metadata.navigation]
+summary = "Prefer when scope is weak or inconsistent."
+priority = 10
+
+[[references]]
+file = "acceptance-hardening-english.md"
+
+[references.metadata.trigger]
+summary = "Use for measurable acceptance criteria and completion gating."
+intent_tags = ["acceptance", "criteria", "quality", "done", "verification"]
+when_to_use = [
+  "Harden done conditions before delivery planning.",
+  "Define verifiable completion and failure conditions.",
+]
+skill_role = "implementation"
+order_weight = -5
+
+[references.metadata.objective]
+summary = "Define measurable acceptance criteria for handoff-ready scope."
+
+[references.metadata.output]
+summary = "Return acceptance criteria and planning handoff condition."
+
+[references.metadata.navigation]
+summary = "Prefer when scope is mostly stable but done conditions are weak."
+priority = 20

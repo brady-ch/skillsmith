@@ -1,0 +1,4 @@
+version: 1
+display_name: Product Management Orchestrator
+short_description: Research-first PM orchestration across explorer, challenger, prioritizer, and delivery planner roles.
+default_prompt: Run a research-first product workflow, route to the correct PM role skill, and keep .product tracking artifacts current.
