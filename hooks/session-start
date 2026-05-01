@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SessionStart hook: inject skills/using-skillsmith/SKILL.md (skillsmith repo).
+# SessionStart hook: inject nano or full using-skillsmith bootstrap (skillsmith repo).
 # Output shape matches host: Cursor (additional_context), Codex/Claude (hookSpecificOutput), else SDK-style additionalContext.
 
 set -euo pipefail
@@ -30,7 +30,7 @@ escape_for_json() {
 }
 
 bootstrap_escaped="$(escape_for_json "${bootstrap_content}")"
-session_context="<EXTREMELY_IMPORTANT>\nYou are working in the skillsmith repository.\nSkillsmith bootstrap profile: ${BOOT_PROFILE}. Source: $(basename "${bootstrap_path}") (set SKILLSMITH_HOOK_BOOTSTRAP=nano|full).\n\n${bootstrap_escaped}\n</EXTREMELY_IMPORTANT>"
+session_context="<EXTREMELY_IMPORTANT>\nskillsmith repo | bootstrap=${BOOT_PROFILE} $(basename "${bootstrap_path}")\\n\\n${bootstrap_escaped}\n</EXTREMELY_IMPORTANT>"
 
 # Prefer explicit SKILLSMITH_HOOK_PLATFORM from hook entrypoints; then Superpowers-compatible env fallbacks.
 # Uses printf instead of heredoc (bash 5.3+ heredoc hang). See https://github.com/obra/superpowers/issues/571

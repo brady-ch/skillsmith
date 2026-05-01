@@ -1,3 +1,9 @@
 /target
 __pycache__/
 *.py[cod]
+
+# Project-local skill installs / setup output (canonical skills live under skills/)
+/.agents/skills/
+/.claude/skills/
+/.codex/skills/
+/.skillsmith/

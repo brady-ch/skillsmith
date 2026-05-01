@@ -103,7 +103,7 @@ cargo run -- validate
 
 ## Cursor hooks
 
-**This repository** uses **`.cursor/hooks.json`** and delegates to **`hooks/session-start`** (see **AGENTS.md**). **Other projects** get a portable layout from **`skillsmith setup`**; hand-copy option: **[examples/cursor-session-bootstrap/](examples/cursor-session-bootstrap/README.md)**.
+**This repository** uses **`.cursor/hooks.json`** and delegates to **`hooks/session-start`** (see **AGENTS.md**). Canonical skill sources live under **`skills/`** in this checkout; **`.codex/skills`**, **`.claude/skills`**, and **`.agents/skills`** here are install targets (often generated or symlinked), not a second source of truth. **Other projects** get a portable layout from **`skillsmith setup`**; hand-copy option: **[examples/cursor-session-bootstrap/](examples/cursor-session-bootstrap/README.md)**.
 
 ---
 

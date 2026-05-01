@@ -34,20 +34,14 @@ Do not use for:
 
 - Full English checklist: `references/best-practices-english.md`.
 
-## Project Rule
+## Project rule (consumer vs contributor)
 
-- repo 變，復行 `skillsmith setup`。令規則常新。
+- **Consumer**（upstream data dir、`skillsmith setup`）：規則大變後可 **`skillsmith setup --update`** 或復行 setup。
+- **Contributor**（本 tree 為 catalogue）：cwd 含 `catalog/catalog.toml` 或設 `SKILLSMITH_REPO_ROOT`；改 skill/catalog/hooks 後 **`cargo run -- validate`**；要於 agent path 試技能則 **`cargo run -- install --name … --link --target …`**（擇一路徑）。
 
-## Decision tree (token-first software work)
+## Token-first routing
 
-Use MCP **`skillsmith_route_trace`** or **`skillsmith_recommend`** (short intent, small `limit`), then fetch only `SKILL.md` → `references/reference-router.md` → **one** reference. Rough branch order:
-
-1. **Scope / product risk** — vague asks, exploration, prioritization, tracking → `product-management-orchestrator`
-2. **System shape** — modules, services, boundaries, tradeoffs → `software-architecture-architect`
-3. **Terse output / Wenyan skill design** — compression rules, persona modes → `compression-skill-designer`
-4. **This tool** — install, validate, catalog, hooks → `using-skillsmith`
-
-Remote catalog entries (e.g. installer smoke tests) still use **`install` / `sources`**; they are not part of this default decision tree.
+Default locals、載入順、MCP/CLI：**`docs/token-first-spec.md`**。起手用 **`skillsmith_route_trace`** 或 **`skillsmith_recommend`**（短 intent、小 `limit`），再以 `SKILL.md` → `references/reference-router.md` → **一** reference。
 
 ## Skill Inventory Note
 

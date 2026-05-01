@@ -1,12 +1,12 @@
 # Cursor session hook (copyable bundle)
 
-This folder mirrors the **project-level** Cursor hook that injects [`skills/using-skillsmith/SKILL.md`](../../skills/using-skillsmith/SKILL.md) at **session start**, so the agent always sees the skillsmith workflow (`recommend`, `explain`, `validate`) before coding.
+This folder mirrors the **skillsmith-repo** Cursor hook: **session start** injects the **nano** bootstrap ([`skills/using-skillsmith/NANO_BOOTSTRAP.md`](../../skills/using-skillsmith/NANO_BOOTSTRAP.md)) by default—token-thin routing (`recommend`, MCP `skillsmith_route_trace` / `skillsmith_recommend`, validate). **Full** `using-skillsmith` body is **not** pasted unless you set **`SKILLSMITH_HOOK_BOOTSTRAP=full`** (then [`hooks/session-start`](../../hooks/session-start) loads [`skills/using-skillsmith/SKILL.md`](../../skills/using-skillsmith/SKILL.md)).
 
 ## What the hook does
 
 - **Event:** `sessionStart` (runs when a new Agent session starts).
 - **Behavior:** Injects **additional context** only (no blocking, no stdin parsing).
-- **Implementation:** Command hook calling a small bash script that delegates to [`hooks/session-start`](../../hooks/session-start), which prints JSON with an `additional_context` string (Cursor’s expected field).
+- **Implementation:** Command hook calling a small bash script that delegates to [`hooks/session-start`](../../hooks/session-start) with `SKILLSMITH_HOOK_PLATFORM=cursor`, which prints JSON with an `additional_context` string (Cursor’s expected field).
 
 ## Copy into another checkout of this repo
 
@@ -14,7 +14,7 @@ From the repository root:
 
 1. Ensure these already exist (they do in upstream skillsmith):
    - [`hooks/session-start`](../../hooks/session-start) (executable)
-   - [`skills/using-skillsmith/SKILL.md`](../../skills/using-skillsmith/SKILL.md)
+   - [`skills/using-skillsmith/NANO_BOOTSTRAP.md`](../../skills/using-skillsmith/NANO_BOOTSTRAP.md) and [`skills/using-skillsmith/SKILL.md`](../../skills/using-skillsmith/SKILL.md) (the latter is used only when `SKILLSMITH_HOOK_BOOTSTRAP=full`)
 2. Merge this folder into `.cursor/`:
    - Copy `hooks.json` → `.cursor/hooks.json`
    - Copy `inject-skillsmith-bootstrap.sh` → `.cursor/hooks/inject-skillsmith-bootstrap.sh`
@@ -23,10 +23,7 @@ From the repository root:
 
 ## Copy into a *different* project
 
-That project must provide a markdown file the script reads (by default `skills/using-skillsmith/SKILL.md` relative to the git root). Options:
-
-- Add the same paths and edit `skills/using-skillsmith/SKILL.md` for that repo, **or**
-- Copy [`hooks/session-start`](../../hooks/session-start), change `bootstrap_path` inside it to your doc (e.g. `AGENTS.md`), and keep `.cursor/hooks.json` pointing at the wrapper or at `env SKILLSMITH_HOOK_PLATFORM=cursor bash hooks/session-start`.
+That layout is not a skillsmith catalog checkout. Prefer **`skillsmith setup`** (writes `.skillsmith/session-bootstrap.md` and portable hook scripts from templates). If you hand-copy: provide a markdown file and point [`hooks/session-start`](../../hooks/session-start) at it (edit `bootstrap_path` / branch logic inside the script), or copy the script and adapt paths; keep `.cursor/hooks.json` invoking your wrapper with `SKILLSMITH_HOOK_PLATFORM=cursor`.
 
 You need **bash** on `PATH` (Git Bash or WSL on Windows).
 
@@ -39,6 +36,7 @@ You need **bash** on `PATH` (Git Bash or WSL on Windows).
 
 ## See also
 
-- **`skillsmith setup`** — installs this portable Cursor layout into any project (see [README](../../README.md) “Install without cloning”).
-- Repository [README](../../README.md) — “Cursor agent session hook”
+- **`skillsmith setup`** — installs the portable Cursor layout into any project (see [README](../../README.md) “Install without cloning”).
+- Repository [README](../../README.md) — “Cursor hooks”
 - [AGENTS.md](../../AGENTS.md) — full agent conventions and Codex/Claude hook notes
+- [docs/token-first-spec.md](../../docs/token-first-spec.md) — nano vs full bootstrap and MCP budgets
